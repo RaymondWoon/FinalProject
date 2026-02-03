@@ -4,10 +4,11 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("Player")]
-    [SerializeField] private float MoveSpeed = 5.0f;
-    [SerializeField] private float SprintSpeed = 10.0f;
+    [SerializeField] private float MoveSpeed = 2.0f;
+    [SerializeField] private float SprintSpeed = 4.0f;
 
     private CharacterController _characterController;
+    private Animator _animator;
 
     private Vector3 _moveVec = Vector3.zero;
     private bool _isSprinting = false;
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
+        _animator = GetComponent<Animator>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -43,10 +45,13 @@ public class PlayerController : MonoBehaviour
             Vector3 movement = new Vector3(_moveVec.x, 0.0f, _moveVec.z) * playerSpeed * Time.fixedDeltaTime;
 
             _characterController.Move(movement);
+
+            _animator.SetFloat("speed", playerSpeed, 0.2f, Time.fixedDeltaTime);
         }
         else
         {
             _moveVec = Vector3.zero;
+            _animator.SetFloat("speed", 0f);
         }
     }
 
