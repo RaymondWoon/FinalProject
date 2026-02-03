@@ -256,6 +256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 559101816}
   - component: {fileID: 559101817}
+  - component: {fileID: 559101820}
   - component: {fileID: 559101819}
   - component: {fileID: 559101818}
   m_Layer: 0
@@ -318,8 +319,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf3129875e5f51f4e89e55805d08e93c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  MoveSpeed: 5
-  SprintSpeed: 10
+  MoveSpeed: 2
+  SprintSpeed: 4
 --- !u!114 &559101819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,6 +383,28 @@ MonoBehaviour:
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!95 &559101820
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559101815}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 17d424b9f0615fe4f8690fca42f7457d, type: 3}
+  m_Controller: {fileID: 9100000, guid: 9e38dbe483455a745b642ec59bf0e261, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0
