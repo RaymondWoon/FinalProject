@@ -571,12 +571,19 @@ public class DungeonGenerator : MonoBehaviour
             for (int x = 0; x < _dungeonWidth; x++)
             {
                 Vector3 pos = new Vector3(x * _scale, 0, z * _scale);
-
-                if (_dungeon.Tiles[x, z].Type == Tile.TileType.Wall)
+                
+                if (_dungeon.Tiles[x, z].Type == Tile.TileType.Corridor)
                 {
-                    GameObject wall = Instantiate(_prototypeWall, pos, Quaternion.identity);
-                    wall.transform.localScale = new Vector3(_scale, 1, _scale);
-                    wall.transform.parent = _wallContainer.transform;
+                    GameObject corridor = Instantiate(_prototypeCorridor, pos, Quaternion.identity);
+                    corridor.transform.localScale = new Vector3(_scale, 1, _scale);
+                    corridor.transform.parent = _corridorContainer.transform;
+                }
+                else if (_dungeon.Tiles[x, z].Type == Tile.TileType.DoorEnter
+                    || _dungeon.Tiles[x, z].Type == Tile.TileType.DoorExit)
+                {
+                    GameObject room = Instantiate(_prototypeRoom, pos, Quaternion.identity);
+                    room.transform.localScale = new Vector3(_scale, 1, _scale);
+                    room.transform.parent = _doorContainer.transform;
                 }
                 else if (_dungeon.Tiles[x, z].Type == Tile.TileType.Room)
                 {
@@ -584,11 +591,11 @@ public class DungeonGenerator : MonoBehaviour
                     room.transform.localScale = new Vector3(_scale, 1, _scale);
                     room.transform.parent = _roomContainer.transform;
                 }
-                else if (_dungeon.Tiles[x, z].Type == Tile.TileType.Corridor)
+                else if (_dungeon.Tiles[x, z].Type == Tile.TileType.Wall)
                 {
-                    GameObject corridor = Instantiate(_prototypeCorridor, pos, Quaternion.identity);
-                    corridor.transform.localScale = new Vector3(_scale, 1, _scale);
-                    corridor.transform.parent = _corridorContainer.transform;
+                    GameObject wall = Instantiate(_prototypeWall, pos, Quaternion.identity);
+                    wall.transform.localScale = new Vector3(_scale, 1, _scale);
+                    wall.transform.parent = _wallContainer.transform;
                 }
             }
         }
