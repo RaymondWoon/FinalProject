@@ -390,13 +390,37 @@ public class DungeonGenerator : MonoBehaviour
             int cx = cxa;
             int cz = cza;
 
+            // Track previous tile properties
+            Tile.TileType pTile = Tile.TileType.Wall;
+            int pX = 0;
+            int pZ = 0;
+
             if (_dungeonWidth >= _dungeonDepth)
             {
                 // Vertical first
                 while (cz != czb)
                 {
                     if (_dungeon.Tiles[cx, cz].Type == Tile.TileType.Wall)
+                    {
+                        // Update previous tile to DoorExit
+                        if (pTile == Tile.TileType.Room)
+                            CarveTile(pX, pZ, Tile.TileType.DoorExit);
+
+                        // Update the current tile to corridor
                         CarveTile(cx, cz, Tile.TileType.Corridor);
+                    }
+                    // Vertical section entering room
+                    else if (_dungeon.Tiles[cx, cz].Type == Tile.TileType.Room
+                        && pTile == Tile.TileType.Corridor)
+                    {
+                        // Update the current tile to DoorEnter
+                        CarveTile(cx, cz, Tile.TileType.DoorEnter);
+                    }
+
+                    // Update the previous tile parameters
+                    pX = cx;
+                    pZ = cz;
+                    pTile = _dungeon.Tiles[cx, cz].Type;
 
                     cz += Math.Sign(czb - cz);
                 }
@@ -404,18 +428,56 @@ public class DungeonGenerator : MonoBehaviour
                 while (cx != cxb)
                 {
                     if (_dungeon.Tiles[cx, cz].Type == Tile.TileType.Wall)
+                    {
+                        // Update previous tile to DoorExit
+                        if (pTile == Tile.TileType.Room)
+                            CarveTile(pX, pZ, Tile.TileType.DoorExit);
+
+                        // Update the current tile to corridor
                         CarveTile(cx, cz, Tile.TileType.Corridor);
+                    }
+                    // Horizontal section entering room
+                    else if (_dungeon.Tiles[cx, cz].Type == Tile.TileType.Room
+                        && pTile == Tile.TileType.Corridor)
+                    {
+                        // Update the current tile to DoorEnter
+                        CarveTile(cx, cz, Tile.TileType.DoorEnter);
+                    }
+
+                    // Update the previous tile parameters
+                    pX = cx;
+                    pZ = cz;
+                    pTile = _dungeon.Tiles[cx, cz].Type;
 
                     cx += Math.Sign(cxb - cx);
                 }
             }
+            // Horizontal first
             else
             {
-                // Horizontal first
                 while (cx != cxb)
                 {
                     if (_dungeon.Tiles[cx, cz].Type == Tile.TileType.Wall)
+                    {
+                        // Update previous tile to DoorExit
+                        if (pTile == Tile.TileType.Room)
+                            CarveTile(pX, pZ, Tile.TileType.DoorExit);
+
+                        // Update the current tile to corridor
                         CarveTile(cx, cz, Tile.TileType.Corridor);
+                    }
+                    // Horizontal section entering room
+                    else if (_dungeon.Tiles[cx, cz].Type == Tile.TileType.Room
+                        && pTile == Tile.TileType.Corridor)
+                    {
+                        // Update the current tile to DoorEnter
+                        CarveTile(cx, cz, Tile.TileType.DoorEnter);
+                    }
+
+                    // Update the previous tile parameters
+                    pX = cx;
+                    pZ = cz;
+                    pTile = _dungeon.Tiles[cx, cz].Type;
 
                     cx += Math.Sign(cxb - cx);
                 }
@@ -423,13 +485,30 @@ public class DungeonGenerator : MonoBehaviour
                 while (cz != czb)
                 {
                     if (_dungeon.Tiles[cx, cz].Type == Tile.TileType.Wall)
+                    {
+                        // Update previous tile to DoorExit
+                        if (pTile == Tile.TileType.Room)
+                            CarveTile(pX, pZ, Tile.TileType.DoorExit);
+
+                        // Update the current tile to corridor
                         CarveTile(cx, cz, Tile.TileType.Corridor);
+                    }
+                    // Vertical section entering room
+                    else if (_dungeon.Tiles[cx, cz].Type == Tile.TileType.Room
+                        && pTile == Tile.TileType.Corridor)
+                    {
+                        // Update the current tile to DoorEnter
+                        CarveTile(cx, cz, Tile.TileType.DoorEnter);
+                    }
+
+                    // Update the previous tile parameters
+                    pX = cx;
+                    pZ = cz;
+                    pTile = _dungeon.Tiles[cx, cz].Type;
 
                     cz += Math.Sign(czb - cz);
                 }
             }
-
-            
         }
     }
 
@@ -551,16 +630,24 @@ public class DungeonGenerator : MonoBehaviour
             {
                 switch (_dungeon.Tiles[x, y].Type)
                 {
-                    case Tile.TileType.Wall:
-                        mapTexture.SetPixel(x, y, Color.black); 
+                    case Tile.TileType.Corridor:
+                        mapTexture.SetPixel(x, y, Color.yellow);
+                        break;
+
+                    case Tile.TileType.DoorEnter:
+                        mapTexture.SetPixel(x, y, Color.green);
+                        break;
+
+                    case Tile.TileType.DoorExit:
+                        mapTexture.SetPixel(x, y, Color.magenta);
                         break;
 
                     case Tile.TileType.Room:
                         mapTexture.SetPixel(x, y, Color.white);
                         break;
 
-                    case Tile.TileType.Corridor:
-                        mapTexture.SetPixel(x, y, Color.blue);
+                    case Tile.TileType.Wall:
+                        mapTexture.SetPixel(x, y, Color.black);
                         break;
 
                     default:
