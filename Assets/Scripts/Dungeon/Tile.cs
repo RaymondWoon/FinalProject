@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class Tile
 {
-
     public enum TileType
     {
         Wall,
         Room,
         Corridor,
-        Door
+        DoorEnter,
+        DoorExit
     }
 
     private TileType tType;
