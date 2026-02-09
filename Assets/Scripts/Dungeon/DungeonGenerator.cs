@@ -19,18 +19,32 @@ public class DungeonGenerator : MonoBehaviour
     [Header("** Dungeon Containers **")]
     [SerializeField] private GameObject _corridorContainer;
     [SerializeField] private GameObject _doorContainer;
-    [SerializeField] private GameObject _roomContainer;
-    [SerializeField] private GameObject _wallContainer;
+    [SerializeField] private GameObject _roomCornerContainer;
+    [SerializeField] private GameObject _roomWallContainer;
+    [SerializeField] private GameObject _roomSectionContainer;
+    [SerializeField] private GameObject _columnContainer;
     [SerializeField] private GameObject _enemyContainer;
     [SerializeField] private GameObject _treasureContainer;
 
-    [Header("** Dungeon Prefabs **")]
-    [SerializeField] private GameObject _dungeonWall;
-    [SerializeField] private GameObject _straightPiece;
-    [SerializeField] private GameObject _cornerPiece;
-    [SerializeField] private GameObject _crossRoadPiece;
-    [SerializeField] private GameObject _deadendPiece;
-    [SerializeField] private GameObject _tPiece;
+    [System.Serializable]
+    public struct DungeonModule
+    {
+        public GameObject prefab;
+        public Vector3 rotation;
+    }
+
+    [Header("** Dungeon Modules: Corridor **")]
+    public DungeonModule NS_Straight;
+    public DungeonModule EW_Straight;
+    public DungeonModule NS_T_Junction_E;
+    public DungeonModule NS_T_Junction_W;
+    public DungeonModule EW_T_Junction_N;
+    public DungeonModule EW_T_Junction_S;
+    public DungeonModule Cross_Junction;
+    public DungeonModule SW_Corner;
+    public DungeonModule NW_Corner;
+    public DungeonModule NE_Corner;
+    public DungeonModule SE_Corner;
 
     [Header("** Prototype Prefabs **")]
     [SerializeField] private GameObject _prototypeCorridor;
@@ -69,6 +83,11 @@ public class DungeonGenerator : MonoBehaviour
 
     private System.Random rng = new();
 
+    private Tile.TileType _wallTile = Tile.TileType.Wall;
+    private Tile.TileType _corridorTile = Tile.TileType.Corridor;
+    private Tile.TileType _roomTile = Tile.TileType.Room;
+    private Tile.TileType _doorExitTile = Tile.TileType.DoorExit;
+    private Tile.TileType _doorEnterTile = Tile.TileType.DoorEnter;
 
     private void Awake()
     {
@@ -141,14 +160,19 @@ public class DungeonGenerator : MonoBehaviour
         {
             DrawPrototype();
         }
+        else
+        {
+            if (activeScene.name == "GameScene")
+                GenerateDungeonLevel();
+        }
 
         if (activeScene.name != "TestScene")
         {
             // Spawn the enemies
-            SpawnEnemy();
+            //SpawnEnemy();
 
             // Spawn treasure
-            SpawnTreasure();
+            //SpawnTreasure();
         }
 
         // Update the player start position to the entrance room
@@ -516,6 +540,143 @@ public class DungeonGenerator : MonoBehaviour
 
     #region GAME OBJECTS
 
+    private void GenerateDungeonLevel()
+    {
+        // x, y - 2D map coordinates
+        for (int y = 0; y < _dungeonDepth; y++)
+        {
+            for (int x = 0; x < _dungeonWidth; x++)
+            {
+                Tile.TileType tile_W = x == 0 ? _wallTile : _dungeon.Tiles[x - 1, y].Type;
+                Tile.TileType tile_E = x == _dungeonWidth - 1 ? _wallTile : _dungeon.Tiles[x + 1, y].Type;
+                Tile.TileType tile_S = y == 0 ? _wallTile : _dungeon.Tiles[x, y - 1].Type;
+                Tile.TileType tile_N = y == _dungeonDepth - 1 ? _wallTile : _dungeon.Tiles[x, y + 1].Type;
+
+                switch (_dungeon.Tiles[x, y].Type)
+                {
+                    case Tile.TileType.Corridor:
+                        // Cross-Junc
+                        if ((tile_N == _corridorTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
+                            && (tile_E == _corridorTile || tile_E == _doorEnterTile || tile_E == _doorExitTile)
+                            && (tile_S == _corridorTile || tile_S == _doorEnterTile || tile_S == _doorExitTile)
+                            && (tile_W == _corridorTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
+                        {
+                            GameObject go = Instantiate(Cross_Junction.prefab);
+                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.Rotate(Cross_Junction.rotation);
+                            go.name = "CCJ - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.transform.parent = _corridorContainer.transform;
+                        }
+                        // NS_T-Junc_E
+                        else if ((tile_N == _corridorTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
+                            && (tile_S == _corridorTile || tile_S == _doorEnterTile || tile_S == _doorExitTile)
+                            && (tile_E == _corridorTile || tile_E == _doorEnterTile || tile_E == _doorExitTile))
+                        {
+                            GameObject go = Instantiate(NS_T_Junction_E.prefab);
+                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.Rotate(NS_T_Junction_E.rotation);
+                            go.name = "CNST-E - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.transform.parent = _corridorContainer.transform;
+                        }
+                        // NS_T-Junc_W
+                        else if ((tile_N == _corridorTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
+                            && (tile_S == _corridorTile || tile_S == _doorEnterTile || tile_S == _doorExitTile)
+                            && (tile_W == _corridorTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
+                        {
+                            GameObject go = Instantiate(NS_T_Junction_W.prefab);
+                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.Rotate(NS_T_Junction_W.rotation);
+                            go.name = "CNST-W - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.transform.parent = _corridorContainer.transform;
+                        }
+                        // EW_T-Junc_N
+                        else if ((tile_E == _corridorTile || tile_E == _doorEnterTile || tile_E == _doorExitTile)
+                            && (tile_W == _corridorTile || tile_W == _doorEnterTile || tile_W == _doorExitTile)
+                            && (tile_N == _corridorTile || tile_N == _doorEnterTile || tile_N == _doorExitTile))
+                        {
+                            GameObject go = Instantiate(EW_T_Junction_N.prefab);
+                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.Rotate(EW_T_Junction_N.rotation);
+                            go.name = "CEWT-N - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.transform.parent = _corridorContainer.transform;
+                        }
+                        // EW_T-Junc_S
+                        else if ((tile_E == _corridorTile || tile_E == _doorEnterTile || tile_E == _doorExitTile)
+                            && (tile_W == _corridorTile || tile_W == _doorEnterTile || tile_W == _doorExitTile)
+                            && (tile_S == _corridorTile || tile_S == _doorEnterTile || tile_S == _doorExitTile))
+                        {
+                            GameObject go = Instantiate(EW_T_Junction_S.prefab);
+                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.Rotate(EW_T_Junction_S.rotation);
+                            go.name = "CEWT-S - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.transform.parent = _corridorContainer.transform;
+                        }
+                        // SW_Corner
+                        else if ((tile_N == _corridorTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
+                            && (tile_E == _corridorTile || tile_E == _doorEnterTile || tile_E == _doorExitTile))
+                        {
+                            GameObject go = Instantiate(SW_Corner.prefab);
+                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.Rotate(SW_Corner.rotation);
+                            go.name = "CSWC - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.transform.parent = _corridorContainer.transform;
+                        }
+                        // NW_Corner
+                        else if ((tile_S == _corridorTile || tile_S == _doorEnterTile || tile_S == _doorExitTile)
+                            && (tile_E == _corridorTile || tile_E == _doorEnterTile || tile_E == _doorExitTile))
+                        {
+                            GameObject go = Instantiate(NW_Corner.prefab);
+                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.Rotate(NW_Corner.rotation);
+                            go.name = "CNWC - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.transform.parent = _corridorContainer.transform;
+                        }
+                        // NE_Corner
+                        else if ((tile_S == _corridorTile || tile_S == _doorEnterTile || tile_S == _doorExitTile)
+                            && (tile_W == _corridorTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
+                        {
+                            GameObject go = Instantiate(NE_Corner.prefab);
+                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.Rotate(NE_Corner.rotation);
+                            go.name = "CNEC - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.transform.parent = _corridorContainer.transform;
+                        }
+                        // SE_Corner
+                        else if ((tile_N == _corridorTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
+                            && (tile_W == _corridorTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
+                        {
+                            GameObject go = Instantiate(SE_Corner.prefab);
+                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.Rotate(SE_Corner.rotation);
+                            go.name = "CSEC - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.transform.parent = _corridorContainer.transform;
+                        }
+                        // NS
+                        else if ((tile_N == _corridorTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
+                            && (tile_S == _corridorTile || tile_S == _doorEnterTile || tile_S == _doorExitTile))
+                        {
+                            GameObject go = Instantiate(NS_Straight.prefab);
+                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.Rotate(NS_Straight.rotation);
+                            go.name = "CNS - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.transform.parent = _corridorContainer.transform;
+                        }
+                        // EW
+                        else if ((tile_E == _corridorTile || tile_E == _doorEnterTile || tile_E == _doorExitTile)
+                            && (tile_W == _corridorTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
+                        {
+                            GameObject go = Instantiate(EW_Straight.prefab);
+                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.Rotate(EW_Straight.rotation);
+                            go.name = "CEW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.transform.parent = _corridorContainer.transform;
+                        }
+                        break;
+                }
+            }
+        }
+    }
+
     /// <summary>
     /// Spawn enemy in each room
     /// </summary>
@@ -589,13 +750,13 @@ public class DungeonGenerator : MonoBehaviour
                 {
                     GameObject room = Instantiate(_prototypeRoom, pos, Quaternion.identity);
                     room.transform.localScale = new Vector3(_scale, 1, _scale);
-                    room.transform.parent = _roomContainer.transform;
+                    room.transform.parent = _roomSectionContainer.transform;
                 }
                 else if (_dungeon.Tiles[x, z].Type == Tile.TileType.Wall)
                 {
                     GameObject wall = Instantiate(_prototypeWall, pos, Quaternion.identity);
                     wall.transform.localScale = new Vector3(_scale, 1, _scale);
-                    wall.transform.parent = _wallContainer.transform;
+                    wall.transform.parent = _roomWallContainer.transform;
                 }
             }
         }
