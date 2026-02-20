@@ -930,8 +930,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DungeonGenerator
   _player: {fileID: 559101815}
-  _dungeonWidth: 29
-  _dungeonDepth: 29
+  _dungeonWidth: 51
+  _dungeonDepth: 51
   _minRoomSize: 3
   _maxRoomSize: 5
   _corridorContainer: {fileID: 477214274}
@@ -990,6 +990,42 @@ MonoBehaviour:
   Room_SE_Corner:
     prefab: {fileID: 4929161225847425534, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
     rotation: {x: 0, y: -90, z: 0}
+  Room_SW_Corner_Door_SW:
+    prefab: {fileID: 3644214202994125200, guid: 243edb173034d9544a226cfb821ddfb8, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_NW_Corner_Door_NW:
+    prefab: {fileID: 3644214202994125200, guid: 243edb173034d9544a226cfb821ddfb8, type: 3}
+    rotation: {x: 0, y: 90, z: 0}
+  Room_NE_Corner_Door_NE:
+    prefab: {fileID: 3644214202994125200, guid: 243edb173034d9544a226cfb821ddfb8, type: 3}
+    rotation: {x: 0, y: 180, z: 0}
+  Room_SE_Corner_Door_SE:
+    prefab: {fileID: 3644214202994125200, guid: 243edb173034d9544a226cfb821ddfb8, type: 3}
+    rotation: {x: 0, y: -90, z: 0}
+  Room_SW_Corner_Door_S:
+    prefab: {fileID: 126137147313410231, guid: a5795d231e736844191e986913c97f04, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_SW_Corner_Door_W:
+    prefab: {fileID: 7275277504335710615, guid: 061ad992457edf7479c15b58f3959924, type: 3}
+    rotation: {x: 0, y: -90, z: 0}
+  Room_NW_Corner_Door_W:
+    prefab: {fileID: 126137147313410231, guid: a5795d231e736844191e986913c97f04, type: 3}
+    rotation: {x: 0, y: 90, z: 0}
+  Room_NW_Corner_Door_N:
+    prefab: {fileID: 7275277504335710615, guid: 061ad992457edf7479c15b58f3959924, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_NE_Corner_Door_N:
+    prefab: {fileID: 126137147313410231, guid: a5795d231e736844191e986913c97f04, type: 3}
+    rotation: {x: 0, y: 180, z: 0}
+  Room_NE_Corner_Door_E:
+    prefab: {fileID: 7275277504335710615, guid: 061ad992457edf7479c15b58f3959924, type: 3}
+    rotation: {x: 0, y: 90, z: 0}
+  Room_SE_Corner_Door_E:
+    prefab: {fileID: 126137147313410231, guid: a5795d231e736844191e986913c97f04, type: 3}
+    rotation: {x: 0, y: -90, z: 0}
+  Room_SE_Corner_Door_S:
+    prefab: {fileID: 7275277504335710615, guid: 061ad992457edf7479c15b58f3959924, type: 3}
+    rotation: {x: 0, y: 180, z: 0}
   Room_N_Wall:
     prefab: {fileID: 348708174883097347, guid: 37f3eb27e1f7d614799ca6d5d2270309, type: 3}
     rotation: {x: 0, y: 90, z: 0}
