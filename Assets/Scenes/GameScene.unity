@@ -975,6 +975,9 @@ MonoBehaviour:
   SE_Corner:
     prefab: {fileID: 4544532359002034892, guid: ad42aa00b66f3594184c93626419afa6, type: 3}
     rotation: {x: 0, y: -90, z: 0}
+  Room_Section:
+    prefab: {fileID: 146853572457274066, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
   Room_SW_Corner:
     prefab: {fileID: 4929161225847425534, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
     rotation: {x: 0, y: 0, z: 0}

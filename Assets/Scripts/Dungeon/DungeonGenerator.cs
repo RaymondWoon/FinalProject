@@ -47,6 +47,7 @@ public class DungeonGenerator : MonoBehaviour
     public DungeonModule SE_Corner;
 
     [Header("** Dungeon Modules: Room **")]
+    public DungeonModule Room_Section;
     public DungeonModule Room_SW_Corner;
     public DungeonModule Room_NW_Corner;
     public DungeonModule Room_NE_Corner;
@@ -779,6 +780,15 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(Room_S_Wall.rotation);
                             go.name = "RSW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
                             go.transform.parent = _roomWallContainer.transform;
+                        }
+                        // Standard room section
+                        else
+                        {
+                            GameObject go = Instantiate(Room_Section.prefab);
+                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.Rotate(Room_Section.rotation);
+                            go.name = "RM - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.transform.parent = _roomSectionContainer.transform;
                         }
                         break;
                 }
