@@ -1038,6 +1038,18 @@ MonoBehaviour:
   Room_W_Wall:
     prefab: {fileID: 348708174883097347, guid: 37f3eb27e1f7d614799ca6d5d2270309, type: 3}
     rotation: {x: 0, y: 0, z: 0}
+  Room_N_Wall_Door_N:
+    prefab: {fileID: 2078080978730102818, guid: 23611bf5cd8d7564a936c254150165e1, type: 3}
+    rotation: {x: 0, y: 90, z: 0}
+  Room_E_Wall_Door_E:
+    prefab: {fileID: 2078080978730102818, guid: 23611bf5cd8d7564a936c254150165e1, type: 3}
+    rotation: {x: 0, y: 180, z: 0}
+  Room_S_Wall_Door_S:
+    prefab: {fileID: 2078080978730102818, guid: 23611bf5cd8d7564a936c254150165e1, type: 3}
+    rotation: {x: 0, y: -90, z: 0}
+  Room_W_Wall_Door_W:
+    prefab: {fileID: 2078080978730102818, guid: 23611bf5cd8d7564a936c254150165e1, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
   _prototypeCorridor: {fileID: 0}
   _prototypeRoom: {fileID: 0}
   _prototypeWall: {fileID: 0}

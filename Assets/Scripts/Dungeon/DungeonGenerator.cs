@@ -68,6 +68,10 @@ public class DungeonGenerator : MonoBehaviour
     public DungeonModule Room_E_Wall;
     public DungeonModule Room_S_Wall;
     public DungeonModule Room_W_Wall;
+    public DungeonModule Room_N_Wall_Door_N;
+    public DungeonModule Room_E_Wall_Door_E;
+    public DungeonModule Room_S_Wall_Door_S;
+    public DungeonModule Room_W_Wall_Door_W;
 
     [Header("** Prototype Prefabs **")]
     [SerializeField] private GameObject _prototypeCorridor;
@@ -1019,6 +1023,54 @@ public class DungeonGenerator : MonoBehaviour
                             //go.transform.Rotate(Room_Corner_Pillar_SW.rotation);
                             //go.name = "COL-SW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
                             //go.transform.parent = _columnContainer.transform;
+                        }
+                        // N_Wall_Door_N
+                        else if (tile_N == _corridorTile
+                            && (tile_E == _roomTile || tile_E == _doorEnterTile || tile_E == _doorExitTile)
+                            && tile_S == _roomTile
+                            && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
+                        {
+                            GameObject go = Instantiate(Room_N_Wall_Door_N.prefab);
+                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.Rotate(Room_N_Wall_Door_N.rotation);
+                            go.name = "RNW-DN - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.transform.parent = _doorContainer.transform;
+                        }
+                        // E_Wall_Door_E
+                        else if ((tile_N == _roomTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
+                            && tile_E == _corridorTile
+                            && (tile_S == _roomTile || tile_S == _doorEnterTile || tile_S == _doorExitTile)
+                            && tile_W == _roomTile)
+                        {
+                            GameObject go = Instantiate(Room_E_Wall_Door_E.prefab);
+                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.Rotate(Room_E_Wall_Door_E.rotation);
+                            go.name = "REW-DE - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.transform.parent = _doorContainer.transform;
+                        }
+                        // S_Wall_Door_S
+                        else if (tile_N == _roomTile
+                            && (tile_E == _roomTile || tile_E == _doorEnterTile || tile_E == _doorExitTile)
+                            && tile_S == _corridorTile
+                            && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
+                        {
+                            GameObject go = Instantiate(Room_S_Wall_Door_S.prefab);
+                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.Rotate(Room_S_Wall_Door_S.rotation);
+                            go.name = "RSW-DS - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.transform.parent = _doorContainer.transform;
+                        }
+                        // W_Wall_Door_W
+                        else if ((tile_N == _roomTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
+                            && tile_E == _roomTile
+                            && (tile_S == _roomTile || tile_S == _doorEnterTile || tile_S == _doorExitTile)
+                            && tile_W == _corridorTile)
+                        {
+                            GameObject go = Instantiate(Room_W_Wall_Door_W.prefab);
+                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.Rotate(Room_W_Wall_Door_W.rotation);
+                            go.name = "RWW-DW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.transform.parent = _doorContainer.transform;
                         }
                         break;
                 }
