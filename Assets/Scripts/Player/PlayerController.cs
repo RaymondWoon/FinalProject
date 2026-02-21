@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector3 _cameraOffset = new(0.2f, 1.0f, -4.0f);
     [SerializeField] private Vector3 _aimOffset = new(0.0f, 1.0f, 0.0f);
 
+    [Header("Dungeon")]
+    [SerializeField] private GameObject _map;
+
     private CharacterController _characterController;
     private Animator _animator;
 
@@ -101,13 +104,30 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Handles 'Player_Sprint' context from InputSystem
     public void OnPlayerSprint(InputAction.CallbackContext ctx)
     {
         _isSprinting = ctx.ReadValue<float>() == 1;
     }
 
+    // Handles 'Player_Aim' context from InputSystem
     public void OnPlayerAim(InputAction.CallbackContext ctx)
     {
         _isAiming = ctx.ReadValue<float>() == 1;
+    }
+
+    // Handles 'Player_Map' context from InputSystem
+    public void OnPlayerToggleMap(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            ToggleMapVisibility();
+        }
+    }
+
+    // Function to toggle the visibility of the map
+    private void ToggleMapVisibility()
+    {
+        _map.SetActive(!_map.activeSelf);
     }
 }

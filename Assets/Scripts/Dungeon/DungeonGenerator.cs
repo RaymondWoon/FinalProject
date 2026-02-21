@@ -137,6 +137,8 @@ public class DungeonGenerator : MonoBehaviour
         if (_dungeonDepth % 2 == 0)
             _dungeonDepth++;
 
+        UpdateDungeonDimension();
+
         // Get the active scene
         activeScene = SceneManager.GetActiveScene();
         //Debug.Log("Active Scene Name: " + activeScene.name);
@@ -151,12 +153,29 @@ public class DungeonGenerator : MonoBehaviour
     }
 
     // Update is called once per frame
-    //void Update()
-    //{
-
-    //}
+    void Update()
+    {
+        if (activeScene.name == "GameScene" && _showMap)
+        {
+            // Update player position on map if visible
+            UpdateMap();
+        }
+    }
 
     #region DUNGEON
+
+    /// <summary>
+    /// Force Dungeon width to be greater than or equal to the depth
+    /// for correct player/map orientation
+    /// </summary>
+    private void UpdateDungeonDimension()
+    {
+        int width = Mathf.Max(_dungeonWidth, _dungeonDepth);
+        int depth = Mathf.Min(_dungeonWidth, _dungeonDepth);
+
+        _dungeonWidth = width;
+        _dungeonDepth = depth;
+    }
 
     /// <summary>
     /// Main method to access the methods to generate the dungeon
@@ -1267,6 +1286,60 @@ public class DungeonGenerator : MonoBehaviour
                     default:
                         mapTexture.SetPixel(x, y, Color.clear);
                         break;
+                }
+            }
+        }
+
+        if (activeScene.name == "GameScene")
+        {
+            // Convert player position to map coordinates
+            int playerTileX = (int)(_player.transform.position.x / _scale);
+            int playerTileY = (int)(_player.transform.position.z / _scale);
+
+            if (_dungeon.Tiles[playerTileX, playerTileY].Type != Tile.TileType.Wall)
+            {
+                mapTexture.SetPixel(playerTileX, playerTileY, Color.gray);
+            }
+            else if (_dungeonWidth >= _dungeonDepth)
+            {
+                // Map is generated 'Vertical-first'
+                // 'Horizontal-First' better aligns the player with the map
+                if (_dungeon.Tiles[playerTileX + 1, playerTileY].Type != Tile.TileType.Wall)
+                {
+                    mapTexture.SetPixel(playerTileX + 1, playerTileY, Color.gray);
+                }
+                else if (_dungeon.Tiles[playerTileX - 1, playerTileY].Type != Tile.TileType.Wall)
+                {
+                    mapTexture.SetPixel(playerTileX - 1, playerTileY, Color.gray);
+                }
+                else if (_dungeon.Tiles[playerTileX, playerTileY + 1].Type != Tile.TileType.Wall)
+                {
+                    mapTexture.SetPixel(playerTileX, playerTileY + 1, Color.gray);
+                }
+                else if (_dungeon.Tiles[playerTileX, playerTileY - 1].Type != Tile.TileType.Wall)
+                {
+                    mapTexture.SetPixel(playerTileX, playerTileY - 1, Color.gray);
+                }
+            }
+            else
+            {
+                // Map is generated 'Horizontal-first'
+                // 'Vertical-First' better aligns the player with the map
+                if (_dungeon.Tiles[playerTileX, playerTileY + 1].Type != Tile.TileType.Wall)
+                {
+                    mapTexture.SetPixel(playerTileX, playerTileY + 1, Color.gray);
+                }
+                else if (_dungeon.Tiles[playerTileX, playerTileY - 1].Type != Tile.TileType.Wall)
+                {
+                    mapTexture.SetPixel(playerTileX, playerTileY - 1, Color.gray);
+                }
+                else if (_dungeon.Tiles[playerTileX + 1, playerTileY].Type != Tile.TileType.Wall)
+                {
+                    mapTexture.SetPixel(playerTileX + 1, playerTileY, Color.gray);
+                }
+                else if (_dungeon.Tiles[playerTileX - 1, playerTileY].Type != Tile.TileType.Wall)
+                {
+                    mapTexture.SetPixel(playerTileX - 1, playerTileY, Color.gray);
                 }
             }
         }
