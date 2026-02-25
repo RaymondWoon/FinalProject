@@ -13,6 +13,7 @@ public class DungeonGenerator : MonoBehaviour
     [Header("** Dungeon Parameters **")]
     [SerializeField] private int _dungeonWidth = 29;
     [SerializeField] private int _dungeonDepth = 29;
+    [SerializeField] private int _dungeonFloor = 1;
     [SerializeField] private int _minRoomSize = 3;
     [SerializeField] private int _maxRoomSize = 5;
 
@@ -130,6 +131,15 @@ public class DungeonGenerator : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // Update dungeon parameters from the player specified values
+        if (MainManager.Instance != null)
+        {
+            _dungeonWidth = MainManager.Instance.DungeonWidth;
+            _dungeonDepth = MainManager.Instance.DungeonDepth;
+            _dungeonFloor = MainManager.Instance.DungeonFloor;
+            _scale = MainManager.Instance.DungeonScale;
+        }
+
         // Dungeon dimensions must be odd
         if (_dungeonWidth % 2 == 0)
             _dungeonWidth++;
