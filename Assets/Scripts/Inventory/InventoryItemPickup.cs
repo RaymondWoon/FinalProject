@@ -12,7 +12,7 @@ namespace DungeonEscape.Inventory
         {
             if (other.CompareTag("Player"))
             {
-                Debug.Log("Player collided");
+                //Debug.Log("Player collided");
 
                 // Get the player's InventorySystem component
                 PlayerInventorySystem playerInventory = other.GetComponent<PlayerInventorySystem>();
