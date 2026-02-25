@@ -1023,7 +1023,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 8
+  m_ScaleFactor: 10
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -1129,6 +1129,7 @@ MonoBehaviour:
   _player: {fileID: 559101815}
   _dungeonWidth: 25
   _dungeonDepth: 27
+  _dungeonFloor: 1
   _minRoomSize: 3
   _maxRoomSize: 5
   _corridorContainer: {fileID: 477214274}
