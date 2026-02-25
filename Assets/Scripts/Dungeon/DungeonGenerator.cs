@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 //using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -26,6 +27,7 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private GameObject _columnContainer;
     [SerializeField] private GameObject _enemyContainer;
     [SerializeField] private GameObject _treasureContainer;
+    [SerializeField] private GameObject _keyContainer;
 
     [System.Serializable]
     public struct DungeonModule
@@ -88,7 +90,8 @@ public class DungeonGenerator : MonoBehaviour
     [Header("** Game Elements **")]
     [SerializeField] private GameObject _enemy;
     [SerializeField] private GameObject _treasure;
-    
+    [SerializeField] private GameObject _key;
+
     [Header("** Map **")]
     [SerializeField] private Image _mapImage;
     [SerializeField] private Canvas _canvas;
@@ -147,6 +150,7 @@ public class DungeonGenerator : MonoBehaviour
         if (_dungeonDepth % 2 == 0)
             _dungeonDepth++;
 
+        // Make the width >= depth
         UpdateDungeonDimension();
 
         // Get the active scene
@@ -234,6 +238,10 @@ public class DungeonGenerator : MonoBehaviour
 
             // Spawn treasure
             //SpawnTreasure();
+
+            // Spawn keys
+            if (activeScene.name == "GameScene")
+                SpawnKey();
         }
 
         // Update the player start position to the entrance room
@@ -1190,6 +1198,38 @@ public class DungeonGenerator : MonoBehaviour
             treasure.transform.localRotation = Quaternion.Euler(0, 0, 90f);
             //treasure.transform.localScale = new Vector3(_scale, 1, _scale);
             treasure.transform.parent = _treasureContainer.transform;
+        }
+    }
+
+    /// <summary>
+    /// Spawn a key in each room
+    /// </summary>
+    private void SpawnKey()
+    {
+        int roomCount = 0;
+
+        foreach (Room room in _dungeon.Rooms)
+        {
+            roomCount += 1;
+
+            float keyX, keyZ;
+            Vector3 upDirection = transform.up;
+
+            // Define the limits of the room to randomly place the key
+            Vector3 pos1 = new Vector3((room.StartX + 0.75f) * _scale, 1.0f, (room.StartZ + 0.75f) * _scale);
+            Vector3 pos2 = new Vector3((room.StartX + room.Width - 0.75f) * _scale, 1.0f, (room.StartZ + 0.75f) * _scale);
+            Vector3 pos3 = new Vector3((room.StartX + room.Width - 0.75f) * _scale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _scale);
+            Vector3 pos4 = new Vector3((room.StartX + 0.75f) * _scale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _scale);
+
+            Vector3[] pos = { pos1, pos2, pos3, pos4 };
+
+            // Randomly select X & Z as a float
+            keyX = UnityEngine.Random.Range(pos1.x, pos3.x);
+            keyZ = UnityEngine.Random.Range(pos1.z, pos3.z);
+
+            GameObject key = Instantiate(_key, new Vector3(keyX, 0f, keyZ) + upDirection * 1.0f, Quaternion.identity);
+            key.name = "KEY " + roomCount.ToString();
+            key.transform.parent = _keyContainer.transform;
         }
     }
 

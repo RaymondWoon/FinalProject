@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [Header("Camera")]
     [SerializeField] private Camera _mainCamera;
     [SerializeField] private CameraController _cameraController;
-    [SerializeField] private Vector3 _cameraOffset = new(0.2f, 1.0f, -4.0f);
+    [SerializeField] private Vector3 _cameraOffset = new(0.2f, 1.0f, -2.0f);
     [SerializeField] private Vector3 _aimOffset = new(0.0f, 1.0f, 0.0f);
 
     [Header("Dungeon")]
@@ -64,8 +64,8 @@ public class PlayerController : MonoBehaviour
             // set player speed based on move speed, sprint speerd and if the sprint trigger is pressed
             float playerSpeed = _isSprinting ? SprintSpeed : MoveSpeed;
 
-            Debug.Log(_moveVec);
-            Debug.Log(playerSpeed);
+            //Debug.Log(_moveVec);
+            //Debug.Log(playerSpeed);
 
             // rotate player to 'forward' direction of camera
             transform.rotation = Quaternion.LookRotation(moveDir);
