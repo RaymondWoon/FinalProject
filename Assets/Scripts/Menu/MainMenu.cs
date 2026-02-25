@@ -22,7 +22,14 @@ public class MainMenu : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        // Add a listener to the dungeon width input field
+        _widthInputField.onValueChanged.AddListener(delegate { DungeonWidthInputValueChanged(); });
+
+        // Add a listener to the dungeon depth input field
+        _depthInputField.onValueChanged.AddListener(delegate { DungeonDepthInputValueChanged(); });
+
+        // Add a listener to the dungeon floor input field
+        _floorInputField.onValueChanged.AddListener(delegate { DungeonFloorInputValueChanged(); });
     }
 
     // Update is called once per frame
@@ -121,6 +128,66 @@ public class MainMenu : MonoBehaviour
     public void OnCloseOptionPanelClicked()
     {
         _optionsPanel.SetActive(false);
+    }
+
+    // Handler for DungeonWidthInput field
+    private void DungeonWidthInputValueChanged()
+    {
+        int newValue = Convert.ToInt32(_widthInputField.text);
+
+        if (newValue >= MainManager.Instance.MinDungeonWidth && newValue <= MainManager.Instance.MaxDungeonWidth)
+        {
+            _widthSlider.value = newValue;
+        }
+        else if (newValue < MainManager.Instance.MinDungeonWidth)
+        {
+            _widthSlider.value = MainManager.Instance.MinDungeonWidth;
+
+        }
+        else
+        {
+            _widthSlider.value = MainManager.Instance.MaxDungeonWidth;
+        }
+    }
+
+    // Handler for DungeonDepthInput field
+    private void DungeonDepthInputValueChanged()
+    {
+        int newValue = Convert.ToInt32(_depthInputField.text);
+
+        if (newValue >= MainManager.Instance.MinDungeonDepth && newValue <= MainManager.Instance.MaxDungeonDepth)
+        {
+            _depthSlider.value = newValue;
+        }
+        else if (newValue < MainManager.Instance.MinDungeonDepth)
+        {
+            _depthSlider.value = MainManager.Instance.MinDungeonDepth;
+
+        }
+        else
+        {
+            _depthSlider.value = MainManager.Instance.MaxDungeonDepth;
+        }
+    }
+
+    // Handler for DungeonFloorInput field
+    private void DungeonFloorInputValueChanged()
+    {
+        int newValue = Convert.ToInt32(_floorInputField.text);
+
+        if (newValue >= MainManager.Instance.MinDungeonFloor && newValue <= MainManager.Instance.MaxDungeonFloor)
+        {
+            _floorSlider.value = newValue;
+        }
+        else if (newValue < MainManager.Instance.MinDungeonFloor)
+        {
+            _floorSlider.value = MainManager.Instance.MinDungeonFloor;
+
+        }
+        else
+        {
+            _floorSlider.value = MainManager.Instance.MaxDungeonFloor;
+        }
     }
 
     #endregion
