@@ -17,5 +17,5 @@ MonoBehaviour:
   icon: {fileID: 0}
   itemType: 3
   isStackable: 1
-  maxStackSize: 200
+  maxStackSize: 1000
   prefab: {fileID: 338406759053407294, guid: 081b5f5baeaa647478532ed4be6355ee, type: 3}

@@ -1,20 +1,24 @@
-using UnityEngine;
-using UnityEngine.UI;
 using DungeonEscape.Inventory;
+using UnityEngine;
+using UnityEngine.LowLevel;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     [Header("HUD")]
+    [SerializeField] private Text _floorText;
     [SerializeField] private Text _keyText;
-    [SerializeField] private GameObject _keyContainer;
+    [SerializeField] private GameObject[] _keyContainer;
     [SerializeField] private InventorySystem _inventorySystem;
 
-    public static GameManager instance;
+    public static GameManager Instance { get; private set; }
 
     private bool _gameOver;
     private int _totalKeys;
+    private int _playerFloor;
 
     private GameObject _player;
+    private PlayerController _playerController;
 
     private enum GameState
     {
@@ -27,15 +31,26 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // Initialize variables
-        instance = this;
-        _gameOver = false;
+        // Ensure only one instance exists
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _player = GameObject.FindWithTag("Player");
+
+        _playerController = _player.GetComponent<PlayerController>();
+
+        // Initialize variables
+        _gameOver = false;
     }
 
     // Update is called once per frame
@@ -45,7 +60,19 @@ public class GameManager : MonoBehaviour
         if (_gameOver)
             return;
 
-        UpdateKeyText();
+        _playerFloor = _playerController.PlayerFloor;
+
+        UpdateFloorText();
+
+        if (_playerController.IsInStairway)
+        {
+            _keyText.gameObject.SetActive(false);
+        }
+        else
+        {
+            _keyText.gameObject.SetActive(true);
+            UpdateKeyText();
+        }
     }
 
     private void SwitchGameState(GameState state)
@@ -64,11 +91,13 @@ public class GameManager : MonoBehaviour
 
     private void UpdateKeyText()
     {
+        // Player has won
+        if (_playerFloor == 0)
+            return;
+
         int keysFound = 0;
 
-        _totalKeys = _keyContainer.transform.childCount;
-
-        Debug.Log(_totalKeys);
+        _totalKeys = _keyContainer[_playerFloor - 1].transform.childCount;
 
         foreach (InventorySlot slot in _inventorySystem.slots)
         {
@@ -79,5 +108,10 @@ public class GameManager : MonoBehaviour
         }
 
         _keyText.text = "Keys: " + keysFound.ToString() + " / " + (_totalKeys + keysFound).ToString();
+    }
+
+    private void UpdateFloorText()
+    {
+        _floorText.text = "Floor: " + _playerFloor.ToString();
     }
 }

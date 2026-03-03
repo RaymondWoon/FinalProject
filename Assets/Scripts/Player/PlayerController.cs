@@ -14,43 +14,35 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector3 _aimOffset = new(0.0f, 1.0f, 0.0f);
 
     [Header("Dungeon")]
-    [SerializeField] private GameObject _map;
+    [SerializeField] private GameObject _environment;
 
     private CharacterController _characterController;
     private Animator _animator;
 
     private Vector3 _moveVec = Vector3.zero;
+    private float _moveThreshold = 0.01f;
     private bool _isSprinting = false;
     private bool _isAiming;
+    private bool _isInStairway = false;
+
+    private int _playerFloor = 1;
+
+    public int PlayerFloor
+    {
+        get { return _playerFloor; }
+        set { _playerFloor = value; }
+    }
+
+    public bool IsInStairway
+    {
+        get { return _isInStairway; }
+        set { _isInStairway = value; }
+    }
 
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void LateUpdate()
-    {
-        if (_isAiming)
-        {
-            _mainCamera.transform.localPosition = _aimOffset;
-        }
-        else
-        {
-            _mainCamera.transform.localPosition = _cameraOffset;
-        }
     }
 
     private void FixedUpdate()
@@ -59,13 +51,10 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDir = _cameraController.PlanarRotation * _moveVec;
 
         // Movement keys depressed by user
-        if (_moveVec.magnitude > 0)
+        if (_moveVec.magnitude > _moveThreshold)
         {
             // set player speed based on move speed, sprint speerd and if the sprint trigger is pressed
             float playerSpeed = _isSprinting ? SprintSpeed : MoveSpeed;
-
-            //Debug.Log(_moveVec);
-            //Debug.Log(playerSpeed);
 
             // rotate player to 'forward' direction of camera
             transform.rotation = Quaternion.LookRotation(moveDir);
@@ -82,6 +71,24 @@ public class PlayerController : MonoBehaviour
             _moveVec = Vector3.zero;
             _animator.SetFloat("speed", 0f);
         }
+    }
+
+    private void LateUpdate()
+    {
+        if (_isAiming)
+        {
+            _mainCamera.transform.localPosition = _aimOffset;
+        }
+        else
+        {
+            _mainCamera.transform.localPosition = _cameraOffset;
+        }
+    }
+
+    // Handles 'Player_Aim' context from InputSystem
+    public void OnPlayerAim(InputAction.CallbackContext ctx)
+    {
+        _isAiming = ctx.ReadValue<float>() == 1;
     }
 
     // Handles 'Player_Move' context from InputSystem
@@ -110,16 +117,12 @@ public class PlayerController : MonoBehaviour
         _isSprinting = ctx.ReadValue<float>() == 1;
     }
 
-    // Handles 'Player_Aim' context from InputSystem
-    public void OnPlayerAim(InputAction.CallbackContext ctx)
-    {
-        _isAiming = ctx.ReadValue<float>() == 1;
-    }
+    
 
     // Handles 'Player_Map' context from InputSystem
     public void OnPlayerToggleMap(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (ctx.performed && !_isInStairway)
         {
             ToggleMapVisibility();
         }
@@ -128,6 +131,23 @@ public class PlayerController : MonoBehaviour
     // Function to toggle the visibility of the map
     private void ToggleMapVisibility()
     {
-        _map.SetActive(!_map.activeSelf);
+        foreach (Transform child in _environment.transform)
+        {
+            if (child.name == "Dungeon Floor " + _playerFloor.ToString())
+            {
+                child.GetComponent<DungeonGenerator>().ToggleMap();
+            }
+        }
+    }
+
+    public void TurnActiveMapOff()
+    {
+        foreach (Transform child in _environment.transform)
+        {
+            if (child.name == "Dungeon Floor " + _playerFloor.ToString())
+            {
+                child.GetComponent<DungeonGenerator>().ShowMap = false;
+            }
+        }
     }
 }
