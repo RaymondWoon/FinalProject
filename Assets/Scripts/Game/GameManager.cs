@@ -29,6 +29,9 @@ public class GameManager : MonoBehaviour
 
     private GameState _gameState;
 
+    public GameObject[] KeyContainer
+    { get { return _keyContainer; } }
+
     private void Awake()
     {
         // Ensure only one instance exists
