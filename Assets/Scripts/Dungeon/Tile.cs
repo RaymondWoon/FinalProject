@@ -9,7 +9,9 @@ public class Tile
         Room,
         Corridor,
         DoorEnter,
-        DoorExit
+        DoorExit,
+        FloorEnter,
+        FloorExit
     }
 
     private TileType tType;

@@ -119,6 +119,246 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &85869155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 85869157}
+  - component: {fileID: 85869156}
+  m_Layer: 0
+  m_Name: DungeonManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &85869156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85869155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd26a2b08bfc977438144345105021cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonManager
+  _dungeonWidth: 29
+  _dungeonDepth: 29
+  _dungeonFloor: 2
+  _dungeonFloorHeight: 9
+  _minRoomSize: 3
+  _maxRoomSize: 5
+  _scale: 6
+  _dGens:
+  - {fileID: 546156251}
+  - {fileID: 111480442}
+  _playerController: {fileID: 0}
+--- !u!4 &85869157
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85869155}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &111480441
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 111480443}
+  - component: {fileID: 111480442}
+  m_Layer: 0
+  m_Name: Dungeon Floor 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &111480442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111480441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad62efa13ce3f54d9a7c851c2b84e22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonGenerator
+  _corridorContainer: {fileID: 0}
+  _doorContainer: {fileID: 0}
+  _roomCornerContainer: {fileID: 0}
+  _roomWallContainer: {fileID: 0}
+  _roomSectionContainer: {fileID: 0}
+  _columnContainer: {fileID: 0}
+  _enemyContainer: {fileID: 0}
+  _treasureContainer: {fileID: 0}
+  _keyContainer: {fileID: 0}
+  NS_Straight:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  EW_Straight:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  NS_T_Junction_E:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  NS_T_Junction_W:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  EW_T_Junction_N:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  EW_T_Junction_S:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Cross_Junction:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  SW_Corner:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  NW_Corner:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  NE_Corner:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  SE_Corner:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_Section:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_SW_Corner:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_NW_Corner:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_NE_Corner:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_SE_Corner:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_SW_Corner_Door_SW:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_NW_Corner_Door_NW:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_NE_Corner_Door_NE:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_SE_Corner_Door_SE:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_SW_Corner_Door_S:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_SW_Corner_Door_W:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_NW_Corner_Door_W:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_NW_Corner_Door_N:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_NE_Corner_Door_N:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_NE_Corner_Door_E:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_SE_Corner_Door_E:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_SE_Corner_Door_S:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_N_Wall:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_E_Wall:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_S_Wall:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_W_Wall:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_N_Wall_Door_N:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_E_Wall_Door_E:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_S_Wall_Door_S:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_W_Wall_Door_W:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_Corner_Pillar_SW:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_Corner_Pillar_NW:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_Corner_Pillar_NE:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_Corner_Pillar_SE:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  _prototypeCorridor: {fileID: 0}
+  _prototypeRoom: {fileID: 0}
+  _prototypeWall: {fileID: 0}
+  _isPrototype: 0
+  _enemy: {fileID: 0}
+  _treasure: {fileID: 0}
+  _key: {fileID: 0}
+  _mapImage: {fileID: 0}
+  _canvas: {fileID: 686993659}
+  _showMap: 0
+  _debugOutput: 1
+--- !u!4 &111480443
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111480441}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 686993662}
+  m_Father: {fileID: 891312785}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &203844586
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +497,7 @@ GameObject:
   - component: {fileID: 546156250}
   - component: {fileID: 546156251}
   m_Layer: 0
-  m_Name: Dungeon
+  m_Name: Dungeon Floor 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -275,7 +515,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 845732479}
   m_Father: {fileID: 891312785}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &546156251
@@ -290,33 +531,247 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad62efa13ce3f54d9a7c851c2b84e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DungeonGenerator
-  _player: {fileID: 0}
-  _dungeonWidth: 19
-  _dungeonDepth: 19
-  _minRoomSize: 3
-  _maxRoomSize: 5
   _corridorContainer: {fileID: 0}
   _doorContainer: {fileID: 0}
-  _roomContainer: {fileID: 0}
-  _wallContainer: {fileID: 0}
+  _roomCornerContainer: {fileID: 0}
+  _roomWallContainer: {fileID: 0}
+  _roomSectionContainer: {fileID: 0}
+  _columnContainer: {fileID: 0}
   _enemyContainer: {fileID: 0}
   _treasureContainer: {fileID: 0}
-  _dungeonWall: {fileID: 0}
-  _straightPiece: {fileID: 0}
-  _cornerPiece: {fileID: 0}
-  _crossRoadPiece: {fileID: 0}
-  _deadendPiece: {fileID: 0}
-  _tPiece: {fileID: 0}
+  _keyContainer: {fileID: 0}
+  NS_Straight:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  EW_Straight:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  NS_T_Junction_E:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  NS_T_Junction_W:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  EW_T_Junction_N:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  EW_T_Junction_S:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Cross_Junction:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  SW_Corner:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  NW_Corner:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  NE_Corner:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  SE_Corner:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_Section:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_SW_Corner:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_NW_Corner:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_NE_Corner:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_SE_Corner:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_SW_Corner_Door_SW:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_NW_Corner_Door_NW:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_NE_Corner_Door_NE:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_SE_Corner_Door_SE:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_SW_Corner_Door_S:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_SW_Corner_Door_W:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_NW_Corner_Door_W:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_NW_Corner_Door_N:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_NE_Corner_Door_N:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_NE_Corner_Door_E:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_SE_Corner_Door_E:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_SE_Corner_Door_S:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_N_Wall:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_E_Wall:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_S_Wall:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_W_Wall:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_N_Wall_Door_N:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_E_Wall_Door_E:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_S_Wall_Door_S:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_W_Wall_Door_W:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_Corner_Pillar_SW:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_Corner_Pillar_NW:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_Corner_Pillar_NE:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  Room_Corner_Pillar_SE:
+    prefab: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0}
   _prototypeCorridor: {fileID: 0}
   _prototypeRoom: {fileID: 0}
   _prototypeWall: {fileID: 0}
   _isPrototype: 0
   _enemy: {fileID: 0}
   _treasure: {fileID: 0}
+  _key: {fileID: 0}
   _mapImage: {fileID: 0}
   _canvas: {fileID: 845732478}
   _showMap: 1
   _debugOutput: 1
+--- !u!1 &686993658
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 686993662}
+  - component: {fileID: 686993659}
+  - component: {fileID: 686993661}
+  - component: {fileID: 686993660}
+  m_Layer: 5
+  m_Name: Map Canvas 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!223 &686993659
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686993658}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &686993660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686993658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &686993661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686993658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 20
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!224 &686993662
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686993658}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 111480443}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &712951676
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +864,7 @@ GameObject:
   - component: {fileID: 845732477}
   - component: {fileID: 845732476}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Map Canvas 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -490,7 +945,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 546156250}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -507,7 +962,7 @@ GameObject:
   m_Component:
   - component: {fileID: 891312785}
   m_Layer: 0
-  m_Name: GameEnv
+  m_Name: Environment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -527,6 +982,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 546156250}
+  - {fileID: 111480443}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &961739749
@@ -673,5 +1129,5 @@ SceneRoots:
   - {fileID: 961739753}
   - {fileID: 203844589}
   - {fileID: 891312785}
-  - {fileID: 845732479}
+  - {fileID: 85869157}
   - {fileID: 712951679}

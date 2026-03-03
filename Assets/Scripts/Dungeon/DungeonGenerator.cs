@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 //using Unity.VectorGraphics;
 using UnityEngine;
-using UnityEngine.InputSystem;
+//using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+//using UnityEngine.UI;
+//using static UnityEngine.LightAnchor;
 
 public class DungeonGenerator : MonoBehaviour
 {
-    [SerializeField] private GameObject _player;
-
+    
+    #region SERIALIZE FIELDS
+    
     [Header("** Dungeon Parameters **")]
-    [SerializeField] private int _dungeonWidth = 29;
-    [SerializeField] private int _dungeonDepth = 29;
-    [SerializeField] private int _dungeonFloor = 1;
-    [SerializeField] private int _minRoomSize = 3;
-    [SerializeField] private int _maxRoomSize = 5;
+    //[SerializeField] private int _dungeonWidth = 29;
+    //[SerializeField] private int _dungeonDepth = 29;
+    //[SerializeField] private int _dungeonFloor = 1;
+    //[SerializeField] private int _minRoomSize = 3;
+    //[SerializeField] private int _maxRoomSize = 5;
 
     [Header("** Dungeon Containers **")]
     [SerializeField] private GameObject _corridorContainer;
@@ -93,55 +95,163 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private GameObject _key;
 
     [Header("** Map **")]
-    [SerializeField] private Image _mapImage;
+    [SerializeField] private UnityEngine.UI.Image _mapImage;
     [SerializeField] private Canvas _canvas;
     [SerializeField] private bool _showMap = false;
 
     [Header("** Debug **")]
     [SerializeField] private bool _debugOutput = false;
 
-    [HideInInspector] public static Dungeon _dungeon;
-    
-    
-    private Texture2D mapTexture;
+    #endregion
 
-    private int numOfTries = 800;
+    #region DUNGEON PROPERTIES
+
+    private int _dungeonWidth;
+    private int _dungeonDepth;
+    private int _dungeonFloor;
+    private int _dungeonFloorHeight;
+    private int _dungeonScale;
+    private int _minRoomSize;
+    private int _maxRoomSize;
+    private int _xOffset = 0;
+    private int _zOffset = 0;
+    private bool _addFloorEntrance = false;
+
+    public int DungeonWidth
+    {
+        //get { return _dungeonWidth; } 
+        set { _dungeonWidth = value; }
+    }
+
+    public int DungeonDepth
+    {
+        set { _dungeonDepth = value; }
+    }
+
+    public int DungeonFloor
+    {
+        set { _dungeonFloor = value; }
+    }
+
+    public int DungeonFloorHeight
+    {
+        set { _dungeonFloorHeight = value; }
+    }
+
+    public int DungeonScale
+    {
+        set { _dungeonScale = value; }
+    }
+
+    public int MinRoomSize
+    {
+        set { _minRoomSize = value; }
+    }
+
+    public int MaxRoomSize
+    {
+        set { _maxRoomSize = value; }
+    }
+
+    public bool ShowMap
+    {
+        set { _showMap = value; }
+    }
+
+    public int XOffset
+    {
+        get { return _xOffset; }
+        set { _xOffset = value; }
+    }
+
+    public int ZOffset
+    {
+        get { return _zOffset; }
+        set { _zOffset = value; }
+    }
+
+    public bool AddFloorEntrance
+    {
+        set { _addFloorEntrance = value; }
+    }
+
+    public void ToggleMap()
+    {
+        _showMap = !_showMap;
+
+        _canvas.gameObject.SetActive(_showMap);
+    }
+    #endregion
+
+    #region LOCAL VARIABLES
+
+    private GameObject _player;
+
+    private Dungeon _dungeon;
 
     private List<Edge> edges;
 
     private List<Edge> MST;
 
-    //private double chanceXtraCorridor = 0.1;
-
     private Scene activeScene;
 
-    private int _scale = 6;
-
+    private int numOfTries = 800;
     private System.Random rng = new();
+
+    private Texture2D mapTexture;
+
+    private int _floorDepth;
 
     private Tile.TileType _wallTile = Tile.TileType.Wall;
     private Tile.TileType _corridorTile = Tile.TileType.Corridor;
     private Tile.TileType _roomTile = Tile.TileType.Room;
     private Tile.TileType _doorExitTile = Tile.TileType.DoorExit;
     private Tile.TileType _doorEnterTile = Tile.TileType.DoorEnter;
+    private Tile.TileType _floorExitTile = Tile.TileType.FloorExit;
+    private Tile.TileType _floorEnterTile = Tile.TileType.FloorEnter;
+
+    #endregion
 
     private void Awake()
     {
-        if (_showMap)
-            CreateMap();
+
+        _player = GameObject.FindGameObjectWithTag("Player");
+
+        // Get the active scene
+        activeScene = SceneManager.GetActiveScene();
+
+        // Create DungeonMap instance
+        //if (activeScene.name != "PrototypeScene")
+        //    CreateMap();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    // Update is called once per frame
+    void Update()
     {
-        // Update dungeon parameters from the player specified values
-        if (MainManager.Instance != null)
+        //if (activeScene.name == "GameScene" && _showMap)
+        //{
+            // Update player position on map if visible
+            //UpdateMap();
+        //}
+
+        if (activeScene.name != "PrototypeScene" && _showMap)
         {
-            _dungeonWidth = MainManager.Instance.DungeonWidth;
-            _dungeonDepth = MainManager.Instance.DungeonDepth;
-            _dungeonFloor = MainManager.Instance.DungeonFloor;
-            _scale = MainManager.Instance.DungeonScale;
+            // Update player position on map if visible
+            UpdateMap();
         }
+        else
+        {
+            _canvas.gameObject.SetActive(_showMap);
+        }
+    }
+
+    #region DUNGEON
+
+    public void BuildDungeon()
+    {
+        // Override the DungeonFloorHeight for the PrototypeScene
+        if (activeScene.name == "PrototypeScene")
+            _dungeonFloorHeight = 0;
 
         // Dungeon dimensions must be odd
         if (_dungeonWidth % 2 == 0)
@@ -153,9 +263,12 @@ public class DungeonGenerator : MonoBehaviour
         // Make the width >= depth
         UpdateDungeonDimension();
 
-        // Get the active scene
-        activeScene = SceneManager.GetActiveScene();
-        //Debug.Log("Active Scene Name: " + activeScene.name);
+        // Depth of the dungeon floor below the surface
+        _floorDepth = _dungeonFloor * _dungeonFloorHeight * -1;
+
+        // Create DungeonMap instance
+        if (activeScene.name != "PrototypeScene")
+            CreateMap();
 
         // Initialize room connectors
         edges = new List<Edge>();
@@ -164,31 +277,6 @@ public class DungeonGenerator : MonoBehaviour
         MST = new List<Edge>();
 
         GenerateDungeon();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (activeScene.name == "GameScene" && _showMap)
-        {
-            // Update player position on map if visible
-            UpdateMap();
-        }
-    }
-
-    #region DUNGEON
-
-    /// <summary>
-    /// Force Dungeon width to be greater than or equal to the depth
-    /// for correct player/map orientation
-    /// </summary>
-    private void UpdateDungeonDimension()
-    {
-        int width = Mathf.Max(_dungeonWidth, _dungeonDepth);
-        int depth = Mathf.Min(_dungeonWidth, _dungeonDepth);
-
-        _dungeonWidth = width;
-        _dungeonDepth = depth;
     }
 
     /// <summary>
@@ -208,54 +296,68 @@ public class DungeonGenerator : MonoBehaviour
         // Step 2: Add dungeon rooms
         AddDungeonRooms();
 
-        // Connect the rooms
+        // Step 3a: Connect the rooms
         ConnectDungeonRooms();
 
-        // Get the MST from the room connectors
+        // Step 3b: Get the MST from the room connectors
         MST = GetMinimumSpanningTree();
 
-        // Add dungeon corridors
+        // Step 3c: Add dungeon corridors
         _dungeon.Corridors = AddDungeonCorridors();
 
         // Update the dungeon map for the corridors
         CarveCorridorTiles();
 
-        // Generate Prototype if required
+        // Generate Prototype/Game Level as required
         if (_isPrototype)
         {
             DrawPrototype();
         }
-        else
+        else if (activeScene.name == "GameScene")
         {
-            if (activeScene.name == "GameScene")
-                GenerateDungeonLevel();
+            GenerateDungeonLevel();
         }
 
+        // Spawn GameObjects
         if (activeScene.name != "TestScene")
         {
-            // Spawn the enemies
-            //SpawnEnemy();
+            if (activeScene.name == "PrototypeScene")
+            {
+                // Spawn the enemies
+                SpawnEnemy();
 
-            // Spawn treasure
-            //SpawnTreasure();
+                // Spawn treasure
+                SpawnTreasure();
+            }
 
             // Spawn keys
             if (activeScene.name == "GameScene")
                 SpawnKey();
-        }
 
-        // Update the player start position to the entrance room
-        if (activeScene.name != "TestScene")
-        {
+            // Update the player start position to the entrance room
             UpdatePlayerInitialPosition();
+
+            // Update the map to include the player position
+            if (_showMap)
+                UpdateMap();
         }
 
         // Print Debug Output if required
         if (_debugOutput)
             DebugOutput();
+    }
 
-        if (_showMap)
-            UpdateMap();
+    /// <summary>
+    /// Force Dungeon width to be greater than or equal to the depth
+    /// for correct player/map orientation
+    /// </summary>
+    private void UpdateDungeonDimension()
+    {
+        int width = Mathf.Max(_dungeonWidth, _dungeonDepth);
+        int depth = Mathf.Min(_dungeonWidth, _dungeonDepth);
+
+        _dungeonWidth = width;
+        _dungeonDepth = depth;
     }
 
     /// <summary>
@@ -291,7 +393,14 @@ public class DungeonGenerator : MonoBehaviour
         {
             for (int z = startZ; z < startZ + 2; z++)
             {
-                CarveTile(x, z, Tile.TileType.Room, true);
+                if (_addFloorEntrance && x == startX && z == startZ)
+                {
+                    CarveTile(x, z, Tile.TileType.FloorEnter, true);
+                }
+                else
+                {
+                    CarveTile(x, z, Tile.TileType.Room, true);
+                }
             }
         }
 
@@ -372,6 +481,24 @@ public class DungeonGenerator : MonoBehaviour
             {
                 nEdges.Add(new Edge(_dungeon.Rooms[i], _dungeon.Rooms[j]));
             }
+
+            // Find the furthest room from the first room: the 'Entrance'
+            if (i == 0)
+            {
+                Edge longestEdge = nEdges.OrderByDescending(e => e.distance).First();
+
+                longestEdge.B.Tag = "Exit Room";
+
+                // Update the "Exit Floor Tile"
+                CarveTile(longestEdge.B.StartX + 1,
+                    longestEdge.B.StartZ + longestEdge.B.Depth - 1,
+                    _floorExitTile, true);
+
+                // Update Dungeon Floor Offsets
+                XOffset = longestEdge.B.StartX + 1 - _dungeon.Rooms[0].StartX;
+                // Z location for the stairwell and SW corner of next floor entrance
+                ZOffset = longestEdge.B.StartZ + longestEdge.B.Depth + 1;
+            }
         }
 
         // Sorted in ascending order to be implied 'weight' for MST
@@ -438,11 +565,11 @@ public class DungeonGenerator : MonoBehaviour
     }
 
     /// <summary>
-    /// Update the player’s initial position to the entrance
+    /// Update the player’s initial position to the entrance of the last floor
     /// </summary>
     private void UpdatePlayerInitialPosition()
     {
-        Vector3 pos = new Vector3(_dungeon.Rooms[0].CenterX * _scale, 1f, _dungeon.Rooms[0].CenterZ * _scale);
+        Vector3 pos = new Vector3(_dungeon.Rooms[0].CenterX * _dungeonScale, _floorDepth + 1f, _dungeon.Rooms[0].CenterZ * _dungeonScale);
 
         _player.transform.position = pos;
     }
@@ -631,9 +758,9 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _corridorTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
                         {
                             GameObject go = Instantiate(Cross_Junction.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Cross_Junction.rotation);
-                            go.name = "CCJ - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "CCJ - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
                         }
                         // NS_T-Junc_E
@@ -642,9 +769,9 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_E == _corridorTile || tile_E == _doorEnterTile || tile_E == _doorExitTile))
                         {
                             GameObject go = Instantiate(NS_T_Junction_E.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(NS_T_Junction_E.rotation);
-                            go.name = "CNST-E - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "CNST-E - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
                         }
                         // NS_T-Junc_W
@@ -653,9 +780,9 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _corridorTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
                         {
                             GameObject go = Instantiate(NS_T_Junction_W.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(NS_T_Junction_W.rotation);
-                            go.name = "CNST-W - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "CNST-W - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
                         }
                         // EW_T-Junc_N
@@ -664,9 +791,9 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_N == _corridorTile || tile_N == _doorEnterTile || tile_N == _doorExitTile))
                         {
                             GameObject go = Instantiate(EW_T_Junction_N.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(EW_T_Junction_N.rotation);
-                            go.name = "CEWT-N - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "CEWT-N - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
                         }
                         // EW_T-Junc_S
@@ -675,9 +802,9 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_S == _corridorTile || tile_S == _doorEnterTile || tile_S == _doorExitTile))
                         {
                             GameObject go = Instantiate(EW_T_Junction_S.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(EW_T_Junction_S.rotation);
-                            go.name = "CEWT-S - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "CEWT-S - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
                         }
                         // SW_Corner
@@ -685,9 +812,9 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_E == _corridorTile || tile_E == _doorEnterTile || tile_E == _doorExitTile))
                         {
                             GameObject go = Instantiate(SW_Corner.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(SW_Corner.rotation);
-                            go.name = "CSWC - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "CSWC - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
                         }
                         // NW_Corner
@@ -695,9 +822,9 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_E == _corridorTile || tile_E == _doorEnterTile || tile_E == _doorExitTile))
                         {
                             GameObject go = Instantiate(NW_Corner.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(NW_Corner.rotation);
-                            go.name = "CNWC - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "CNWC - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
                         }
                         // NE_Corner
@@ -705,9 +832,9 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _corridorTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
                         {
                             GameObject go = Instantiate(NE_Corner.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(NE_Corner.rotation);
-                            go.name = "CNEC - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "CNEC - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
                         }
                         // SE_Corner
@@ -715,9 +842,9 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _corridorTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
                         {
                             GameObject go = Instantiate(SE_Corner.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(SE_Corner.rotation);
-                            go.name = "CSEC - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "CSEC - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
                         }
                         // NS
@@ -725,9 +852,9 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_S == _corridorTile || tile_S == _doorEnterTile || tile_S == _doorExitTile))
                         {
                             GameObject go = Instantiate(NS_Straight.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(NS_Straight.rotation);
-                            go.name = "CNS - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "CNS - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
                         }
                         // EW
@@ -735,9 +862,9 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _corridorTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
                         {
                             GameObject go = Instantiate(EW_Straight.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(EW_Straight.rotation);
-                            go.name = "CEW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "CEW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
                         }
                         break;
@@ -750,9 +877,9 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _wallTile || tile_W == _corridorTile))
                         {
                             GameObject go = Instantiate(Room_SW_Corner.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_SW_Corner.rotation);
-                            go.name = "RSWC - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RSWC - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _roomCornerContainer.transform;
                         }
                         // NW_Corner
@@ -762,9 +889,9 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _wallTile || tile_W == _corridorTile))
                         {
                             GameObject go = Instantiate(Room_NW_Corner.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_NW_Corner.rotation);
-                            go.name = "RNWC - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RNWC - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _roomCornerContainer.transform;
                         }
                         // NE_Corner
@@ -774,9 +901,9 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
                         {
                             GameObject go = Instantiate(Room_NE_Corner.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_NE_Corner.rotation);
-                            go.name = "RNEC - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RNEC - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _roomCornerContainer.transform;
                         }
                         // SE_Corner
@@ -786,9 +913,9 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
                         {
                             GameObject go = Instantiate(Room_SE_Corner.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_SE_Corner.rotation);
-                            go.name = "RSEC - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RSEC - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _roomCornerContainer.transform;
                         }
                         // W_Wall
@@ -798,9 +925,9 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _wallTile || tile_W == _corridorTile))
                         {
                             GameObject go = Instantiate(Room_W_Wall.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_W_Wall.rotation);
-                            go.name = "RWW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RWW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _roomWallContainer.transform;
                         }
                         // N_Wall
@@ -810,9 +937,9 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
                         {
                             GameObject go = Instantiate(Room_N_Wall.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_N_Wall.rotation);
-                            go.name = "RNW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RNW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _roomWallContainer.transform;
                         }
                         // E_Wall
@@ -822,9 +949,9 @@ public class DungeonGenerator : MonoBehaviour
                             && tile_W == _roomTile)
                         {
                             GameObject go = Instantiate(Room_E_Wall.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_E_Wall.rotation);
-                            go.name = "REW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "REW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _roomWallContainer.transform;
                         }
                         // S_Wall
@@ -834,18 +961,18 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
                         {
                             GameObject go = Instantiate(Room_S_Wall.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_S_Wall.rotation);
-                            go.name = "RSW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RSW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _roomWallContainer.transform;
                         }
                         // Standard room section
                         else
                         {
                             GameObject go = Instantiate(Room_Section.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_Section.rotation);
-                            go.name = "RM - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RM - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _roomSectionContainer.transform;
                         }
                         break;
@@ -858,23 +985,23 @@ public class DungeonGenerator : MonoBehaviour
                             && tile_W == _corridorTile)
                         {
                             GameObject go = Instantiate(Room_SW_Corner_Door_SW.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_SW_Corner_Door_SW.rotation);
-                            go.name = "RSWC-DSW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RSWC-DSW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
 
                             // Add SE pillar
                             go = Instantiate(Room_Corner_Pillar_SE.prefab);
-                            go.transform.position = new Vector3(x * _scale + 0.01f, 0, y * _scale + 0.01f);
+                            go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
                             go.transform.Rotate(Room_Corner_Pillar_SE.rotation);
-                            go.name = "COL-SE - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "COL-SE - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _columnContainer.transform;
 
                             // Add NW pillar
                             go = Instantiate(Room_Corner_Pillar_NW.prefab);
-                            go.transform.position = new Vector3(x * _scale + 0.01f, 0, y * _scale + 0.01f);
+                            go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
                             go.transform.Rotate(Room_Corner_Pillar_NW.rotation);
-                            go.name = "COL-NW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "COL-NW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _columnContainer.transform;
                         }
                         //NW_Corner_Door_NW
@@ -884,23 +1011,23 @@ public class DungeonGenerator : MonoBehaviour
                             && tile_W == _corridorTile)
                         {
                             GameObject go = Instantiate(Room_NW_Corner_Door_NW.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_NW_Corner_Door_NW.rotation);
-                            go.name = "RNWC-DNW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RNWC-DNW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
 
                             // Add NE pillar
                             go = Instantiate(Room_Corner_Pillar_NE.prefab);
-                            go.transform.position = new Vector3(x * _scale + 0.01f, 0, y * _scale + 0.01f);
+                            go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
                             go.transform.Rotate(Room_Corner_Pillar_NE.rotation);
-                            go.name = "COL-NE - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "COL-NE - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _columnContainer.transform;
 
                             // Add SW pillar
                             go = Instantiate(Room_Corner_Pillar_SW.prefab);
-                            go.transform.position = new Vector3(x * _scale + 0.01f, 0, y * _scale + 0.01f);
+                            go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
                             go.transform.Rotate(Room_Corner_Pillar_SW.rotation);
-                            go.name = "COL-SW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "COL-SW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _columnContainer.transform;
                         }
                         //NE_Corner_Door_NE
@@ -909,23 +1036,23 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
                         {
                             GameObject go = Instantiate(Room_NE_Corner_Door_NE.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_NE_Corner_Door_NE.rotation);
-                            go.name = "RNEC-DNE - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RNEC-DNE - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
 
                             // Add NW pillar
                             go = Instantiate(Room_Corner_Pillar_NW.prefab);
-                            go.transform.position = new Vector3(x * _scale + 0.01f, 0, y * _scale + 0.01f);
+                            go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
                             go.transform.Rotate(Room_Corner_Pillar_NW.rotation);
-                            go.name = "COL-NW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "COL-NW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _columnContainer.transform;
 
                             // Add SE pillar
                             go = Instantiate(Room_Corner_Pillar_SE.prefab);
-                            go.transform.position = new Vector3(x * _scale + 0.01f, 0, y * _scale + 0.01f);
+                            go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
                             go.transform.Rotate(Room_Corner_Pillar_SE.rotation);
-                            go.name = "COL-SE - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "COL-SE - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _columnContainer.transform;
                         }
                         //SE_Corner_Door_SE
@@ -935,23 +1062,23 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
                         {
                             GameObject go = Instantiate(Room_SE_Corner_Door_SE.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_SE_Corner_Door_SE.rotation);
-                            go.name = "RSEC-DSE - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RSEC-DSE - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
 
                             // Add NE pillar
                             go = Instantiate(Room_Corner_Pillar_NE.prefab);
-                            go.transform.position = new Vector3(x * _scale + 0.01f, 0, y * _scale + 0.01f);
+                            go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
                             go.transform.Rotate(Room_Corner_Pillar_NE.rotation);
-                            go.name = "COL-NE - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "COL-NE - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _columnContainer.transform;
 
                             // Add SW pillar
                             go = Instantiate(Room_Corner_Pillar_SW.prefab);
-                            go.transform.position = new Vector3(x * _scale + 0.01f, 0, y * _scale + 0.01f);
+                            go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
                             go.transform.Rotate(Room_Corner_Pillar_SW.rotation);
-                            go.name = "COL-SW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "COL-SW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _columnContainer.transform;
                         }
                         // SW_Corner_Door_S
@@ -961,16 +1088,16 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _wallTile || tile_W == _corridorTile))
                         {
                             GameObject go = Instantiate(Room_SW_Corner_Door_S.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_SW_Corner_Door_S.rotation);
-                            go.name = "RSWC-DS - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RSWC-DS - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
 
                             // Add SE pillar
                             go = Instantiate(Room_Corner_Pillar_SE.prefab);
-                            go.transform.position = new Vector3(x * _scale + 0.01f, 0, y * _scale + 0.01f);
+                            go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
                             go.transform.Rotate(Room_Corner_Pillar_SE.rotation);
-                            go.name = "COL-SE - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "COL-SE - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _columnContainer.transform;
                         }
                         // SW_Corner_Door_W
@@ -980,16 +1107,16 @@ public class DungeonGenerator : MonoBehaviour
                             && tile_W == _corridorTile)
                         {
                             GameObject go = Instantiate(Room_SW_Corner_Door_W.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_SW_Corner_Door_W.rotation);
-                            go.name = "RSWC-DW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RSWC-DW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
 
                             // Add NW pillar
                             go = Instantiate(Room_Corner_Pillar_NW.prefab);
-                            go.transform.position = new Vector3(x * _scale + 0.01f, 0, y * _scale + 0.01f);
+                            go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
                             go.transform.Rotate(Room_Corner_Pillar_NW.rotation);
-                            go.name = "COL-NW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "COL-NW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _columnContainer.transform;
                         }
                         // NW_Corner_Door_W
@@ -999,16 +1126,16 @@ public class DungeonGenerator : MonoBehaviour
                             && tile_W == _corridorTile)
                         {
                             GameObject go = Instantiate(Room_NW_Corner_Door_W.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_NW_Corner_Door_W.rotation);
-                            go.name = "RNWC-DW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RNWC-DW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
 
                             // Add SW pillar
                             go = Instantiate(Room_Corner_Pillar_SW.prefab);
-                            go.transform.position = new Vector3(x * _scale + 0.01f, 0, y * _scale + 0.01f);
+                            go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
                             go.transform.Rotate(Room_Corner_Pillar_SW.rotation);
-                            go.name = "COL-SW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "COL-SW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _columnContainer.transform;
                         }
                         // NW_Corner_Door_N
@@ -1018,16 +1145,16 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _wallTile || tile_W == _corridorTile))
                         {
                             GameObject go = Instantiate(Room_NW_Corner_Door_N.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_NW_Corner_Door_N.rotation);
-                            go.name = "RNWC-DN - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RNWC-DN - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
 
                             // Add NE pillar
                             go = Instantiate(Room_Corner_Pillar_NE.prefab);
-                            go.transform.position = new Vector3(x * _scale + 0.01f, 0, y * _scale + 0.01f);
+                            go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
                             go.transform.Rotate(Room_Corner_Pillar_NE.rotation);
-                            go.name = "COL-NE - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "COL-NE - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _columnContainer.transform;
                         }
                         // NE_Corner_Door_N
@@ -1037,16 +1164,16 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
                         {
                             GameObject go = Instantiate(Room_NE_Corner_Door_N.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_NE_Corner_Door_N.rotation);
-                            go.name = "RNEC-DN - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RNEC-DN - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
 
                             // Add NW pillar
                             go = Instantiate(Room_Corner_Pillar_NW.prefab);
-                            go.transform.position = new Vector3(x * _scale + 0.01f, 0, y * _scale + 0.01f);
+                            go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
                             go.transform.Rotate(Room_Corner_Pillar_NW.rotation);
-                            go.name = "COL-NW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "COL-NW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _columnContainer.transform;
                         }
                         // NE_Corner_Door_E
@@ -1056,16 +1183,16 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
                         {
                             GameObject go = Instantiate(Room_NE_Corner_Door_E.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_NE_Corner_Door_E.rotation);
-                            go.name = "RNEC-DE - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RNEC-DE - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
 
                             // Add SE pillar
                             go = Instantiate(Room_Corner_Pillar_SE.prefab);
-                            go.transform.position = new Vector3(x * _scale + 0.01f, 0, y * _scale + 0.01f);
+                            go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
                             go.transform.Rotate(Room_Corner_Pillar_SE.rotation);
-                            go.name = "COL-SE - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "COL-SE - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _columnContainer.transform;
                         }
                         // SE_Corner_Door_E
@@ -1075,16 +1202,16 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
                         {
                             GameObject go = Instantiate(Room_SE_Corner_Door_E.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_SE_Corner_Door_E.rotation);
-                            go.name = "RSEC-DE - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RSEC-DE - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
 
                             // Add NE pillar
                             go = Instantiate(Room_Corner_Pillar_NE.prefab);
-                            go.transform.position = new Vector3(x * _scale + 0.01f, 0, y * _scale + 0.01f);
+                            go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
                             go.transform.Rotate(Room_Corner_Pillar_NE.rotation);
-                            go.name = "COL-NE - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "COL-NE - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _columnContainer.transform;
                         }
                         // SE_Corner_Door_S
@@ -1094,16 +1221,16 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
                         {
                             GameObject go = Instantiate(Room_SE_Corner_Door_S.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_SE_Corner_Door_S.rotation);
-                            go.name = "RSEC-DS - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RSEC-DS - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
 
                             // Add SW pillar
                             go = Instantiate(Room_Corner_Pillar_SW.prefab);
-                            go.transform.position = new Vector3(x * _scale + 0.01f, 0, y * _scale + 0.01f);
+                            go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
                             go.transform.Rotate(Room_Corner_Pillar_SW.rotation);
-                            go.name = "COL-SW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "COL-SW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _columnContainer.transform;
                         }
                         // N_Wall_Door_N
@@ -1113,9 +1240,9 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
                         {
                             GameObject go = Instantiate(Room_N_Wall_Door_N.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_N_Wall_Door_N.rotation);
-                            go.name = "RNW-DN - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RNW-DN - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
                         }
                         // E_Wall_Door_E
@@ -1125,9 +1252,9 @@ public class DungeonGenerator : MonoBehaviour
                             && tile_W == _roomTile)
                         {
                             GameObject go = Instantiate(Room_E_Wall_Door_E.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_E_Wall_Door_E.rotation);
-                            go.name = "REW-DE - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "REW-DE - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
                         }
                         // S_Wall_Door_S
@@ -1137,9 +1264,9 @@ public class DungeonGenerator : MonoBehaviour
                             && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
                         {
                             GameObject go = Instantiate(Room_S_Wall_Door_S.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_S_Wall_Door_S.rotation);
-                            go.name = "RSW-DS - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RSW-DS - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
                         }
                         // W_Wall_Door_W
@@ -1149,9 +1276,9 @@ public class DungeonGenerator : MonoBehaviour
                             && tile_W == _corridorTile)
                         {
                             GameObject go = Instantiate(Room_W_Wall_Door_W.prefab);
-                            go.transform.position = new Vector3(x * _scale, 0, y * _scale);
+                            go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
                             go.transform.Rotate(Room_W_Wall_Door_W.rotation);
-                            go.name = "RWW-DW - " + (x * _scale).ToString() + " - " + (y * _scale).ToString();
+                            go.name = "RWW-DW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
                         }
                         break;
@@ -1169,7 +1296,7 @@ public class DungeonGenerator : MonoBehaviour
         {
             if (room.Tag == "Entrance") continue;
 
-            Vector3 pos = new Vector3(room.CenterX * _scale, 1.5f, room.CenterZ * _scale);
+            Vector3 pos = new Vector3(room.CenterX * _dungeonScale, 1.5f, room.CenterZ * _dungeonScale);
 
             GameObject enemy = Instantiate(_enemy, pos, Quaternion.identity);
             enemy.transform.parent = _enemyContainer.transform;
@@ -1185,18 +1312,20 @@ public class DungeonGenerator : MonoBehaviour
         {
             if (room.Tag == "Entrance") continue;
 
-            //Vector3 pos = new Vector3(room.CenterX * _scale, 1.5f, room.CenterZ * _scale);
+            float treasureX, treasureZ;
+            Vector3 upDirection = transform.up;
 
-            Vector3 pos1 = new Vector3((room.StartX + 1) * _scale, 1.0f, (room.StartZ + 1) * _scale);
-            Vector3 pos2 = new Vector3((room.StartX + room.Width - 1) * _scale, 1.0f, (room.StartZ + 1) * _scale);
-            Vector3 pos3 = new Vector3((room.StartX + room.Width - 1) * _scale, 1.0f, (room.StartZ + room.Depth - 1) * _scale);
-            Vector3 pos4 = new Vector3((room.StartX + 1) * _scale, 1.0f, (room.StartZ + room.Depth - 1) * _scale);
+            Vector3 pos1 = new Vector3((room.StartX + 0.75f) * _dungeonScale, 1.0f, (room.StartZ + 0.75f) * _dungeonScale);
+            Vector3 pos2 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale, 1.0f, (room.StartZ + 0.75f) * _dungeonScale);
+            Vector3 pos3 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale);
+            Vector3 pos4 = new Vector3((room.StartX + 0.75f) * _dungeonScale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale);
 
-            Vector3[] pos = { pos1, pos2, pos3, pos4 };
+            // Randomly select X & Z as a float
+            treasureX = UnityEngine.Random.Range(pos1.x, pos3.x);
+            treasureZ = UnityEngine.Random.Range(pos1.z, pos3.z);
 
-            GameObject treasure = Instantiate(_treasure, pos[rng.Next(0, pos.Length)], Quaternion.identity);
+            GameObject treasure = Instantiate(_treasure, new Vector3(treasureX, _dungeonFloorHeight, treasureZ) + upDirection * 1.0f, Quaternion.identity);
             treasure.transform.localRotation = Quaternion.Euler(0, 0, 90f);
-            //treasure.transform.localScale = new Vector3(_scale, 1, _scale);
             treasure.transform.parent = _treasureContainer.transform;
         }
     }
@@ -1216,12 +1345,12 @@ public class DungeonGenerator : MonoBehaviour
             Vector3 upDirection = transform.up;
 
             // Define the limits of the room to randomly place the key
-            Vector3 pos1 = new Vector3((room.StartX + 0.75f) * _scale, 1.0f, (room.StartZ + 0.75f) * _scale);
-            Vector3 pos2 = new Vector3((room.StartX + room.Width - 0.75f) * _scale, 1.0f, (room.StartZ + 0.75f) * _scale);
-            Vector3 pos3 = new Vector3((room.StartX + room.Width - 0.75f) * _scale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _scale);
-            Vector3 pos4 = new Vector3((room.StartX + 0.75f) * _scale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _scale);
+            Vector3 pos1 = new Vector3((room.StartX + 0.75f) * _dungeonScale, 1.0f, (room.StartZ + 0.75f) * _dungeonScale);
+            Vector3 pos2 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale, 1.0f, (room.StartZ + 0.75f) * _dungeonScale);
+            Vector3 pos3 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale);
+            Vector3 pos4 = new Vector3((room.StartX + 0.75f) * _dungeonScale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale);
 
-            Vector3[] pos = { pos1, pos2, pos3, pos4 };
+            //Vector3[] pos = { pos1, pos2, pos3, pos4 };
 
             // Randomly select X & Z as a float
             keyX = UnityEngine.Random.Range(pos1.x, pos3.x);
@@ -1246,31 +1375,33 @@ public class DungeonGenerator : MonoBehaviour
         {
             for (int x = 0; x < _dungeonWidth; x++)
             {
-                Vector3 pos = new Vector3(x * _scale, 0, z * _scale);
+                Vector3 pos = new Vector3(x * _dungeonScale, 0, z * _dungeonScale);
                 
                 if (_dungeon.Tiles[x, z].Type == Tile.TileType.Corridor)
                 {
                     GameObject corridor = Instantiate(_prototypeCorridor, pos, Quaternion.identity);
-                    corridor.transform.localScale = new Vector3(_scale, 1, _scale);
+                    corridor.transform.localScale = new Vector3(_dungeonScale, 1, _dungeonScale);
                     corridor.transform.parent = _corridorContainer.transform;
                 }
                 else if (_dungeon.Tiles[x, z].Type == Tile.TileType.DoorEnter
-                    || _dungeon.Tiles[x, z].Type == Tile.TileType.DoorExit)
+                    || _dungeon.Tiles[x, z].Type == Tile.TileType.DoorExit
+                    || _dungeon.Tiles[x, z].Type == Tile.TileType.FloorEnter
+                    || _dungeon.Tiles[x, z].Type == Tile.TileType.FloorExit)
                 {
                     GameObject room = Instantiate(_prototypeRoom, pos, Quaternion.identity);
-                    room.transform.localScale = new Vector3(_scale, 1, _scale);
+                    room.transform.localScale = new Vector3(_dungeonScale, 1, _dungeonScale);
                     room.transform.parent = _doorContainer.transform;
                 }
                 else if (_dungeon.Tiles[x, z].Type == Tile.TileType.Room)
                 {
                     GameObject room = Instantiate(_prototypeRoom, pos, Quaternion.identity);
-                    room.transform.localScale = new Vector3(_scale, 1, _scale);
+                    room.transform.localScale = new Vector3(_dungeonScale, 1, _dungeonScale);
                     room.transform.parent = _roomSectionContainer.transform;
                 }
                 else if (_dungeon.Tiles[x, z].Type == Tile.TileType.Wall)
                 {
                     GameObject wall = Instantiate(_prototypeWall, pos, Quaternion.identity);
-                    wall.transform.localScale = new Vector3(_scale, 1, _scale);
+                    wall.transform.localScale = new Vector3(_dungeonScale, 1, _dungeonScale);
                     wall.transform.parent = _roomWallContainer.transform;
                 }
             }
@@ -1286,15 +1417,16 @@ public class DungeonGenerator : MonoBehaviour
     /// </summary>
     private void CreateMap()
     {
+        Debug.Log("Map created!");
         GameObject mapGO = new GameObject();
-        mapGO.name = "MapObject";
+        mapGO.name = "MapObject" + _dungeonFloor.ToString();
 
         // add a rect Transform to replace the normal Transform
         RectTransform sRect = mapGO.AddComponent<RectTransform>();
 
         sRect.SetParent(_canvas.gameObject.transform, false);
         // Add a sprite Renderer to the new Object
-        _mapImage = mapGO.AddComponent<Image>();
+        _mapImage = mapGO.AddComponent<UnityEngine.UI.Image>();
 
         mapTexture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
         mapTexture.filterMode = FilterMode.Point;
@@ -1325,6 +1457,14 @@ public class DungeonGenerator : MonoBehaviour
                         mapTexture.SetPixel(x, y, Color.magenta);
                         break;
 
+                    case Tile.TileType.FloorEnter:
+                        mapTexture.SetPixel(x, y, Color.darkTurquoise);
+                        break;
+
+                    case Tile.TileType.FloorExit:
+                        mapTexture.SetPixel(x, y, Color.maroon);
+                        break;
+
                     case Tile.TileType.Room:
                         mapTexture.SetPixel(x, y, Color.white);
                         break;
@@ -1343,8 +1483,9 @@ public class DungeonGenerator : MonoBehaviour
         if (activeScene.name == "GameScene")
         {
             // Convert player position to map coordinates
-            int playerTileX = (int)(_player.transform.position.x / _scale);
-            int playerTileY = (int)(_player.transform.position.z / _scale);
+            // considering the offsets of the dungeon in multiple floors
+            int playerTileX = (int)(_player.transform.position.x / _dungeonScale) - _xOffset; ;
+            int playerTileY = (int)(_player.transform.position.z / _dungeonScale) - _zOffset;
 
             if (_dungeon.Tiles[playerTileX, playerTileY].Type != Tile.TileType.Wall)
             {
@@ -1429,6 +1570,9 @@ public class DungeonGenerator : MonoBehaviour
         // Print Dungeon tiles
         PrintDungeonTiles();
 
+        // Print Rooms
+        PrintDungeonRooms();
+
         // All room connections
         PrintEdges();
 
@@ -1437,20 +1581,6 @@ public class DungeonGenerator : MonoBehaviour
 
         // Dundeon corridors
         PrintDungeonCorridors();
-    }
-
-    /// <summary>
-    /// Print the accepted corridors in the dungeon
-    /// </summary>
-    private void PrintDungeonTiles()
-    {
-        for (int i = 0; i < _dungeonWidth; i++)
-        {
-            for (int j = 0; j < _dungeonDepth; j++)
-            {
-                Debug.Log("X: " + i.ToString() + ", Y: " + j.ToString() + ", " + _dungeon.Tiles[i, j].ToString());
-            }
-        }
     }
 
     /// <summary>
@@ -1476,6 +1606,21 @@ public class DungeonGenerator : MonoBehaviour
     }
 
     /// <summary>
+    /// Print the accepted corridors in the dungeon
+    /// </summary>
+    private void PrintDungeonTiles()
+    {
+        for (int i = 0; i < _dungeonWidth; i++)
+        {
+            for (int j = 0; j < _dungeonDepth; j++)
+            {
+                Debug.Log("X: " + i.ToString() + ", Y: " + j.ToString() + ", " + _dungeon.Tiles[i, j].ToString());
+            }
+        }
+    }
+
+    
+    /// <summary>
     /// Print the Edges resulting from Kruskal’s algorithm
     /// </summary>
     private void PrintMST()
@@ -1483,6 +1628,17 @@ public class DungeonGenerator : MonoBehaviour
         foreach (var edge in MST)
         {
             Debug.Log("MST: " + edge.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Print the properties of each room
+    /// </summary>
+    private void PrintDungeonRooms()
+    {
+        foreach (var room in _dungeon.Rooms)
+        {
+            Debug.Log("Room: " + room.ToString());
         }
     }
 
