@@ -884,8 +884,8 @@ public class DungeonGenerator : MonoBehaviour
                         }
                         // NW_Corner
                         else if ((tile_N == _wallTile || tile_N == _corridorTile)
-                            && (tile_E == _roomTile || tile_E == _doorEnterTile || tile_E == _doorExitTile)
-                            && (tile_S == _roomTile || tile_S == _doorEnterTile || tile_S == _doorExitTile)
+                            && (tile_E == _roomTile || tile_E == _doorEnterTile || tile_E == _doorExitTile || tile_E == _floorExitTile)
+                            && (tile_S == _roomTile || tile_S == _doorEnterTile || tile_S == _doorExitTile || tile_S == _floorEnterTile)
                             && (tile_W == _wallTile || tile_W == _corridorTile))
                         {
                             GameObject go = Instantiate(Room_NW_Corner.prefab);
@@ -898,7 +898,7 @@ public class DungeonGenerator : MonoBehaviour
                         else if ((tile_N == _wallTile || tile_N == _corridorTile)
                             && (tile_E == _wallTile || tile_E == _corridorTile)
                             && (tile_S == _roomTile || tile_S == _doorEnterTile || tile_S == _doorExitTile)
-                            && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
+                            && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile || tile_W == _floorExitTile))
                         {
                             GameObject go = Instantiate(Room_NE_Corner.prefab);
                             go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
@@ -910,7 +910,7 @@ public class DungeonGenerator : MonoBehaviour
                         else if ((tile_N == _roomTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
                             && (tile_E == _wallTile || tile_E == _corridorTile)
                             && (tile_S == _wallTile || tile_S == _corridorTile)
-                            && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
+                            && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile || tile_W == _floorEnterTile))
                         {
                             GameObject go = Instantiate(Room_SE_Corner.prefab);
                             go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
@@ -932,9 +932,9 @@ public class DungeonGenerator : MonoBehaviour
                         }
                         // N_Wall
                         else if ((tile_N == _wallTile || tile_N == _corridorTile)
-                            && (tile_E == _roomTile || tile_E == _doorEnterTile || tile_E == _doorExitTile)
+                            && (tile_E == _roomTile || tile_E == _doorEnterTile || tile_E == _doorExitTile || tile_E == _floorExitTile)
                             && tile_S == _roomTile
-                            && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
+                            && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile || tile_W == _floorExitTile))
                         {
                             GameObject go = Instantiate(Room_N_Wall.prefab);
                             go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
@@ -1122,7 +1122,7 @@ public class DungeonGenerator : MonoBehaviour
                         // NW_Corner_Door_W
                         else if ((tile_N == _wallTile || tile_N == _corridorTile)
                             && (tile_E == _roomTile || tile_E == _doorEnterTile || tile_E == _doorExitTile)
-                            && (tile_S == _roomTile || tile_S == _doorEnterTile || tile_S == _doorExitTile)
+                            && (tile_S == _roomTile || tile_S == _doorEnterTile || tile_S == _doorExitTile || tile_S == _floorEnterTile)
                             && tile_W == _corridorTile)
                         {
                             GameObject go = Instantiate(Room_NW_Corner_Door_W.prefab);
@@ -1141,7 +1141,7 @@ public class DungeonGenerator : MonoBehaviour
                         // NW_Corner_Door_N
                         else if (tile_N == _corridorTile
                             && (tile_E == _roomTile || tile_E == _doorEnterTile || tile_E == _doorExitTile)
-                            && (tile_S == _roomTile || tile_S == _doorEnterTile || tile_S == _doorExitTile)
+                            && (tile_S == _roomTile || tile_S == _doorEnterTile || tile_S == _doorExitTile || tile_S == _floorEnterTile)
                             && (tile_W == _wallTile || tile_W == _corridorTile))
                         {
                             GameObject go = Instantiate(Room_NW_Corner_Door_N.prefab);
@@ -1356,7 +1356,7 @@ public class DungeonGenerator : MonoBehaviour
             keyX = UnityEngine.Random.Range(pos1.x, pos3.x);
             keyZ = UnityEngine.Random.Range(pos1.z, pos3.z);
 
-            GameObject key = Instantiate(_key, new Vector3(keyX, 0f, keyZ) + upDirection * 1.0f, Quaternion.identity);
+            GameObject key = Instantiate(_key, new Vector3(keyX, _floorDepth, keyZ) + upDirection * 1.0f, Quaternion.identity);
             key.name = "KEY " + roomCount.ToString();
             key.transform.parent = _keyContainer.transform;
         }

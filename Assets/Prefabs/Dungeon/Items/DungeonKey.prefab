@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DungeonEscape.Inventory.InventoryItemPickup
   itemData: {fileID: 11400000, guid: cae937ea942c9c44f910e86eb978d31d, type: 2}
   quantity: 1
-  _pickupSFX: {fileID: 0}
+  _pickupSFX: {fileID: 8300000, guid: feb36ec50a162ba4bb36dda47814c747, type: 3}
 --- !u!114 &9077702090311465497
 MonoBehaviour:
   m_ObjectHideFlags: 0
