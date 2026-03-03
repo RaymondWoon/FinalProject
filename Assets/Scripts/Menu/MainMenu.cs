@@ -10,6 +10,8 @@ public class MainMenu : MonoBehaviour
     [Header("Panels")]
     [SerializeField] private GameObject _optionsPanel;
     [SerializeField] private GameObject _quitConfirmationPanel;
+    [SerializeField] private GameObject _instructionsPanel;
+    [SerializeField] private Text _storylineText;
 
     [Header("Dungeon Parameters")]
     [SerializeField] private Slider _widthSlider;
@@ -46,9 +48,31 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("GameScene");
     }
 
+    // Handler for the 'Help' button clicked event
+    public void OnHelpButtonClicked()
+    {
+        // Disable the 'Storyline'
+        _storylineText.gameObject.SetActive(false);
+
+        // activate 'Instructions Panel'
+        _instructionsPanel.SetActive(true);
+    }
+
+    // Handler to close the 'Help' panel
+    public void OnCloseInstructionPanelClicked()
+    {
+        _instructionsPanel.SetActive(false);
+
+        // Enable the 'Storyline'
+        _storylineText.gameObject.SetActive(true);
+    }
+
     // Handler for the 'Options' button clicked event
     public void OnOptionsButtonClicked()
     {
+        // Disable the 'Storyline'
+        _storylineText.gameObject.SetActive(false);
+
         // activate 'Options Panel'
         _optionsPanel.SetActive(true);
 
@@ -128,6 +152,9 @@ public class MainMenu : MonoBehaviour
     public void OnCloseOptionPanelClicked()
     {
         _optionsPanel.SetActive(false);
+
+        // Enable the 'Storyline'
+        _storylineText.gameObject.SetActive(true);
     }
 
     // Handler for DungeonWidthInput field
