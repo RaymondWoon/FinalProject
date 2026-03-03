@@ -601,7 +601,7 @@ MonoBehaviour:
   SprintSpeed: 4
   _mainCamera: {fileID: 961739752}
   _cameraController: {fileID: 221285738}
-  _cameraOffset: {x: 0.2, y: 1, z: -4}
+  _cameraOffset: {x: 0.2, y: 1, z: -2}
   _aimOffset: {x: 0, y: 1, z: 0}
   _environment: {fileID: 573184453}
 --- !u!114 &559101819
@@ -1287,7 +1287,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.15
+  near clip plane: 0.3
   far clip plane: 500
   field of view: 60
   orthographic: 0
@@ -1713,6 +1713,12 @@ MonoBehaviour:
     rotation: {x: 0, y: 0, z: 0}
   Room_Corner_Pillar_SE:
     prefab: {fileID: 5235532173086899635, guid: 653f0c092fe57bb4fb44ef4caa759ff4, type: 3}
+    rotation: {x: 0, y: 90, z: 0}
+  Floor_Exit_Portal:
+    prefab: {fileID: 3467691520268676550, guid: ddcbbbea8671c4e4bb47b66f9333d487, type: 3}
+    rotation: {x: 0, y: 90, z: 0}
+  Stairwell:
+    prefab: {fileID: 1422377675587023237, guid: 8ba31d841a0293748b5c084ffa098cd5, type: 3}
     rotation: {x: 0, y: 90, z: 0}
   _prototypeCorridor: {fileID: 0}
   _prototypeRoom: {fileID: 0}

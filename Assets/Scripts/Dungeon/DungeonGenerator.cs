@@ -81,7 +81,10 @@ public class DungeonGenerator : MonoBehaviour
     public DungeonModule Room_Corner_Pillar_NW;
     public DungeonModule Room_Corner_Pillar_NE;
     public DungeonModule Room_Corner_Pillar_SE;
-    
+    public DungeonModule Floor_Exit_Portal;
+
+    [Header("** Dungeon Modules: Stairwell **")]
+    public DungeonModule Stairwell;
 
     [Header("** Prototype Prefabs **")]
     [SerializeField] private GameObject _prototypeCorridor;
@@ -1281,6 +1284,22 @@ public class DungeonGenerator : MonoBehaviour
                             go.name = "RWW-DW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
                         }
+                        break;
+
+                    case Tile.TileType.FloorExit:
+                        // Exit door
+                        GameObject floorExit = Instantiate(Floor_Exit_Portal.prefab);
+                        floorExit.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
+                        floorExit.transform.Rotate(Floor_Exit_Portal.rotation);
+                        floorExit.name = "EXIT - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
+                        floorExit.transform.parent = _doorContainer.transform;
+
+                        // Stairwell
+                        GameObject stairs = Instantiate(Stairwell.prefab);
+                        stairs.transform.position = new Vector3(x * _dungeonScale, _floorDepth, (y + 1) * _dungeonScale);
+                        stairs.transform.Rotate(Stairwell.rotation);
+                        stairs.name = "STAIRS - " + (x * _dungeonScale).ToString() + " - " + ((y + 1) * _dungeonScale).ToString();
+                        stairs.transform.parent = _doorContainer.transform;
                         break;
                 }
             }
