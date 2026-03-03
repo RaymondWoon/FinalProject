@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 67718950}
   - component: {fileID: 67718949}
   m_Layer: 5
-  m_Name: Key Text (1)
+  m_Name: Key Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -439,7 +439,7 @@ GameObject:
   m_Component:
   - component: {fileID: 399103445}
   m_Layer: 0
-  m_Name: Keys
+  m_Name: Keys1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -534,6 +534,7 @@ GameObject:
   - component: {fileID: 559101817}
   - component: {fileID: 559101820}
   - component: {fileID: 559101819}
+  - component: {fileID: 559101822}
   - component: {fileID: 559101818}
   - component: {fileID: 559101821}
   m_Layer: 0
@@ -602,7 +603,7 @@ MonoBehaviour:
   _cameraController: {fileID: 221285738}
   _cameraOffset: {x: 0.2, y: 1, z: -4}
   _aimOffset: {x: 0, y: 1, z: 0}
-  _environment: {fileID: 0}
+  _environment: {fileID: 573184453}
 --- !u!114 &559101819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -780,6 +781,103 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventorySystem
   _inventorySystem: {fileID: 1423724615}
+--- !u!82 &559101822
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559101815}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &573184453
 GameObject:
   m_ObjectHideFlags: 0
@@ -1497,22 +1595,22 @@ MonoBehaviour:
   _treasureContainer: {fileID: 671141284}
   _keyContainer: {fileID: 399103444}
   NS_Straight:
-    prefab: {fileID: 8092167747965205873, guid: 96ce86a0910e1394e8b152603d25884b, type: 3}
+    prefab: {fileID: 6042697428476788482, guid: 96ce86a0910e1394e8b152603d25884b, type: 3}
     rotation: {x: 0, y: 90, z: 0}
   EW_Straight:
-    prefab: {fileID: 8092167747965205873, guid: 96ce86a0910e1394e8b152603d25884b, type: 3}
+    prefab: {fileID: 6042697428476788482, guid: 96ce86a0910e1394e8b152603d25884b, type: 3}
     rotation: {x: 0, y: 0, z: 0}
   NS_T_Junction_E:
-    prefab: {fileID: 4304117657258532612, guid: fbf4012b53726fb4dbe5fdabe1dcd797, type: 3}
+    prefab: {fileID: 631657104155331245, guid: fbf4012b53726fb4dbe5fdabe1dcd797, type: 3}
     rotation: {x: 0, y: 0, z: 0}
   NS_T_Junction_W:
-    prefab: {fileID: 4304117657258532612, guid: fbf4012b53726fb4dbe5fdabe1dcd797, type: 3}
+    prefab: {fileID: 631657104155331245, guid: fbf4012b53726fb4dbe5fdabe1dcd797, type: 3}
     rotation: {x: 0, y: 180, z: 0}
   EW_T_Junction_N:
-    prefab: {fileID: 4304117657258532612, guid: fbf4012b53726fb4dbe5fdabe1dcd797, type: 3}
+    prefab: {fileID: 631657104155331245, guid: fbf4012b53726fb4dbe5fdabe1dcd797, type: 3}
     rotation: {x: 0, y: -90, z: 0}
   EW_T_Junction_S:
-    prefab: {fileID: 4304117657258532612, guid: fbf4012b53726fb4dbe5fdabe1dcd797, type: 3}
+    prefab: {fileID: 631657104155331245, guid: fbf4012b53726fb4dbe5fdabe1dcd797, type: 3}
     rotation: {x: 0, y: 90, z: 0}
   Cross_Junction:
     prefab: {fileID: 7731434499843239899, guid: 9fc2293780b2df34a95ee2e9c889d23b, type: 3}
@@ -1530,79 +1628,79 @@ MonoBehaviour:
     prefab: {fileID: 4544532359002034892, guid: ad42aa00b66f3594184c93626419afa6, type: 3}
     rotation: {x: 0, y: -90, z: 0}
   Room_Section:
-    prefab: {fileID: 146853572457274066, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+    prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
     rotation: {x: 0, y: 0, z: 0}
   Room_SW_Corner:
-    prefab: {fileID: 4929161225847425534, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
+    prefab: {fileID: 648358859092923389, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
     rotation: {x: 0, y: 0, z: 0}
   Room_NW_Corner:
-    prefab: {fileID: 4929161225847425534, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
+    prefab: {fileID: 648358859092923389, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
     rotation: {x: 0, y: 90, z: 0}
   Room_NE_Corner:
-    prefab: {fileID: 4929161225847425534, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
+    prefab: {fileID: 648358859092923389, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
     rotation: {x: 0, y: 180, z: 0}
   Room_SE_Corner:
-    prefab: {fileID: 4929161225847425534, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
+    prefab: {fileID: 648358859092923389, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
     rotation: {x: 0, y: -90, z: 0}
   Room_SW_Corner_Door_SW:
-    prefab: {fileID: 3644214202994125200, guid: 243edb173034d9544a226cfb821ddfb8, type: 3}
+    prefab: {fileID: 4809533890769194281, guid: 38fbaa22112d05c49ab9e1219cef5341, type: 3}
     rotation: {x: 0, y: 0, z: 0}
   Room_NW_Corner_Door_NW:
-    prefab: {fileID: 3644214202994125200, guid: 243edb173034d9544a226cfb821ddfb8, type: 3}
+    prefab: {fileID: 4809533890769194281, guid: 38fbaa22112d05c49ab9e1219cef5341, type: 3}
     rotation: {x: 0, y: 90, z: 0}
   Room_NE_Corner_Door_NE:
-    prefab: {fileID: 3644214202994125200, guid: 243edb173034d9544a226cfb821ddfb8, type: 3}
+    prefab: {fileID: 4809533890769194281, guid: 38fbaa22112d05c49ab9e1219cef5341, type: 3}
     rotation: {x: 0, y: 180, z: 0}
   Room_SE_Corner_Door_SE:
-    prefab: {fileID: 3644214202994125200, guid: 243edb173034d9544a226cfb821ddfb8, type: 3}
+    prefab: {fileID: 4809533890769194281, guid: 38fbaa22112d05c49ab9e1219cef5341, type: 3}
     rotation: {x: 0, y: -90, z: 0}
   Room_SW_Corner_Door_S:
-    prefab: {fileID: 126137147313410231, guid: a5795d231e736844191e986913c97f04, type: 3}
+    prefab: {fileID: 6462506304032468689, guid: a5795d231e736844191e986913c97f04, type: 3}
     rotation: {x: 0, y: 0, z: 0}
   Room_SW_Corner_Door_W:
-    prefab: {fileID: 7275277504335710615, guid: 061ad992457edf7479c15b58f3959924, type: 3}
-    rotation: {x: 0, y: -90, z: 0}
+    prefab: {fileID: 8915762752904446849, guid: 3ac7fd3900a06924f9e447812946bc19, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
   Room_NW_Corner_Door_W:
-    prefab: {fileID: 126137147313410231, guid: a5795d231e736844191e986913c97f04, type: 3}
+    prefab: {fileID: 6462506304032468689, guid: a5795d231e736844191e986913c97f04, type: 3}
     rotation: {x: 0, y: 90, z: 0}
   Room_NW_Corner_Door_N:
-    prefab: {fileID: 7275277504335710615, guid: 061ad992457edf7479c15b58f3959924, type: 3}
-    rotation: {x: 0, y: 0, z: 0}
+    prefab: {fileID: 8915762752904446849, guid: 3ac7fd3900a06924f9e447812946bc19, type: 3}
+    rotation: {x: 0, y: 90, z: 0}
   Room_NE_Corner_Door_N:
-    prefab: {fileID: 126137147313410231, guid: a5795d231e736844191e986913c97f04, type: 3}
+    prefab: {fileID: 6462506304032468689, guid: a5795d231e736844191e986913c97f04, type: 3}
     rotation: {x: 0, y: 180, z: 0}
   Room_NE_Corner_Door_E:
-    prefab: {fileID: 7275277504335710615, guid: 061ad992457edf7479c15b58f3959924, type: 3}
-    rotation: {x: 0, y: 90, z: 0}
+    prefab: {fileID: 8915762752904446849, guid: 3ac7fd3900a06924f9e447812946bc19, type: 3}
+    rotation: {x: 0, y: 180, z: 0}
   Room_SE_Corner_Door_E:
-    prefab: {fileID: 126137147313410231, guid: a5795d231e736844191e986913c97f04, type: 3}
+    prefab: {fileID: 6462506304032468689, guid: a5795d231e736844191e986913c97f04, type: 3}
     rotation: {x: 0, y: -90, z: 0}
   Room_SE_Corner_Door_S:
-    prefab: {fileID: 7275277504335710615, guid: 061ad992457edf7479c15b58f3959924, type: 3}
-    rotation: {x: 0, y: 180, z: 0}
+    prefab: {fileID: 8915762752904446849, guid: 3ac7fd3900a06924f9e447812946bc19, type: 3}
+    rotation: {x: 0, y: -90, z: 0}
   Room_N_Wall:
-    prefab: {fileID: 348708174883097347, guid: 37f3eb27e1f7d614799ca6d5d2270309, type: 3}
+    prefab: {fileID: 7611516328632798162, guid: 37f3eb27e1f7d614799ca6d5d2270309, type: 3}
     rotation: {x: 0, y: 90, z: 0}
   Room_E_Wall:
-    prefab: {fileID: 348708174883097347, guid: 37f3eb27e1f7d614799ca6d5d2270309, type: 3}
+    prefab: {fileID: 7611516328632798162, guid: 37f3eb27e1f7d614799ca6d5d2270309, type: 3}
     rotation: {x: 0, y: 180, z: 0}
   Room_S_Wall:
-    prefab: {fileID: 348708174883097347, guid: 37f3eb27e1f7d614799ca6d5d2270309, type: 3}
+    prefab: {fileID: 7611516328632798162, guid: 37f3eb27e1f7d614799ca6d5d2270309, type: 3}
     rotation: {x: 0, y: -90, z: 0}
   Room_W_Wall:
-    prefab: {fileID: 348708174883097347, guid: 37f3eb27e1f7d614799ca6d5d2270309, type: 3}
+    prefab: {fileID: 7611516328632798162, guid: 37f3eb27e1f7d614799ca6d5d2270309, type: 3}
     rotation: {x: 0, y: 0, z: 0}
   Room_N_Wall_Door_N:
-    prefab: {fileID: 2078080978730102818, guid: 23611bf5cd8d7564a936c254150165e1, type: 3}
+    prefab: {fileID: 2423523311379086020, guid: 23611bf5cd8d7564a936c254150165e1, type: 3}
     rotation: {x: 0, y: 90, z: 0}
   Room_E_Wall_Door_E:
-    prefab: {fileID: 2078080978730102818, guid: 23611bf5cd8d7564a936c254150165e1, type: 3}
+    prefab: {fileID: 2423523311379086020, guid: 23611bf5cd8d7564a936c254150165e1, type: 3}
     rotation: {x: 0, y: 180, z: 0}
   Room_S_Wall_Door_S:
-    prefab: {fileID: 2078080978730102818, guid: 23611bf5cd8d7564a936c254150165e1, type: 3}
+    prefab: {fileID: 2423523311379086020, guid: 23611bf5cd8d7564a936c254150165e1, type: 3}
     rotation: {x: 0, y: -90, z: 0}
   Room_W_Wall_Door_W:
-    prefab: {fileID: 2078080978730102818, guid: 23611bf5cd8d7564a936c254150165e1, type: 3}
+    prefab: {fileID: 2423523311379086020, guid: 23611bf5cd8d7564a936c254150165e1, type: 3}
     rotation: {x: 0, y: 0, z: 0}
   Room_Corner_Pillar_SW:
     prefab: {fileID: 5235532173086899635, guid: 653f0c092fe57bb4fb44ef4caa759ff4, type: 3}
@@ -1973,9 +2071,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 975359194822a1a4a951138ca6e42f45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  _floorText: {fileID: 0}
-  _keyText: {fileID: 1968476619}
-  _keyContainer: []
+  _floorText: {fileID: 1968476619}
+  _keyText: {fileID: 67718949}
+  _keyContainer:
+  - {fileID: 399103444}
   _inventorySystem: {fileID: 1423724615}
 --- !u!4 &2100124034
 Transform:
