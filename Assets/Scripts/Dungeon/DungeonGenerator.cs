@@ -82,6 +82,7 @@ public class DungeonGenerator : MonoBehaviour
     public DungeonModule Room_Corner_Pillar_NE;
     public DungeonModule Room_Corner_Pillar_SE;
     public DungeonModule Floor_Exit_Portal;
+    public DungeonModule Floor_Entry_Portal;
 
     [Header("** Dungeon Modules: Stairwell **")]
     public DungeonModule Stairwell;
@@ -1301,6 +1302,15 @@ public class DungeonGenerator : MonoBehaviour
                         stairs.name = "STAIRS - " + (x * _dungeonScale).ToString() + " - " + ((y + 1) * _dungeonScale).ToString();
                         stairs.transform.parent = _doorContainer.transform;
                         break;
+
+                    case Tile.TileType.FloorEnter:
+                        // Enter door
+                        GameObject floorEnter = Instantiate(Floor_Entry_Portal.prefab);
+                        floorEnter.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
+                        floorEnter.transform.Rotate(Floor_Entry_Portal.rotation);
+                        floorEnter.name = "ENTRY - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
+                        floorEnter.transform.parent = _doorContainer.transform;
+                        break;
                 }
             }
         }
@@ -1503,8 +1513,12 @@ public class DungeonGenerator : MonoBehaviour
         {
             // Convert player position to map coordinates
             // considering the offsets of the dungeon in multiple floors
-            int playerTileX = (int)(_player.transform.position.x / _dungeonScale) - _xOffset; ;
+            int playerTileX = (int)(_player.transform.position.x / _dungeonScale) - _xOffset;
             int playerTileY = (int)(_player.transform.position.z / _dungeonScale) - _zOffset;
+
+            Debug.Log("DungeonFloor: " + _dungeonFloor);
+            Debug.Log("XOffset: " + _xOffset);
+            Debug.Log("ZOffset: " + _zOffset);
 
             if (_dungeon.Tiles[playerTileX, playerTileY].Type != Tile.TileType.Wall)
             {
