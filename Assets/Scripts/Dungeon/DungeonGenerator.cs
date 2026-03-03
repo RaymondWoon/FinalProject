@@ -1516,10 +1516,6 @@ public class DungeonGenerator : MonoBehaviour
             int playerTileX = (int)(_player.transform.position.x / _dungeonScale) - _xOffset;
             int playerTileY = (int)(_player.transform.position.z / _dungeonScale) - _zOffset;
 
-            Debug.Log("DungeonFloor: " + _dungeonFloor);
-            Debug.Log("XOffset: " + _xOffset);
-            Debug.Log("ZOffset: " + _zOffset);
-
             if (_dungeon.Tiles[playerTileX, playerTileY].Type != Tile.TileType.Wall)
             {
                 mapTexture.SetPixel(playerTileX, playerTileY, Color.gray);
