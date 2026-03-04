@@ -1446,7 +1446,6 @@ public class DungeonGenerator : MonoBehaviour
     /// </summary>
     private void CreateMap()
     {
-        Debug.Log("Map created!");
         GameObject mapGO = new GameObject();
         mapGO.name = "MapObject" + _dungeonFloor.ToString();
 
