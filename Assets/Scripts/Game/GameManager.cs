@@ -118,6 +118,12 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
+        // In WebGL, keep the cursor visible and free
+#if UNITY_WEBGL
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+#endif
+
         _gameState = state;
     }
 
