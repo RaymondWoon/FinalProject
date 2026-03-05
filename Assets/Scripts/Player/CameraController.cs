@@ -42,8 +42,8 @@ public class CameraController : MonoBehaviour
         _target = GameObject.FindGameObjectWithTag("Player").transform;
 
         // Hide & lock the mouse cursor
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
