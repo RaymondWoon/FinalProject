@@ -401,8 +401,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\tEarth has been invaded and some human had taken refuge deep in the fortified
-    dungeons. Once in a while, a hero rises and attempts to reach the surface.\n\tCan
+  m_Text: "\tEarth has been invaded and some humans had taken refuge deep in the
+    fortified dungeons. Once in a while, a hero rises and attempts to reach the surface.\n\tCan
     you be that hero? \t"
 --- !u!222 &133922735
 CanvasRenderer:
