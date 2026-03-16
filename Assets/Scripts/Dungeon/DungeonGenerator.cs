@@ -142,6 +142,11 @@ public class DungeonGenerator : MonoBehaviour
         set { _dungeonFloorHeight = value; }
     }
 
+    public Room DungeonRoom(int index)
+    {
+        return _dungeon.Rooms[index];
+    }
+
     public int DungeonScale
     {
         set { _dungeonScale = value; }
