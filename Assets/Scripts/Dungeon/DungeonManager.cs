@@ -52,7 +52,7 @@ public class DungeonManager : MonoBehaviour
 
             _dGens[i].BuildDungeon();
         }
-
+        
         // If not GameScene, end process
         if (activeScene.name != "GameScene")
             return;
@@ -80,6 +80,12 @@ public class DungeonManager : MonoBehaviour
                 // Zero the offset and do not move the last floor
                 _dGens[i].XOffset = 0;
                 _dGens[i].ZOffset = 0;
+
+                // NavMesh must be generated after translation
+                _dGens[i].GenerateNavMesh();
+
+                _dGens[i].UpdatePlayerInitialPosition();
+
                 continue;
             }
             else
@@ -98,6 +104,9 @@ public class DungeonManager : MonoBehaviour
 
                 // Update the total offset
                 totalOffset += offsets[i];
+
+                // NavMesh must be generated after translation
+                _dGens[i].GenerateNavMesh();
             }
         }
     }

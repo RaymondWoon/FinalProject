@@ -13,6 +13,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector3 _cameraOffset = new(0.2f, 1.0f, -2.0f);
     [SerializeField] private Vector3 _aimOffset = new(0.0f, 1.0f, 0.0f);
 
+    [Header("Audio")]
+    public AudioClip[] FootstepAudioClips;
+    [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
+
     [Header("Dungeon")]
     [SerializeField] private GameObject _environment;
 
@@ -85,11 +89,25 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Handles PlayerFootstep via AnimationEvent
+    private void OnFootstep(AnimationEvent animationEvent)
+    {
+        if (animationEvent.animatorClipInfo.weight > 0.5f)
+        {
+            if (FootstepAudioClips.Length > 0)
+            {
+                var index = Random.Range(0, FootstepAudioClips.Length);
+                AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_characterController.center), FootstepAudioVolume);
+            }
+        }
+    }
+
     // Handles 'Player_Aim' context from InputSystem
     public void OnPlayerAim(InputAction.CallbackContext ctx)
     {
         _isAiming = ctx.ReadValue<float>() == 1;
     }
+
 
     // Handles 'Player_Move' context from InputSystem
     public void OnPlayerMove(InputAction.CallbackContext ctx)

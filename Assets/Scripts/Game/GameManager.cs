@@ -24,6 +24,11 @@ public class GameManager : MonoBehaviour
     private GameObject _player;
     private PlayerController _playerController;
 
+    public int PlayerFloor
+    {
+        get { return _playerFloor; }
+    }
+
     private enum GameState
     {
         GamePlay,
