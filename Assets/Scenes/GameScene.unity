@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad62efa13ce3f54d9a7c851c2b84e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DungeonGenerator
+  _navMeshSurface: {fileID: 0}
   _corridorContainer: {fileID: 387918328}
   _doorContainer: {fileID: 1496114223}
   _roomCornerContainer: {fileID: 586866234}
@@ -318,6 +319,7 @@ MonoBehaviour:
   _enemy: {fileID: 0}
   _treasure: {fileID: 0}
   _key: {fileID: 338406759053407294, guid: 081b5f5baeaa647478532ed4be6355ee, type: 3}
+  _enemies: []
   _mapImage: {fileID: 0}
   _canvas: {fileID: 992075970}
   _showMap: 0
@@ -1048,6 +1050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad62efa13ce3f54d9a7c851c2b84e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DungeonGenerator
+  _navMeshSurface: {fileID: 0}
   _corridorContainer: {fileID: 1861625024}
   _doorContainer: {fileID: 829385931}
   _roomCornerContainer: {fileID: 502997400}
@@ -1193,6 +1196,7 @@ MonoBehaviour:
   _enemy: {fileID: 0}
   _treasure: {fileID: 0}
   _key: {fileID: 338406759053407294, guid: 081b5f5baeaa647478532ed4be6355ee, type: 3}
+  _enemies: []
   _mapImage: {fileID: 0}
   _canvas: {fileID: 1269355844}
   _showMap: 0
@@ -3839,6 +3843,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1602372841}
+  - component: {fileID: 1602372843}
   - component: {fileID: 1602372842}
   m_Layer: 0
   m_Name: Dungeon Floor 1
@@ -3884,6 +3889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad62efa13ce3f54d9a7c851c2b84e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DungeonGenerator
+  _navMeshSurface: {fileID: 1602372843}
   _corridorContainer: {fileID: 477214274}
   _doorContainer: {fileID: 1841553334}
   _roomCornerContainer: {fileID: 1481383127}
@@ -4029,10 +4035,44 @@ MonoBehaviour:
   _enemy: {fileID: 0}
   _treasure: {fileID: 0}
   _key: {fileID: 338406759053407294, guid: 081b5f5baeaa647478532ed4be6355ee, type: 3}
+  _enemies:
+  - {fileID: 4218811751504642912, guid: 63392bcba0c721c469f03a15183914aa, type: 3}
   _mapImage: {fileID: 0}
   _canvas: {fileID: 1560184714}
   _showMap: 0
   _debugOutput: 0
+--- !u!114 &1602372843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1602372840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.25
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
 --- !u!1 &1645675555
 GameObject:
   m_ObjectHideFlags: 0
@@ -4386,6 +4426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad62efa13ce3f54d9a7c851c2b84e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DungeonGenerator
+  _navMeshSurface: {fileID: 0}
   _corridorContainer: {fileID: 1473666869}
   _doorContainer: {fileID: 306038171}
   _roomCornerContainer: {fileID: 149595663}
@@ -4531,6 +4572,7 @@ MonoBehaviour:
   _enemy: {fileID: 0}
   _treasure: {fileID: 0}
   _key: {fileID: 338406759053407294, guid: 081b5f5baeaa647478532ed4be6355ee, type: 3}
+  _enemies: []
   _mapImage: {fileID: 0}
   _canvas: {fileID: 2137544508}
   _showMap: 0

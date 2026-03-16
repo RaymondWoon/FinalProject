@@ -59,5 +59,81 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6e287bd75d7364d4ba828f8fbdfbc24e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2770086274115392664}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6e287bd75d7364d4ba828f8fbdfbc24e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7960702619320966447}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6e287bd75d7364d4ba828f8fbdfbc24e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1792299997084438066}
   m_SourcePrefab: {fileID: 100100000, guid: 6e287bd75d7364d4ba828f8fbdfbc24e, type: 3}
+--- !u!1 &4218811751504642912 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6e287bd75d7364d4ba828f8fbdfbc24e, type: 3}
+  m_PrefabInstance: {fileID: 3912875178796826161}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &2770086274115392664
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4218811751504642912}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Height: 2.04
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.02, z: 0}
+--- !u!195 &7960702619320966447
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4218811751504642912}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 0.8
+  m_Acceleration: 2
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0.1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &1792299997084438066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4218811751504642912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b688eb67d62d9439cd06386a09bf9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  _walkingSpeed: 0.6
+  _runningSpeed: 1
+  _chaseDistance: 10
+  _forgetDistance: 15
+  _stoppingDistance: 1

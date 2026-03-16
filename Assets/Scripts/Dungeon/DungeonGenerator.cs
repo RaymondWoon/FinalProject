@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 //using Unity.VectorGraphics;
@@ -7,18 +8,22 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 //using UnityEngine.UI;
 //using static UnityEngine.LightAnchor;
+using Unity.AI.Navigation;
 
 public class DungeonGenerator : MonoBehaviour
 {
-    
+
     #region SERIALIZE FIELDS
-    
-    [Header("** Dungeon Parameters **")]
+
+    //[Header("** Dungeon Parameters **")]
     //[SerializeField] private int _dungeonWidth = 29;
     //[SerializeField] private int _dungeonDepth = 29;
     //[SerializeField] private int _dungeonFloor = 1;
     //[SerializeField] private int _minRoomSize = 3;
     //[SerializeField] private int _maxRoomSize = 5;
+
+    [Header("** AI Navigation **")]
+    [SerializeField] private NavMeshSurface _navMeshSurface;
 
     [Header("** Dungeon Containers **")]
     [SerializeField] private GameObject _corridorContainer;
@@ -97,6 +102,7 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private GameObject _enemy;
     [SerializeField] private GameObject _treasure;
     [SerializeField] private GameObject _key;
+    [SerializeField] private GameObject[] _enemies;
 
     [Header("** Map **")]
     [SerializeField] private UnityEngine.UI.Image _mapImage;
@@ -149,6 +155,7 @@ public class DungeonGenerator : MonoBehaviour
 
     public int DungeonScale
     {
+        get { return _dungeonScale; }
         set { _dungeonScale = value; }
     }
 
@@ -327,21 +334,17 @@ public class DungeonGenerator : MonoBehaviour
             GenerateDungeonLevel();
         }
 
-        // Spawn GameObjects
-        if (activeScene.name != "TestScene")
+        if (activeScene.name == "GameScene")
         {
-            if (activeScene.name == "PrototypeScene")
-            {
-                // Spawn the enemies
-                SpawnEnemy();
+            StartCoroutine(BuildNavMesh());
+        }
+        else if (activeScene.name == "PrototypeScene")
+        {
+            // Spawn the enemies
+            SpawnEnemy();
 
-                // Spawn treasure
-                SpawnTreasure();
-            }
-
-            // Spawn keys
-            if (activeScene.name == "GameScene")
-                SpawnKey();
+            // Spawn treasure
+            SpawnTreasure();
 
             // Update the player start position to the entrance room
             UpdatePlayerInitialPosition();
@@ -350,6 +353,30 @@ public class DungeonGenerator : MonoBehaviour
             if (_showMap)
                 UpdateMap();
         }
+
+        // Spawn GameObjects
+        //if (activeScene.name != "TestScene")
+        //{
+        //if (activeScene.name == "PrototypeScene")
+        //{
+        // Spawn the enemies
+        //SpawnEnemy();
+
+        // Spawn treasure
+        //    SpawnTreasure();
+        //}
+
+        // Spawn keys
+        //if (activeScene.name == "GameScene")
+        //    SpawnKey();
+
+        // Update the player start position to the entrance room
+        //UpdatePlayerInitialPosition();
+
+        // Update the map to include the player position
+        //if (_showMap)
+        //    UpdateMap();
+        //}
 
         // Print Debug Output if required
         if (_debugOutput)
@@ -581,6 +608,36 @@ public class DungeonGenerator : MonoBehaviour
         Vector3 pos = new Vector3(_dungeon.Rooms[0].CenterX * _dungeonScale, _floorDepth + 1f, _dungeon.Rooms[0].CenterZ * _dungeonScale);
 
         _player.transform.position = pos;
+    }
+
+    private void PlaceActors()
+    {
+        // Spawn the enemies
+        SpawnEnemy();
+
+        // Spawn keys
+        SpawnKey();
+
+        // Update the player start position to the entrance room
+        UpdatePlayerInitialPosition();
+
+        // Update the map to include the player position
+        if (_showMap)
+            UpdateMap();
+
+        // Print Debug Output if required
+        if (_debugOutput)
+            DebugOutput();
+    }
+
+    private IEnumerator BuildNavMesh()
+    {
+        // Wait to ensure that is instantiated tiles are in place
+        yield return new WaitForEndOfFrame();
+
+        _navMeshSurface.BuildNavMesh();
+
+        PlaceActors();
     }
 
     #endregion
@@ -1326,13 +1383,30 @@ public class DungeonGenerator : MonoBehaviour
     /// </summary>
     private void SpawnEnemy()
     {
+        int roomCount = 0;
+
         foreach (Room room in _dungeon.Rooms)
         {
+            roomCount += 1;
+
             if (room.Tag == "Entrance") continue;
 
-            Vector3 pos = new Vector3(room.CenterX * _dungeonScale, 1.5f, room.CenterZ * _dungeonScale);
+            float enemyX, enemyZ;
+            Vector3 upDirection = transform.up;
+            GameObject go = _enemies[rng.Next(_enemies.Length)];
 
-            GameObject enemy = Instantiate(_enemy, pos, Quaternion.identity);
+            // Define the limits of the room to randomly place the key
+            Vector3 pos1 = new Vector3((room.StartX + 0.75f) * _dungeonScale, 1.0f, (room.StartZ + 0.75f) * _dungeonScale);
+            Vector3 pos2 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale, 1.0f, (room.StartZ + 0.75f) * _dungeonScale);
+            Vector3 pos3 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale);
+            Vector3 pos4 = new Vector3((room.StartX + 0.75f) * _dungeonScale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale);
+
+            // Randomly select X & Z as a float
+            enemyX = UnityEngine.Random.Range(pos1.x, pos3.x);
+            enemyZ = UnityEngine.Random.Range(pos1.z, pos3.z);
+
+            GameObject enemy = Instantiate(go, new Vector3(enemyX, _floorDepth, enemyZ), Quaternion.identity);
+            enemy.name = "ENEMY " + roomCount.ToString();
             enemy.transform.parent = _enemyContainer.transform;
         }
     }
