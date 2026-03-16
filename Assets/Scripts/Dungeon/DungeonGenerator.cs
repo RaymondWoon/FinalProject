@@ -336,7 +336,7 @@ public class DungeonGenerator : MonoBehaviour
 
         if (activeScene.name == "GameScene")
         {
-            StartCoroutine(BuildNavMesh());
+            //StartCoroutine(BuildNavMesh());
         }
         else if (activeScene.name == "PrototypeScene")
         {
@@ -381,6 +381,11 @@ public class DungeonGenerator : MonoBehaviour
         // Print Debug Output if required
         if (_debugOutput)
             DebugOutput();
+    }
+
+    public void GenerateNavMesh()
+    {
+        StartCoroutine(BuildNavMesh());
     }
 
     /// <summary>
@@ -603,7 +608,7 @@ public class DungeonGenerator : MonoBehaviour
     /// <summary>
     /// Update the player’s initial position to the entrance of the last floor
     /// </summary>
-    private void UpdatePlayerInitialPosition()
+    public void UpdatePlayerInitialPosition()
     {
         Vector3 pos = new Vector3(_dungeon.Rooms[0].CenterX * _dungeonScale, _floorDepth + 1f, _dungeon.Rooms[0].CenterZ * _dungeonScale);
 
@@ -619,7 +624,7 @@ public class DungeonGenerator : MonoBehaviour
         SpawnKey();
 
         // Update the player start position to the entrance room
-        UpdatePlayerInitialPosition();
+        //UpdatePlayerInitialPosition();
 
         // Update the map to include the player position
         if (_showMap)
@@ -630,7 +635,7 @@ public class DungeonGenerator : MonoBehaviour
             DebugOutput();
     }
 
-    private IEnumerator BuildNavMesh()
+    public IEnumerator BuildNavMesh()
     {
         // Wait to ensure that is instantiated tiles are in place
         yield return new WaitForEndOfFrame();
@@ -1402,8 +1407,8 @@ public class DungeonGenerator : MonoBehaviour
             Vector3 pos4 = new Vector3((room.StartX + 0.75f) * _dungeonScale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale);
 
             // Randomly select X & Z as a float
-            enemyX = UnityEngine.Random.Range(pos1.x, pos3.x);
-            enemyZ = UnityEngine.Random.Range(pos1.z, pos3.z);
+            enemyX = UnityEngine.Random.Range(pos1.x, pos3.x) + XOffset * _dungeonScale;
+            enemyZ = UnityEngine.Random.Range(pos1.z, pos3.z) + ZOffset * _dungeonScale;
 
             GameObject enemy = Instantiate(go, new Vector3(enemyX, _floorDepth, enemyZ), Quaternion.identity);
             enemy.name = "ENEMY " + roomCount.ToString();
@@ -1461,8 +1466,8 @@ public class DungeonGenerator : MonoBehaviour
             //Vector3[] pos = { pos1, pos2, pos3, pos4 };
 
             // Randomly select X & Z as a float
-            keyX = UnityEngine.Random.Range(pos1.x, pos3.x);
-            keyZ = UnityEngine.Random.Range(pos1.z, pos3.z);
+            keyX = UnityEngine.Random.Range(pos1.x, pos3.x) + XOffset * _dungeonScale;
+            keyZ = UnityEngine.Random.Range(pos1.z, pos3.z) + ZOffset * _dungeonScale;
 
             GameObject key = Instantiate(_key, new Vector3(keyX, _floorDepth, keyZ) + upDirection * 1.0f, Quaternion.identity);
             key.name = "KEY " + roomCount.ToString();

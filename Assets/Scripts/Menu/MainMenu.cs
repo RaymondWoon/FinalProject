@@ -32,6 +32,10 @@ public class MainMenu : MonoBehaviour
 
         // Add a listener to the dungeon floor input field
         _floorInputField.onValueChanged.AddListener(delegate { DungeonFloorInputValueChanged(); });
+
+        _widthSlider.maxValue = MainManager.Instance.MaxDungeonWidth;
+        _depthSlider.maxValue = MainManager.Instance.MaxDungeonDepth;
+        _floorSlider.maxValue = MainManager.Instance.MaxDungeonFloor;
     }
 
     // Update is called once per frame

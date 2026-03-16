@@ -1137,7 +1137,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 539672936}
   m_Direction: 0
   m_MinValue: 1
-  m_MaxValue: 4
+  m_MaxValue: 10
   m_WholeNumbers: 1
   m_Value: 1
   m_OnValueChanged:
@@ -4276,7 +4276,7 @@ MonoBehaviour:
   m_LineType: 0
   m_HideMobileInput: 0
   m_CharacterValidation: 1
-  m_CharacterLimit: 1
+  m_CharacterLimit: 2
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -5250,7 +5250,7 @@ MonoBehaviour:
   MinDungeonDepth: 15
   MaxDungeonDepth: 51
   MinDungeonFloor: 1
-  MaxDungeonFloor: 1
+  MaxDungeonFloor: 10
 --- !u!1 &1971147803
 GameObject:
   m_ObjectHideFlags: 0

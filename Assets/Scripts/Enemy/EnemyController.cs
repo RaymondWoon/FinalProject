@@ -31,6 +31,7 @@ public class EnemyController : MonoBehaviour
     // Local variables
     private STATE _currentState;
     private DungeonGenerator _dungeonFloor;
+    private int _dungeonFloorNum;
     private Room _parentRoom;
     private int _roomNum;
 
@@ -51,6 +52,9 @@ public class EnemyController : MonoBehaviour
         // Parent dungeon floor
         _dungeonFloor = this.transform.parent.gameObject.transform.parent.GetComponent<DungeonGenerator>();
 
+        // Parse the dungeon floor number from its name
+        _dungeonFloorNum = int.Parse(_dungeonFloor.name.Substring(13));
+
         // Parse the room number from object name
         _roomNum = int.Parse(this.transform.name.Substring(5));
 
@@ -61,7 +65,12 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Enemy is dead, do not update
         if (_currentState == STATE.DEAD)
+            return;
+
+        // Player is not on this floor
+        if (_dungeonFloorNum != GameManager.Instance.PlayerFloor)
             return;
 
         switch (_currentState)

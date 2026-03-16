@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 7104480261014311452}
   - component: {fileID: 1520435682447530193}
   - component: {fileID: 4026214089905291319}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Roof_Flat (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -558,7 +558,7 @@ GameObject:
   - component: {fileID: 6902858119115989735}
   - component: {fileID: 6797414154273421730}
   - component: {fileID: 4098788743998950404}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Roof_Flat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
