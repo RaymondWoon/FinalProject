@@ -65,6 +65,7 @@ public class MainMenu : MonoBehaviour
     // Handler to close the 'Help' panel
     public void OnCloseInstructionPanelClicked()
     {
+        // hide 'Instructions Panel'
         _instructionsPanel.SetActive(false);
 
         // Enable the 'Storyline'
