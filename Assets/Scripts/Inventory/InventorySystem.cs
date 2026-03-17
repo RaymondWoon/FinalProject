@@ -5,9 +5,22 @@ namespace DungeonEscape.Inventory
 {
     public class InventorySystem : MonoBehaviour
     {
+        [System.Serializable]
+        public struct InventoryModule
+        {
+            public InventoryItemData itemData;
+            public int qty;
+        }
+        public InventoryModule _initialArrows;
+
         [SerializeField] private int _maxSlots;
 
         public List<InventorySlot> slots = new List<InventorySlot>();
+
+        private void Start()
+        {
+            AddItem(_initialArrows.itemData, _initialArrows.qty);
+        }
 
         public int AddItem(InventoryItemData itemData, int qty)
         {

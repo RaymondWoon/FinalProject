@@ -1415,6 +1415,37 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
+--- !u!1 &180477862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 180477863}
+  m_Layer: 0
+  m_Name: InitialStringPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &180477863
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180477862}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalPosition: {x: 9.313226e-12, y: -0.01075402, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1405177970}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!1 &193002891
 GameObject:
   m_ObjectHideFlags: 0
@@ -6622,12 +6653,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4162163098961802, guid: d03c4353fda446d4f8df56d422578d64, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 180477863}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d03c4353fda446d4f8df56d422578d64, type: 3}
 --- !u!4 &1405177969 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4620178347958848, guid: d03c4353fda446d4f8df56d422578d64, type: 3}
+  m_PrefabInstance: {fileID: 1405177968}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1405177970 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4162163098961802, guid: d03c4353fda446d4f8df56d422578d64, type: 3}
   m_PrefabInstance: {fileID: 1405177968}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1423724614
@@ -6659,6 +6698,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851f8792973ae0f4a9550cefcbb96d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DungeonEscape.Inventory.InventorySystem
+  _initialArrows:
+    itemData: {fileID: 11400000, guid: df4b2b4163ccafe4e8cc0916c472ec1b, type: 2}
+    qty: 10
   _maxSlots: 10
   slots: []
 --- !u!4 &1423724616
@@ -7661,6 +7703,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6502182839619065283, guid: 17d424b9f0615fe4f8690fca42f7457d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1155142172}
+    - targetCorrespondingSourceObject: {fileID: 1852576806548013000, guid: 17d424b9f0615fe4f8690fca42f7457d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1748830484}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17d424b9f0615fe4f8690fca42f7457d, type: 3}
 --- !u!4 &1668608765 stripped
@@ -7676,6 +7721,11 @@ Transform:
 --- !u!4 &1668608767 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6502182839619065283, guid: 17d424b9f0615fe4f8690fca42f7457d, type: 3}
+  m_PrefabInstance: {fileID: 1668608764}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1668608768 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: 17d424b9f0615fe4f8690fca42f7457d, type: 3}
   m_PrefabInstance: {fileID: 1668608764}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1684403132
@@ -8091,6 +8141,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1748830483
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1748830484}
+  m_Layer: 0
+  m_Name: ArrowPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1748830484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1748830483}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.114, z: 0.055}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1668608768}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1764126349
 GameObject:
