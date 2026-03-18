@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     [Header("Camera Movement Parameters")]
     [SerializeField] private float _moveSpeed = 4.0f;
     [SerializeField] public float _rotationSpeed = 2.0f;
-    [SerializeField] private float _zoomSpeed = 5.0f;
+    //[SerializeField] private float _zoomSpeed = 5.0f;
     [SerializeField] private float _minVerticalAngle = -30.0f;
     [SerializeField] private float _maxVerticalAngle = 70.0f;
     [SerializeField] private float _mouseSensitivityX = 5.0f;

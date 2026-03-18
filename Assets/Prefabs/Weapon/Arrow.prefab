@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 213f611eec9923e43b85b62c33e7d596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Arrow
-  _lifeTime: 10
+  _lifeSpan: 15
 --- !u!1001 &9071998457422824444
 PrefabInstance:
   m_ObjectHideFlags: 0

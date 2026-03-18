@@ -94,7 +94,7 @@ namespace DungeonEscape.Inventory
                 if (remItems <= 0)
                     break;
 
-                if (slot._qty < remItems)
+                if (slot._qty <= remItems)
                 {
                     remItems -= slot._qty;
                     slot.ClearSlot();
@@ -123,6 +123,9 @@ namespace DungeonEscape.Inventory
         {
             List<InventorySlot> slotsWithItem = slots.Where(s => s._itemData.itemType == type 
                 && s._itemData.itemName == itemName).ToList();
+
+            if (slotsWithItem.Count == 0)
+                return 0;
 
             int totalAvailableItems = slotsWithItem.Count(s => s._itemData.itemType == type);
 
