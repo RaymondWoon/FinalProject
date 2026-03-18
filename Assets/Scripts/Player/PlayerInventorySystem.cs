@@ -10,16 +10,20 @@ public class PlayerInventorySystem : MonoBehaviour
         public int qty;
     }
 
-    public InventoryModule _initialBow;
+    public InventoryModule _bow;
     public InventoryModule _initialArrows;
 
     [SerializeField] private InventorySystem _inventorySystem;
 
+    private int _currentArrows;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        PickUpItem(_initialBow.itemData, _initialBow.qty);
+        PickUpItem(_bow.itemData, _bow.qty);
         PickUpItem(_initialArrows.itemData, _initialArrows.qty);
+
+        _currentArrows = _initialArrows.qty;
     }
 
     // Handler for player to pick item up and add to his inventory
@@ -54,6 +58,11 @@ public class PlayerInventorySystem : MonoBehaviour
     public bool HasArrows()
     {
         return _inventorySystem.TotalItemType(InventoryItemType.Ammo, "Arrow") > 0;
+    }
+
+    public void RemoveArrow()
+    {
+        _currentArrows = _inventorySystem.RemoveItem(_initialArrows.itemData, 1);
     }
 
 }

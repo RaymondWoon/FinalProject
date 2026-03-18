@@ -2622,7 +2622,7 @@ MonoBehaviour:
   SprintSpeed: 4
   _cameraController: {fileID: 221285738}
   _cameraOffset: {x: 0.2, y: 1, z: -2}
-  _aimOffset: {x: 0.2, y: 0.2, z: -0.1}
+  _aimOffset: {x: 0.25, y: 0.2, z: -0.1}
   _lookAtPoint: 2.8
   FootstepAudioClips:
   - {fileID: 8300000, guid: 0c0b4e54495426b4788f84835138bf13, type: 3}
@@ -2636,6 +2636,8 @@ MonoBehaviour:
   _aimLayers:
     serializedVersion: 2
     m_Bits: 385
+  _spine: {fileID: 1668608766}
+  _spineOffset: {x: 12.9, y: 101.7, z: 7.9}
 --- !u!114 &559101819
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -28,6 +28,7 @@ public class Bow : MonoBehaviour
 
     // Local parameters
     private GameObject _currentCrosshair;
+    private Rigidbody _currentArrow;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -91,5 +92,13 @@ public class Bow : MonoBehaviour
     {
         if (_currentCrosshair)
             Destroy(_currentCrosshair);
+    }
+
+    public void FireArrow(Vector3 hitPoint)
+    {
+        Vector3 dir = hitPoint - _arrowPos.position;
+
+        _currentArrow = Instantiate(_arrowPrefab, _arrowPos.position, _arrowPos.rotation) as Rigidbody;
+        _currentArrow.AddForce(dir * _arrowForce, ForceMode.Force);
     }
 }

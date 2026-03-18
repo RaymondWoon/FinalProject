@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     private bool _isSprinting = false;
     private bool _isFirstPerson;
     private bool _isAiming;
+    private bool _playerFired = false;
     private bool _isInStairway = false;
 
     private int _playerFloor = 1;
@@ -86,6 +87,22 @@ public class PlayerController : MonoBehaviour
             _isFirstPerson = true;
 
             Aim();
+
+            if (_playerFired)
+            {
+                if (_hitDetected)
+                {
+                    _bow.FireArrow(_hit.point);
+                }
+                else
+                {
+                    _bow.FireArrow(_ray.GetPoint(300f));
+                }
+
+                _playerInventory.RemoveArrow();
+
+                _playerFired = false;
+            }
         }
         else
         {
@@ -93,8 +110,11 @@ public class PlayerController : MonoBehaviour
             _bow.RemoveCrosshair();
             _bow.DisarmBow();
             _bow.DisableArrow();
+            _playerFired = false;
+            _animator.SetBool("aim", false);
+            _animator.SetBool("pullString", false);
+            _animator.SetBool("fire", false);
         }
-
     }
 
     private void FixedUpdate()
@@ -137,21 +157,6 @@ public class PlayerController : MonoBehaviour
             _mainCamera.transform.localPosition = _cameraOffset;
         }
     }
-
-    //private void RotateToCameraView()
-    //{
-    //    Vector3 camFocalPt = _focalPt.position;
-    //    Vector3 lookPoint = camFocalPt + (_focalPt.forward * _lookDistance);
-    //    Vector3 dir = lookPoint - transform.position;
-
-    //    Quaternion lookRotation = Quaternion.LookRotation(dir);
-    //    // Rotate player in Y only
-    //    lookRotation.x = 0;
-    //    lookRotation.z = 0;
-
-    //    Quaternion finalRotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * _lookSpeed);
-    //    transform.rotation = finalRotation;
-    //}
 
     // Handles PlayerFootstep via AnimationEvent
     private void OnFootstep(AnimationEvent animationEvent)
@@ -222,8 +227,16 @@ public class PlayerController : MonoBehaviour
     // Handles 'Player_Fire' context from InputSystem
     public void OnPlayerFire(InputAction.CallbackContext ctx)
     {
-        if (_isAiming && _playerHasArrows)
+        if (_isAiming && _playerHasArrows && ctx.performed)
+        {
+            _playerFired = true;
             _animator.SetBool("pullString", true);
+            _animator.SetTrigger("fire");
+        }
+        else
+        {
+            _animator.SetBool("pullString", false);
+        }
     }
 
     // Function to toggle the visibility of the map
@@ -294,6 +307,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnPlayerPullString()
     {
-        _bow.PullString();
+        if (_playerHasArrows)
+            _bow.PullString();
+    }
+
+    private void OnPlayerReleaseString()
+    {
+        _bow.ReleaseString();
+    }
+
+    private void OnPlayerFireArrow()
+    {
+        _bow.DisableArrow();
     }
 }
