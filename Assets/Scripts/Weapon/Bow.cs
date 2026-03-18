@@ -23,8 +23,11 @@ public class Bow : MonoBehaviour
     [SerializeField] private Transform _stringHandPullPos;
     [SerializeField] private Transform _stringInitialParent;
 
-    //[Header("Player Inventory")]
-    //[SerializeField] private PlayerInventorySystem _playerInventory;
+    [Header("Crosshair Settings")]
+    [SerializeField] private GameObject _crosshairPrefab;
+
+    // Local parameters
+    private GameObject _currentCrosshair;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -73,5 +76,20 @@ public class Bow : MonoBehaviour
     {
         _bowString.transform.position = _stringInitialPos.position;
         _bowString.transform.parent = _stringInitialParent;
+    }
+
+    public void ShowCrosshair(Vector3 crosshairPos)
+    {
+        if (!_currentCrosshair)
+            _currentCrosshair = Instantiate(_crosshairPrefab) as GameObject;
+
+        _currentCrosshair.transform.position = crosshairPos;
+        _currentCrosshair.transform.LookAt(Camera.main.transform);
+    }
+
+    public void RemoveCrosshair()
+    {
+        if (_currentCrosshair)
+            Destroy(_currentCrosshair);
     }
 }

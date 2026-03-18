@@ -2622,7 +2622,7 @@ MonoBehaviour:
   SprintSpeed: 4
   _cameraController: {fileID: 221285738}
   _cameraOffset: {x: 0.2, y: 1, z: -2}
-  _aimOffset: {x: 0, y: 1, z: 0}
+  _aimOffset: {x: 0.2, y: 0.2, z: -0.1}
   _lookAtPoint: 2.8
   FootstepAudioClips:
   - {fileID: 8300000, guid: 0c0b4e54495426b4788f84835138bf13, type: 3}
@@ -4706,7 +4706,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.1
   far clip plane: 500
   field of view: 60
   orthographic: 0
@@ -7869,6 +7869,7 @@ MonoBehaviour:
   _stringInitialPos: {fileID: 180477863}
   _stringHandPullPos: {fileID: 1748830484}
   _stringInitialParent: {fileID: 1405177969}
+  _crosshairPrefab: {fileID: 9207185299899296815, guid: cf808968183dafb4bb034799d29282b6, type: 3}
 --- !u!1001 &1668608764
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -81,12 +81,16 @@ public class PlayerController : MonoBehaviour
 
         if (_isAiming && _playerHasArrows)
         {
-            Aim();
-
             _bow.EquipBow();
+
+            _isFirstPerson = true;
+
+            Aim();
         }
         else
         {
+            _isFirstPerson = false;
+            _bow.RemoveCrosshair();
             _bow.DisarmBow();
             _bow.DisableArrow();
         }
@@ -259,10 +263,13 @@ public class PlayerController : MonoBehaviour
         {
             _hitDetected = true;
             Debug.DrawLine(_ray.origin, _hit.point, Color.green);
+
+            _bow.ShowCrosshair(_hit.point);
         }
         else
         {
             _hitDetected = false;
+            _bow.RemoveCrosshair();
         }
     }
 
