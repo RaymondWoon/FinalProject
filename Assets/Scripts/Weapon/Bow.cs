@@ -23,17 +23,23 @@ public class Bow : MonoBehaviour
     [SerializeField] private Transform _stringHandPullPos;
     [SerializeField] private Transform _stringInitialParent;
 
+    [Header("Bow Audio Settings")]
+    [SerializeField] private AudioClip _drawArrowClip;
+    [SerializeField] private AudioClip _pullStringClip;
+    [SerializeField] private AudioClip _releaseStringClip;
+
     [Header("Crosshair Settings")]
     [SerializeField] private GameObject _crosshairPrefab;
 
     // Local parameters
     private GameObject _currentCrosshair;
     private Rigidbody _currentArrow;
+    private AudioSource _bowAudio;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        _bowAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -45,6 +51,8 @@ public class Bow : MonoBehaviour
     public void DrawArrow()
     {
         _arrowPos.gameObject.SetActive(true);
+
+        _bowAudio.PlayOneShot(_drawArrowClip);
     }
 
     public void DisableArrow()
@@ -73,6 +81,11 @@ public class Bow : MonoBehaviour
         _bowString.transform.parent = _stringHandPullPos;
     }
 
+    public void PlayPullStringSound()
+    {
+        _bowAudio.PlayOneShot(_pullStringClip);
+    }
+
     public void ReleaseString()
     {
         _bowString.transform.position = _stringInitialPos.position;
@@ -98,7 +111,11 @@ public class Bow : MonoBehaviour
     {
         Vector3 dir = hitPoint - _arrowPos.position;
 
+        _bowAudio.PlayOneShot(_releaseStringClip);
+
         _currentArrow = Instantiate(_arrowPrefab, _arrowPos.position, _arrowPos.rotation) as Rigidbody;
         _currentArrow.AddForce(dir * _arrowForce, ForceMode.Force);
     }
+
+
 }
