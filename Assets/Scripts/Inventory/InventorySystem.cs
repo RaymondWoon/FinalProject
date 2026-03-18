@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace DungeonEscape.Inventory
@@ -75,6 +76,47 @@ namespace DungeonEscape.Inventory
 
             // return the remaining items
             return remItems;
+        }
+
+        public int RemoveItem(InventoryItemData itemData, int qty, bool removePartial = true)
+        {
+            int remItems = qty;
+            
+            List<InventorySlot> slotsWithItem = slots.Where(s => s._itemData == itemData).ToList();
+
+            int totalAvailableItems = slotsWithItem.Sum(s => s._qty);
+
+            if (totalAvailableItems < remItems && !removePartial)
+                return qty;
+
+            foreach (var slot in slotsWithItem)
+            {
+                if (remItems <= 0)
+                    break;
+
+                if (slot._qty < remItems)
+                {
+                    remItems -= slot._qty;
+                    slot.ClearSlot();
+                    slots.Remove(slot);
+                }
+                else
+                {
+                    slot._qty -= remItems;
+                    remItems = 0;
+                }
+            }
+
+            return remItems;
+        }
+
+        public int TotalItem(InventoryItemData itemData)
+        {
+            List<InventorySlot> slotsWithItem = slots.Where(s => s._itemData == itemData).ToList();
+
+            int totalAvailableItems = slotsWithItem.Sum(s => s._qty);
+
+            return totalAvailableItems;
         }
 
         public bool IsFull()

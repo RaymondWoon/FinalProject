@@ -34,7 +34,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Aim",
+                    "name": "FirstPerson",
                     "type": "PassThrough",
                     "id": "7336d55c-859b-4c8c-aed1-7e1edf80b889",
                     "expectedControlType": "",
@@ -46,6 +46,15 @@
                     "name": "Map",
                     "type": "Button",
                     "id": "ca491592-cbfd-46c6-bb3b-871efa4fb8d3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Aim",
+                    "type": "Button",
+                    "id": "ffbf1345-afe8-44d9-94ed-0f98007521c1",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -203,7 +212,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";KeyboardMouse",
-                    "action": "Aim",
+                    "action": "FirstPerson",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -214,7 +223,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Aim",
+                    "action": "FirstPerson",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -259,6 +268,28 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "Map",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "40277425-b976-43f0-9104-63fecdeab49e",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyboardMouse",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8f5289b2-4875-464a-8c6f-f17f1736cecd",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
