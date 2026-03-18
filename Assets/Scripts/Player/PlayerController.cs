@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask _aimLayers;
 
     private CharacterController _characterController;
+    private PlayerInventorySystem _playerInventory;
     private Animator _animator;
 
     private Camera _mainCamera;
@@ -49,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
     private int _playerFloor = 1;
 
-    
+    private bool _playerHasArrows = false;
 
     public int PlayerFloor
     {
@@ -67,6 +68,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _characterController = GetComponent<CharacterController>();
+        _playerInventory = GetComponent<PlayerInventorySystem>();
         _animator = GetComponent<Animator>();
         _mainCamera = Camera.main;
         _focalPt = _mainCamera.transform.parent;
@@ -75,7 +77,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (_isAiming)
+        _playerHasArrows = _playerInventory.HasArrows();
+
+        if (_isAiming && _playerHasArrows)
         {
             Aim();
 
@@ -163,7 +167,8 @@ public class PlayerController : MonoBehaviour
     {
         _isAiming = ctx.ReadValue<float>() == 1;
 
-        _animator.SetBool("aim", _isAiming);
+        if (_playerHasArrows)
+            _animator.SetBool("aim", _isAiming);
     }
 
 
@@ -201,8 +206,6 @@ public class PlayerController : MonoBehaviour
         _isSprinting = ctx.ReadValue<float>() == 1;
     }
 
-    
-
     // Handles 'Player_Map' context from InputSystem
     public void OnPlayerToggleMap(InputAction.CallbackContext ctx)
     {
@@ -210,6 +213,13 @@ public class PlayerController : MonoBehaviour
         {
             ToggleMapVisibility();
         }
+    }
+
+    // Handles 'Player_Fire' context from InputSystem
+    public void OnPlayerFire(InputAction.CallbackContext ctx)
+    {
+        if (_isAiming && _playerHasArrows)
+            _animator.SetBool("pullString", true);
     }
 
     // Function to toggle the visibility of the map
@@ -258,7 +268,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnAnimatorIK(int layerIndex)
     {
-        if (_isAiming)
+        if (_isAiming && _playerHasArrows)
         {
             _animator.SetLookAtWeight(1f);
             _animator.SetLookAtPosition(_ray.GetPoint(_lookAtPoint));
@@ -269,9 +279,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnPlayerDrawArrow()
+    private void OnPlayerDrawArrow()
     {
-        Debug.Log("PlayerDrawArrow is Triggered!");
-        _bow.DrawArrow();
+        if (_playerHasArrows)
+            _bow.DrawArrow();
+    }
+
+    private void OnPlayerPullString()
+    {
+        _bow.PullString();
     }
 }

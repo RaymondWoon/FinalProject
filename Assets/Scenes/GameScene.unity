@@ -688,7 +688,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 400, y: -90}
+  m_AnchoredPosition: {x: 0, y: -90}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &67718949
@@ -2273,6 +2273,85 @@ Transform:
   m_Children: []
   m_Father: {fileID: 840113736}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &456875242
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 456875243}
+  - component: {fileID: 456875245}
+  - component: {fileID: 456875244}
+  m_Layer: 5
+  m_Name: Arrow Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &456875243
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456875242}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 886391275}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 500, y: -90}
+  m_SizeDelta: {x: 500, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &456875244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456875242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 80
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 8
+    m_MaxSize: 80
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Arrows: '
+--- !u!222 &456875245
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456875242}
+  m_CullTransparentMesh: 1
 --- !u!1 &477214274
 GameObject:
   m_ObjectHideFlags: 0
@@ -2710,6 +2789,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ffbf1345-afe8-44d9-94ed-0f98007521c1
     m_ActionName: 'Gameplay/Aim[/Keyboard/alt,/DualShock4GamepadHID/leftTrigger]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 559101818}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnPlayerFire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 511c53b0-6fc0-4b18-bdf3-09691af336cb
+    m_ActionName: 'Gameplay/Fire[/Mouse/leftButton,/DualShock4GamepadHID/rightTrigger]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -2749,6 +2844,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0951f997e5080654abe7ed122f0d1cb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventorySystem
+  _initialBow:
+    itemData: {fileID: 11400000, guid: 27cd701404e2ad947a335a59c88fc1de, type: 2}
+    qty: 1
+  _initialArrows:
+    itemData: {fileID: 11400000, guid: df4b2b4163ccafe4e8cc0916c472ec1b, type: 2}
+    qty: 10
   _inventorySystem: {fileID: 1423724615}
 --- !u!82 &559101822
 AudioSource:
@@ -4380,6 +4481,7 @@ RectTransform:
   m_Children:
   - {fileID: 1968476618}
   - {fileID: 67718948}
+  - {fileID: 456875243}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4497,6 +4599,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &908565096 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4429432022911190, guid: d03c4353fda446d4f8df56d422578d64, type: 3}
+  m_PrefabInstance: {fileID: 1405177968}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0
@@ -6776,7 +6883,7 @@ GameObject:
   - component: {fileID: 1423724616}
   - component: {fileID: 1423724615}
   m_Layer: 0
-  m_Name: Inventory System
+  m_Name: Player Inventory System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6794,9 +6901,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851f8792973ae0f4a9550cefcbb96d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DungeonEscape.Inventory.InventorySystem
-  _initialArrows:
-    itemData: {fileID: 11400000, guid: df4b2b4163ccafe4e8cc0916c472ec1b, type: 2}
-    qty: 10
   _maxSlots: 10
   slots: []
 --- !u!4 &1423724616
@@ -7761,11 +7865,10 @@ MonoBehaviour:
   _disarmPos: {fileID: 373201292}
   _equipParent: {fileID: 1668608767}
   _disarmParent: {fileID: 1668608766}
-  bowString: {fileID: 0}
-  stringInitialPos: {fileID: 0}
-  stringHandPullPos: {fileID: 0}
-  stringInitialParent: {fileID: 0}
-  _playerInventory: {fileID: 559101821}
+  _bowString: {fileID: 908565096}
+  _stringInitialPos: {fileID: 180477863}
+  _stringHandPullPos: {fileID: 1748830484}
+  _stringInitialParent: {fileID: 1405177969}
 --- !u!1001 &1668608764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8282,12 +8385,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1748830484}
   m_Layer: 0
-  m_Name: ArrowPos
+  m_Name: StringhandPulklPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1748830484
 Transform:
   m_ObjectHideFlags: 0
@@ -8297,7 +8400,7 @@ Transform:
   m_GameObject: {fileID: 1748830483}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.191, z: 0.055}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8531,7 +8634,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -400, y: -90}
+  m_AnchoredPosition: {x: -500, y: -90}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1968476619
@@ -9042,6 +9145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   _floorText: {fileID: 1968476619}
   _keyText: {fileID: 67718949}
+  _arrowText: {fileID: 456875244}
   _keyContainer:
   - {fileID: 399103444}
   - {fileID: 1451829604}

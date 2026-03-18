@@ -6,13 +6,13 @@ namespace DungeonEscape.Inventory
 {
     public class InventorySystem : MonoBehaviour
     {
-        [System.Serializable]
-        public struct InventoryModule
-        {
-            public InventoryItemData itemData;
-            public int qty;
-        }
-        public InventoryModule _initialArrows;
+        //[System.Serializable]
+        //public struct InventoryModule
+        //{
+        //    public InventoryItemData itemData;
+        //    public int qty;
+        //}
+        //public InventoryModule _initialArrows;
 
         [SerializeField] private int _maxSlots;
 
@@ -20,7 +20,7 @@ namespace DungeonEscape.Inventory
 
         private void Start()
         {
-            AddItem(_initialArrows.itemData, _initialArrows.qty);
+            //AddItem(_initialArrows.itemData, _initialArrows.qty);
         }
 
         public int AddItem(InventoryItemData itemData, int qty)
@@ -118,6 +118,18 @@ namespace DungeonEscape.Inventory
 
             return totalAvailableItems;
         }
+
+        public int TotalItemType(InventoryItemType type, string itemName)
+        {
+            List<InventorySlot> slotsWithItem = slots.Where(s => s._itemData.itemType == type 
+                && s._itemData.itemName == itemName).ToList();
+
+            int totalAvailableItems = slotsWithItem.Count(s => s._itemData.itemType == type);
+
+            return totalAvailableItems;
+        }
+
+
 
         public bool IsFull()
         {
