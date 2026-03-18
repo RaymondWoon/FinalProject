@@ -13,4 +13,14 @@ public class PlayerInventorySystem : MonoBehaviour
 
         return qty;
     }
+
+    public int RemoveItem(InventoryItemData itemData, int qty, bool removePartial = true)
+    {
+        return _inventorySystem.RemoveItem(itemData, qty, removePartial);
+    }
+
+    public int TotalItem(InventoryItemData itemData)
+    {
+        return _inventorySystem.TotalItem(itemData);
+    }
 }

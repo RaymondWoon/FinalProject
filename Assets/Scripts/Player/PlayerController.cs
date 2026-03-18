@@ -8,10 +8,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float SprintSpeed = 4.0f;
 
     [Header("Camera")]
-    [SerializeField] private Camera _mainCamera;
+    //[SerializeField] private Camera _mainCamera;
     [SerializeField] private CameraController _cameraController;
     [SerializeField] private Vector3 _cameraOffset = new(0.2f, 1.0f, -2.0f);
     [SerializeField] private Vector3 _aimOffset = new(0.0f, 1.0f, 0.0f);
+
+    [Header("Head Rotation Settings")]
+    public float _lookAtPoint = 2.8f;
+
+    //[Header("Camera & Player Syncing")]
+    //[SerializeField] private float _lookDistance = 5.0f;
+    //[SerializeField] private float _lookSpeed = 5.0f;
 
     [Header("Audio")]
     public AudioClip[] FootstepAudioClips;
@@ -20,16 +27,29 @@ public class PlayerController : MonoBehaviour
     [Header("Dungeon")]
     [SerializeField] private GameObject _environment;
 
+    [Header("Aiming Settings")]
+    [SerializeField] private Bow _bow;
+    [SerializeField] private LayerMask _aimLayers;
+
     private CharacterController _characterController;
     private Animator _animator;
+
+    private Camera _mainCamera;
+    private Transform _focalPt;
+    private Ray _ray;
+    private RaycastHit _hit;
+    private bool _hitDetected;
 
     private Vector3 _moveVec = Vector3.zero;
     private float _moveThreshold = 0.01f;
     private bool _isSprinting = false;
+    private bool _isFirstPerson;
     private bool _isAiming;
     private bool _isInStairway = false;
 
     private int _playerFloor = 1;
+
+    
 
     public int PlayerFloor
     {
@@ -43,10 +63,30 @@ public class PlayerController : MonoBehaviour
         set { _isInStairway = value; }
     }
 
-    private void Awake()
+    // Start is called before the first frame update
+    private void Start()
     {
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
+        _mainCamera = Camera.main;
+        _focalPt = _mainCamera.transform.parent;
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+        if (_isAiming)
+        {
+            Aim();
+
+            _bow.EquipBow();
+        }
+        else
+        {
+            _bow.DisarmBow();
+            _bow.DisableArrow();
+        }
+
     }
 
     private void FixedUpdate()
@@ -62,6 +102,7 @@ public class PlayerController : MonoBehaviour
 
             // rotate player to 'forward' direction of camera
             transform.rotation = Quaternion.LookRotation(moveDir);
+            //RotateToCameraView();
 
             Vector3 movement = new Vector3(moveDir.x, 0.0f, moveDir.z) * playerSpeed * Time.fixedDeltaTime;
 
@@ -79,7 +120,7 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (_isAiming)
+        if (_isFirstPerson)
         {
             _mainCamera.transform.localPosition = _aimOffset;
         }
@@ -88,6 +129,21 @@ public class PlayerController : MonoBehaviour
             _mainCamera.transform.localPosition = _cameraOffset;
         }
     }
+
+    //private void RotateToCameraView()
+    //{
+    //    Vector3 camFocalPt = _focalPt.position;
+    //    Vector3 lookPoint = camFocalPt + (_focalPt.forward * _lookDistance);
+    //    Vector3 dir = lookPoint - transform.position;
+
+    //    Quaternion lookRotation = Quaternion.LookRotation(dir);
+    //    // Rotate player in Y only
+    //    lookRotation.x = 0;
+    //    lookRotation.z = 0;
+
+    //    Quaternion finalRotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * _lookSpeed);
+    //    transform.rotation = finalRotation;
+    //}
 
     // Handles PlayerFootstep via AnimationEvent
     private void OnFootstep(AnimationEvent animationEvent)
@@ -106,6 +162,16 @@ public class PlayerController : MonoBehaviour
     public void OnPlayerAim(InputAction.CallbackContext ctx)
     {
         _isAiming = ctx.ReadValue<float>() == 1;
+
+        _animator.SetBool("aim", _isAiming);
+    }
+
+
+
+    // Handles 'Player_FirstPersonView' context from InputSystem
+    public void OnPlayerFirstPersonView(InputAction.CallbackContext ctx)
+    {
+        _isFirstPerson = ctx.ReadValue<float>() == 1;
     }
 
 
@@ -167,5 +233,45 @@ public class PlayerController : MonoBehaviour
                 child.GetComponent<DungeonGenerator>().ShowMap = false;
             }
         }
+    }
+
+    private void Aim()
+    {
+        Vector3 camPosition = _mainCamera.transform.position;
+        Vector3 dir = _mainCamera.transform.forward;
+
+        // rotate player to 'forward' direction of camera
+        transform.rotation = Quaternion.LookRotation(dir);
+
+        _ray = new Ray(camPosition, dir);
+
+        if (Physics.Raycast(_ray, out _hit, 500f, _aimLayers))
+        {
+            _hitDetected = true;
+            Debug.DrawLine(_ray.origin, _hit.point, Color.green);
+        }
+        else
+        {
+            _hitDetected = false;
+        }
+    }
+
+    private void OnAnimatorIK(int layerIndex)
+    {
+        if (_isAiming)
+        {
+            _animator.SetLookAtWeight(1f);
+            _animator.SetLookAtPosition(_ray.GetPoint(_lookAtPoint));
+        }
+        else
+        {
+            _animator.SetLookAtWeight(0f);
+        }
+    }
+
+    public void OnPlayerDrawArrow()
+    {
+        Debug.Log("PlayerDrawArrow is Triggered!");
+        _bow.DrawArrow();
     }
 }
