@@ -5,6 +5,7 @@ namespace DungeonEscape.Inventory
         Weapon,
         Consumable,
         Treasure,
-        Key
+        Key,
+        Ammo
     }
 }

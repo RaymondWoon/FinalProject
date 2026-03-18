@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [Header("HUD")]
     [SerializeField] private Text _floorText;
     [SerializeField] private Text _keyText;
+    [SerializeField] private Text _arrowText;
     [SerializeField] private GameObject[] _keyContainer;
     [SerializeField] private InventorySystem _inventorySystem;
 
@@ -85,6 +86,8 @@ public class GameManager : MonoBehaviour
 
         UpdateFloorText();
 
+        UpdateArrowText();
+
         if (_playerController.IsInStairway)
         {
             _keyText.gameObject.SetActive(false);
@@ -156,6 +159,21 @@ public class GameManager : MonoBehaviour
     private void UpdateFloorText()
     {
         _floorText.text = "Floor: " + _playerFloor.ToString();
+    }
+
+    private void UpdateArrowText()
+    {
+        int arrowQty = 0;
+
+        foreach (InventorySlot slot in _inventorySystem.slots)
+        {
+            if (slot._itemData.itemName == "Arrow")
+            {
+                arrowQty = slot._qty;
+            }
+        }
+
+        _arrowText.text = "Arrows: " + arrowQty.ToString();
     }
 
     public void TogglePauseUI()

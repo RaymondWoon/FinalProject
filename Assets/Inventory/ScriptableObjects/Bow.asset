@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c64a20c7ade7d945bd64d20ec5b87e5, type: 3}
-  m_Name: Arrow
+  m_Name: Bow
   m_EditorClassIdentifier: Assembly-CSharp::DungeonEscape.Inventory.InventoryItemData
-  itemName: Arrow
-  itemId: 3
+  itemName: Bow
+  itemId: 2
   icon: {fileID: 0}
-  itemType: 4
-  isStackable: 1
-  maxStackSize: 10
-  prefab: {fileID: 337983171678028589, guid: 2f7a6139d7444ae49b326b0616e93d41, type: 3}
+  itemType: 0
+  isStackable: 0
+  maxStackSize: 1
+  prefab: {fileID: 1717406733745140, guid: d03c4353fda446d4f8df56d422578d64, type: 3}

@@ -18,13 +18,13 @@ public class Bow : MonoBehaviour
     [SerializeField] private Transform _disarmParent;
 
     [Header("Bow-String Settings")]
-    [SerializeField] private Transform bowString;
-    [SerializeField] private Transform stringInitialPos;
-    [SerializeField] private Transform stringHandPullPos;
-    [SerializeField] private Transform stringInitialParent;
+    [SerializeField] private Transform _bowString;
+    [SerializeField] private Transform _stringInitialPos;
+    [SerializeField] private Transform _stringHandPullPos;
+    [SerializeField] private Transform _stringInitialParent;
 
-    [Header("Player Inventory")]
-    [SerializeField] private PlayerInventorySystem _playerInventory;
+    //[Header("Player Inventory")]
+    //[SerializeField] private PlayerInventorySystem _playerInventory;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -40,13 +40,7 @@ public class Bow : MonoBehaviour
 
     public void DrawArrow()
     {
-         
-        if (_playerInventory.TotalItem(_arrowItemData) > 0)
-        {
-            _arrowPos.gameObject.SetActive(true);
-        }
-
-        
+        _arrowPos.gameObject.SetActive(true);
     }
 
     public void DisableArrow()
@@ -67,5 +61,17 @@ public class Bow : MonoBehaviour
         this.transform.position = _disarmPos.position;
         this.transform.rotation = _disarmPos.rotation;
         this.transform.parent = _disarmParent;
+    }
+
+    public void PullString()
+    {
+        _bowString.transform.position = _stringHandPullPos.position;
+        _bowString.transform.parent = _stringHandPullPos;
+    }
+
+    public void ReleaseString()
+    {
+        _bowString.transform.position = _stringInitialPos.position;
+        _bowString.transform.parent = _stringInitialParent;
     }
 }
