@@ -73,6 +73,10 @@ public class PlayerController : MonoBehaviour
         _animator = GetComponent<Animator>();
         _mainCamera = Camera.main;
         _focalPt = _mainCamera.transform.parent;
+
+        // Lock and hide cursor for camera control
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -119,6 +123,9 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (Cursor.lockState == CursorLockMode.None)
+            return;
+
         // set the direction to move based on the camera's Y-axis rotation
         Vector3 moveDir = _cameraController.PlanarRotation * _moveVec;
 
@@ -308,7 +315,10 @@ public class PlayerController : MonoBehaviour
     private void OnPlayerPullString()
     {
         if (_playerHasArrows)
+        {
             _bow.PullString();
+            _bow.PlayPullStringSound();
+        }
     }
 
     private void OnPlayerReleaseString()

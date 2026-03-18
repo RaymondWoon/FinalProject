@@ -35,7 +35,7 @@ public class DungeonManager : MonoBehaviour
             _dungeonFloor = MainManager.Instance.DungeonFloor;
             _scale = MainManager.Instance.DungeonScale;
         }
-        
+
         for (int i = 0; i < _dungeonFloor; i++)
         {
             _dGens[i].gameObject.SetActive(true);
