@@ -9,7 +9,7 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] private int _dungeonFloor = 1;
     [SerializeField] private int _dungeonFloorHeight = 9;
     [SerializeField] private int _minRoomSize = 3;
-    [SerializeField] private int _maxRoomSize = 5;
+    [SerializeField] private int _maxRoomSize = 4;
     [SerializeField] private int _scale = 6;
     [SerializeField] private DungeonGenerator[] _dGens;
 
@@ -35,6 +35,11 @@ public class DungeonManager : MonoBehaviour
             _dungeonFloor = MainManager.Instance.DungeonFloor;
             _scale = MainManager.Instance.DungeonScale;
         }
+
+        // Minimum room size must be 3
+        // at 2, the room is all corners
+        if (_minRoomSize < 3)
+            _minRoomSize = 3;
 
         for (int i = 0; i < _dungeonFloor; i++)
         {

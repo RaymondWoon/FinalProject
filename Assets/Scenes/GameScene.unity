@@ -1979,7 +1979,7 @@ MonoBehaviour:
   _dungeonFloor: 1
   _dungeonFloorHeight: 9
   _minRoomSize: 3
-  _maxRoomSize: 5
+  _maxRoomSize: 4
   _scale: 6
   _dGens:
   - {fileID: 1602372842}
@@ -2859,11 +2859,11 @@ AudioSource:
   m_GameObject: {fileID: 559101815}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: ce48b9325cfdaca4eb433df742972362, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.43
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2907,7 +2907,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

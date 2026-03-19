@@ -12,6 +12,7 @@ namespace DungeonEscape.Inventory
         public InventoryItemType itemType;
         public bool isStackable;
         public int maxStackSize;
+        public int maxQty;
         public GameObject prefab;
     }
 }

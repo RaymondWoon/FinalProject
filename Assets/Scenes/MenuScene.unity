@@ -843,7 +843,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 320}
+  m_AnchoredPosition: {x: 0, y: 370}
   m_SizeDelta: {x: 260, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &315035248
@@ -3404,7 +3404,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 440, y: 320}
+  m_AnchoredPosition: {x: 440, y: 360}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1310527008
@@ -4762,7 +4762,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -900, y: -300}
+  m_SizeDelta: {x: -900, y: -200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1709205683
 MonoBehaviour:
@@ -5649,8 +5649,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -430}
-  m_SizeDelta: {x: 990, y: 637.6}
+  m_AnchoredPosition: {x: 0, y: -470}
+  m_SizeDelta: {x: 990, y: 760}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2125540405
 MonoBehaviour:
@@ -5687,13 +5687,15 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "1. <b>Game Brief</b>\n    * Use the 'Options' button to configure the
     dungeon size\n    * Find the key from each room and exit the dungeon floor via
-    the portal\n\n2. <b>Player Controls</b>\n    Keyboard:\n    * Use keys W (up),
-    A (left) S (down) and D (right) or arrow keys to move\n    * Hold down the Left-Shift
-    key together with a direction key to run\n    * Hold fown the Right-Shift key 
-    for first-person view\n    * Use the mouse movement to look around (cursor is
-    invisible).\n    * M key to toggle visibility of map\n\n    Gamepad:\n    * Move
-    - Left stick\n    * Run - Left trigger\n    * Look - Right stick\n    * First-person
-    view - Left shoulder\n    * Toggle Map - Button west\n\n"
+    the portal\n\n2. <b>Player Controls</b>\n    Keyboard/Mouse:\n    * Use keys
+    W (up), A (left) S (down) and D (right) or arrow keys to move\n    * Hold down
+    the Left-Shift key together with a direction key to run\n    * Hold fown the
+    Right-Shift key  for first-person view\n    * Use the mouse movement to look
+    around (cursor is invisible).\n    * M key to toggle visibility of map\n    *
+    Left-Ctrl to arm bow and aim\n    * Left-mouse click to fire arrow\n\n    Gamepad:\n   
+    * Move - Left stick\n    * Run - Left trigger\n    * Look - Right stick\n   
+    * First-person view - Left shoulder\n    * Toggle Map - Button west\n    * Arm/Aim
+    Bow - Left trigger\n    * Fire arrow - Right trigger\n\n"
 --- !u!222 &2125540406
 CanvasRenderer:
   m_ObjectHideFlags: 0

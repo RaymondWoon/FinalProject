@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.SceneView;
 
 public class CameraController : MonoBehaviour
 {

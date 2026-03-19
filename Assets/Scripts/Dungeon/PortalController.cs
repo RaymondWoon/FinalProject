@@ -18,7 +18,12 @@ public class PortalController : MonoBehaviour
                 int remainingkeys = GameManager.Instance.KeyContainer[_playerController.PlayerFloor - 1].transform.childCount;
 
                 if (remainingkeys == 0)
+                {
                     _door.SetActive(false);
+                    _playerController.IsFirstPerson = true;
+                    Debug.Log("Should be first person");
+                }
+                    
             }
         }
     }

@@ -17,6 +17,8 @@ public class PortalExitController : MonoBehaviour
             _playerController.IsInStairway = true;
 
             _door.SetActive(true);
+
+            _playerController.IsFirstPerson = false;
         }
     }
 }
