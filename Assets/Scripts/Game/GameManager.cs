@@ -10,11 +10,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text _floorText;
     [SerializeField] private Text _keyText;
     [SerializeField] private Text _arrowText;
+    [SerializeField] private Text _healthText;
     [SerializeField] private GameObject[] _keyContainer;
     [SerializeField] private InventorySystem _inventorySystem;
 
     [Header("Menu")]
     [SerializeField] private GameObject _pause_ui;
+    [SerializeField] private GameObject _gameOver_ui;
 
     public static GameManager Instance { get; private set; }
 
@@ -24,13 +26,14 @@ public class GameManager : MonoBehaviour
 
     private GameObject _player;
     private PlayerController _playerController;
+    private PlayerHealth _playerHealth;
 
     public int PlayerFloor
     {
         get { return _playerFloor; }
     }
 
-    private enum GameState
+    public enum GameState
     {
         GamePlay,
         Pause,
@@ -41,6 +44,16 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] KeyContainer
     { get { return _keyContainer; } }
+
+    public GameState CurrentGameState
+    {
+        set { _gameState = value; }
+    }
+
+    public void UpdateGameState(GameState _state)
+    {
+        SwitchGameState(_state);
+    }
 
     private void Awake()
     {
@@ -61,6 +74,8 @@ public class GameManager : MonoBehaviour
         _player = GameObject.FindWithTag("Player");
 
         _playerController = _player.GetComponent<PlayerController>();
+
+        _playerHealth = _player.GetComponent<PlayerHealth>();
 
         // Initialize variables
         _gameOver = false;
@@ -87,6 +102,8 @@ public class GameManager : MonoBehaviour
         UpdateFloorText();
 
         UpdateArrowText();
+
+        UpdateHealthText();
 
         if (_playerController.IsInStairway)
         {
@@ -123,6 +140,11 @@ public class GameManager : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 _player.SetActive(false);
+
+                foreach (AudioSource audio in FindObjectsByType<AudioSource>(FindObjectsSortMode.None))
+                    audio.Stop();
+
+                _gameOver_ui.SetActive(true);
                 break;
         }
 
@@ -174,6 +196,11 @@ public class GameManager : MonoBehaviour
         }
 
         _arrowText.text = "Arrows: " + arrowQty.ToString();
+    }
+
+    private void UpdateHealthText()
+    {
+        _healthText.text = "Health: " + _playerHealth.PlayerCurrentHealth;
     }
 
     public void TogglePauseUI()

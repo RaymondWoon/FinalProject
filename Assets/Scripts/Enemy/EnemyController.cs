@@ -52,6 +52,12 @@ public class EnemyController : MonoBehaviour
     private Room _parentRoom;
     private int _roomNum;
 
+    // Public access
+    public int Damage
+    {
+        get { return _damage; }
+    }
+
     private void Awake()
     {
         // Initialize components
@@ -187,7 +193,10 @@ public class EnemyController : MonoBehaviour
                 transform.LookAt(_player.transform.position);
 
                 if (DistanceToPlayer() > _agent.stoppingDistance + 1)
+                {
                     _currentState = STATE.CHASE;
+                }
+                    
                 break;
 
             case STATE.DEAD:

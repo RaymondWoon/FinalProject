@@ -31,11 +31,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Bow _bow;
     [SerializeField] private LayerMask _aimLayers;
 
+    // Components
     private CharacterController _characterController;
     private PlayerInventorySystem _playerInventory;
     private Animator _animator;
-
     private Camera _mainCamera;
+    private PlayerHealth _playerHealth;
+
+    // Local variables
     private Transform _focalPt;
     private Ray _ray;
     private RaycastHit _hit;
@@ -79,6 +82,7 @@ public class PlayerController : MonoBehaviour
         _animator = GetComponent<Animator>();
         _mainCamera = Camera.main;
         _focalPt = _mainCamera.transform.parent;
+        _playerHealth = GetComponent<PlayerHealth>();
 
         // Lock and hide cursor for camera control
         //Cursor.lockState = CursorLockMode.Locked;
@@ -171,18 +175,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Handles PlayerFootstep via AnimationEvent
-    private void OnFootstep(AnimationEvent animationEvent)
+    private void OnCollisionEnter(Collision other)
     {
-        if (animationEvent.animatorClipInfo.weight > 0.5f)
+        if (other.gameObject.tag == "Enemy")
         {
-            if (FootstepAudioClips.Length > 0)
-            {
-                var index = Random.Range(0, FootstepAudioClips.Length);
-                AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_characterController.center), FootstepAudioVolume);
-            }
+            _playerHealth.TakeDamage(
+                other.collider.gameObject.GetComponent<EnemyController>().Damage);
         }
     }
+
+
+    #region INPUT ACTION
 
     // Handles 'Player_Aim' context from InputSystem
     public void OnPlayerAim(InputAction.CallbackContext ctx)
@@ -192,8 +195,6 @@ public class PlayerController : MonoBehaviour
         if (_playerHasArrows)
             _animator.SetBool("aim", _isAiming);
     }
-
-
 
     // Handles 'Player_FirstPersonView' context from InputSystem
     public void OnPlayerFirstPersonView(InputAction.CallbackContext ctx)
@@ -312,6 +313,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region ANIMATION EVENTS
+
+    // Handles PlayerFootstep via AnimationEvent
+    private void OnFootstep(AnimationEvent animationEvent)
+    {
+        if (animationEvent.animatorClipInfo.weight > 0.5f)
+        {
+            if (FootstepAudioClips.Length > 0)
+            {
+                var index = Random.Range(0, FootstepAudioClips.Length);
+                AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_characterController.center), FootstepAudioVolume);
+            }
+        }
+    }
+
     private void OnPlayerDrawArrow()
     {
         if (_playerHasArrows)
@@ -336,4 +354,6 @@ public class PlayerController : MonoBehaviour
     {
         _bow.DisableArrow();
     }
+
+    #endregion
 }

@@ -300,6 +300,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6835093890288579312, guid: 6e287bd75d7364d4ba828f8fbdfbc24e, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 7363479242261063072, guid: 6e287bd75d7364d4ba828f8fbdfbc24e, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -337,6 +341,9 @@ PrefabInstance:
       addedObject: {fileID: 2770086274115392664}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6e287bd75d7364d4ba828f8fbdfbc24e, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 72390035522324328}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6e287bd75d7364d4ba828f8fbdfbc24e, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 7960702619320966447}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6e287bd75d7364d4ba828f8fbdfbc24e, type: 3}
       insertIndex: -1
@@ -369,10 +376,37 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.3
   m_Height: 2.04
   m_Direction: 1
   m_Center: {x: 0, y: 1.02, z: 0}
+--- !u!54 &72390035522324328
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4218811751504642912}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!195 &7960702619320966447
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -382,12 +416,12 @@ NavMeshAgent:
   m_GameObject: {fileID: 4218811751504642912}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Speed: 0.8
   m_Acceleration: 2
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 1
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -404,11 +438,11 @@ AudioSource:
   m_GameObject: {fileID: 4218811751504642912}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8494807344997777686, guid: ce48b9325cfdaca4eb433df742972362, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -452,7 +486,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -510,7 +544,7 @@ MonoBehaviour:
   _forgetDistance: 20
   _stoppingDistance: 1
   _health: 15
-  _damage: 5
+  _damage: 10
   _quiver: {fileID: 8864589429142758556, guid: c9b7acb03ed80d34c85dac0da55a65ae, type: 3}
   _alert: {fileID: 8300000, guid: 2dc3965988e331b4a9848eb360dcb1a1, type: 3}
   _walking: {fileID: 8300000, guid: d95c67ce48e407a46853a700aa5d9a63, type: 3}
