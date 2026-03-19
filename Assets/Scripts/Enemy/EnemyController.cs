@@ -1,5 +1,7 @@
+using DungeonEscape.Inventory;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 public class EnemyController : MonoBehaviour
 {
@@ -13,10 +15,25 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float _forgetDistance = 15.0f;
     [SerializeField] private float _stoppingDistance = 1.0f;
 
+    [Header("Stats")]
+    [SerializeField] private int _health;
+    [SerializeField] private int _damage;
+    [SerializeField] private GameObject _quiver;
+
+    [Header("Audio Clip")]
+    [SerializeField] private AudioClip _alert;
+    [SerializeField] private AudioClip _walking;
+    [SerializeField] private AudioClip _running;
+    [SerializeField] private AudioClip _attack;
+    [SerializeField] private AudioClip[] _strikes;
+    [SerializeField] private AudioClip _pain;
+    [SerializeField] private AudioClip _die;
+
     // Components
     private GameObject _player;
     private Animator _anim;
     private NavMeshAgent _agent;
+    private AudioSource _audioSource;
 
     // Enemy states
     private enum STATE
@@ -41,6 +58,7 @@ public class EnemyController : MonoBehaviour
         _player = GameObject.FindWithTag("Player");
         _anim = GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -109,8 +127,8 @@ public class EnemyController : MonoBehaviour
                         (_parentRoom.StartZ + _parentRoom.Depth - 0.75f) * _dungeonFloor.DungeonScale);
 
                     // Randomly select X & Z as a float
-                    float newX = UnityEngine.Random.Range(pos1.x, pos3.x);
-                    float newZ = UnityEngine.Random.Range(pos1.z, pos3.z);
+                    float newX = Random.Range(pos1.x, pos3.x);
+                    float newZ = Random.Range(pos1.z, pos3.z);
 
                     Vector3 dest = new Vector3(newX, 0.0f, newZ);
                     _agent.SetDestination(dest);
@@ -165,6 +183,20 @@ public class EnemyController : MonoBehaviour
                 if (DistanceToPlayer() > _agent.stoppingDistance + 1)
                     _currentState = STATE.CHASE;
                 break;
+
+            case STATE.DEAD:
+                // Trigger the dying anim
+                _anim.SetTrigger("die");
+
+                // Stop the enemy NavMesh
+                _agent.isStopped = true;
+
+                // Disable the collider
+                GetComponent<Collider>().enabled = false;
+
+                // Destroy after 7s
+                Destroy(gameObject, 7.0f);
+                break;
         }
     }
 
@@ -174,7 +206,7 @@ public class EnemyController : MonoBehaviour
         _anim.SetBool("isWalking", false);
         _anim.SetBool("isAttacking", false);
         _anim.SetBool("isRunning", false);
-        _anim.SetBool("isDead", false);
+        _anim.SetBool("die", false);
     }
 
     // Calculate distance to the player
@@ -193,5 +225,46 @@ public class EnemyController : MonoBehaviour
     private bool ForgetPlayer()
     {
         return DistanceToPlayer() > _forgetDistance;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="damage"></param>
+    public void TakeDamage(int damage)
+    {
+        _health -= damage;
+
+        _audioSource.PlayOneShot(_pain);
+
+        if (_health <= 0)
+        {
+            _currentState = STATE.DEAD;
+
+            // Trigger the dying anim
+            _anim.SetTrigger("die");
+
+            // Stop the enemy NavMesh
+            _agent.isStopped = true;
+
+            // Disable the collider
+            GetComponent<Collider>().enabled = false;
+
+            // Destroy after 7s
+            Destroy(gameObject, 7.0f);
+
+            SpawnQuiver();
+        }
+    }
+
+    private void SpawnQuiver()
+    {
+        float quiverX = this.transform.position.x;
+        float quiverZ = this.transform.position.z;
+        Vector3 upDirection = transform.up;
+
+        GameObject quiver = Instantiate(_quiver, this.transform.position + upDirection * 1.0f, Quaternion.identity);
+        quiver.name = "QUIVER";
+        quiver.transform.parent = this.transform.parent;
     }
 }
