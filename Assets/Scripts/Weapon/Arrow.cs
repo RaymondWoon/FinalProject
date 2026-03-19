@@ -3,7 +3,7 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     [SerializeField] private int _lifeSpan;
-
+    [SerializeField] private int _damage;
 
     // Components
     private Rigidbody _rb;
@@ -30,12 +30,14 @@ public class Arrow : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag != "Player")
+        if (other.gameObject.tag == "Enemy")
         {
             _rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
             _rb.isKinematic = true;
             _bc.isTrigger = true;
             _disableRotation = true;
+
+            other.collider.gameObject.GetComponent<EnemyController>().TakeDamage(_damage);
         }
     }
 }

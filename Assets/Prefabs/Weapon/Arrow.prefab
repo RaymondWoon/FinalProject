@@ -194,6 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Arrow
   _lifeSpan: 15
+  _damage: 5
 --- !u!1001 &9071998457422824444
 PrefabInstance:
   m_ObjectHideFlags: 0
