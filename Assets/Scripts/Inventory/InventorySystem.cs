@@ -30,8 +30,24 @@ namespace DungeonEscape.Inventory
                 return 0;
 
             int remItems = qty;
+            int totalItems = 0;
 
-            // First, if item is stackable, check if there are partially full slots
+            // First, find existing slots with item and total items
+            List<InventorySlot> slotsWithItem = slots.Where(s => s._itemData == itemData).ToList();
+            
+            // Check if max allowable number of items has reached limit
+            if (slotsWithItem.Count > 0)
+            {
+                totalItems = slotsWithItem.Sum(s => s._qty);
+
+                if (totalItems >= itemData.maxQty)
+                    return qty;
+
+                // Update remaining items to be added
+                remItems = Mathf.Min(qty, itemData.maxQty - totalItems);
+            }
+
+            // if item is stackable, check if there are partially full slots
             if (itemData.isStackable)
             {
                 foreach (InventorySlot slot in slots)

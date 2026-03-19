@@ -102,6 +102,10 @@ public class EnemyController : MonoBehaviour
                 {
                     _currentState = STATE.WANDER;
                 }
+                else
+                {
+                    _audioSource.PlayOneShot(_alert);
+                }
                 break;
 
             case STATE.WANDER:
@@ -137,7 +141,7 @@ public class EnemyController : MonoBehaviour
                     ResetStates();
                     _agent.speed = _walkingSpeed;
                     _anim.SetBool("isWalking", true);
-                    //_audioSource.PlayOneShot(_walking);
+                    _audioSource.PlayOneShot(_walking);
                 }
                 if (IsPlayerWithinRange())
                 {
@@ -160,6 +164,7 @@ public class EnemyController : MonoBehaviour
                 ResetStates();
                 _agent.speed = _runningSpeed;
                 _anim.SetBool("isRunning", true);
+                _audioSource.PlayOneShot(_running);
 
                 if (_agent.remainingDistance <= _agent.stoppingDistance + 1 && !_agent.pathPending)
                 {
@@ -176,6 +181,7 @@ public class EnemyController : MonoBehaviour
             case STATE.ATTACK:
                 ResetStates();
                 _anim.SetBool("isAttacking", true);
+                _audioSource.PlayOneShot(_attack);
 
                 // Set enemy to look at player
                 transform.LookAt(_player.transform.position);
@@ -187,6 +193,8 @@ public class EnemyController : MonoBehaviour
             case STATE.DEAD:
                 // Trigger the dying anim
                 _anim.SetTrigger("die");
+
+                _audioSource.PlayOneShot(_die);
 
                 // Stop the enemy NavMesh
                 _agent.isStopped = true;

@@ -18,4 +18,5 @@ MonoBehaviour:
   itemType: 0
   isStackable: 0
   maxStackSize: 1
+  maxQty: 1
   prefab: {fileID: 1717406733745140, guid: d03c4353fda446d4f8df56d422578d64, type: 3}

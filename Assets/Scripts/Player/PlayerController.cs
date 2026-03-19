@@ -65,6 +65,12 @@ public class PlayerController : MonoBehaviour
         set { _isInStairway = value; }
     }
 
+    public bool IsFirstPerson
+    {
+        get { return _isFirstPerson; }
+        set {  _isFirstPerson = value; }
+    }
+
     // Start is called before the first frame update
     private void Start()
     {
