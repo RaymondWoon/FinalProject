@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [Header("Menu")]
     [SerializeField] private GameObject _pause_ui;
     [SerializeField] private GameObject _gameOver_ui;
+    [SerializeField] private GameObject _gameWon_ui;
 
     public static GameManager Instance { get; private set; }
 
@@ -37,7 +38,8 @@ public class GameManager : MonoBehaviour
     {
         GamePlay,
         Pause,
-        GameOver
+        GameOver,
+        GameWon
     }
 
     private GameState _gameState;
@@ -136,6 +138,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.GameOver:
+            case GameState.GameWon:
                 Time.timeScale = 0;
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
@@ -144,7 +147,15 @@ public class GameManager : MonoBehaviour
                 foreach (AudioSource audio in FindObjectsByType<AudioSource>(FindObjectsSortMode.None))
                     audio.Stop();
 
-                _gameOver_ui.SetActive(true);
+                if (state == GameState.GameOver)
+                {
+                    _gameOver_ui.SetActive(true);
+                }
+                else
+                {
+                    _gameWon_ui.SetActive(true);
+                }
+                
                 break;
         }
 
