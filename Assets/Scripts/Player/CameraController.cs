@@ -73,7 +73,7 @@ public class CameraController : MonoBehaviour
     {
         RotateCamera();
         FollowTarget();
-        //HandleCameraCollisions();
+        HandleCameraCollisions();
     }
 
     private void FollowTarget()
@@ -122,7 +122,6 @@ public class CameraController : MonoBehaviour
     {
         if (Physics.Linecast(_target.transform.position + _target.up, _cameraPosition.position, out _hit, _camAvoidanceLayers))
         {
-            Debug.Log("Camera hit detected");
             Vector3 newCameraPos = new Vector3(_hit.point.x + _hit.normal.x * 0.2f, _hit.point.y + _hit.normal.y * 0.8f, _hit.point.z + _hit.normal.z * 0.2f);
 
             _mainCam.transform.position = Vector3.Lerp(_mainCam.transform.position, newCameraPos, _moveSpeed * Time.deltaTime);

@@ -41,6 +41,9 @@ public class DungeonManager : MonoBehaviour
         if (_minRoomSize < 3)
             _minRoomSize = 3;
 
+        if (_maxRoomSize < 4)
+            _maxRoomSize = 4;
+
         for (int i = 0; i < _dungeonFloor; i++)
         {
             _dGens[i].gameObject.SetActive(true);

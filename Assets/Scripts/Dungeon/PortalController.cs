@@ -21,7 +21,6 @@ public class PortalController : MonoBehaviour
                 {
                     _door.SetActive(false);
                     _playerController.IsFirstPerson = true;
-                    Debug.Log("Should be first person");
                 }
                     
             }
