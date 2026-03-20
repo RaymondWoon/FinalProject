@@ -845,6 +845,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(NS_T_Junction_E.rotation);
                             go.name = "CNST-E - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
                         }
                         // NS_T-Junc_W
                         else if ((tile_N == _corridorTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
@@ -856,6 +858,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(NS_T_Junction_W.rotation);
                             go.name = "CNST-W - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
                         }
                         // EW_T-Junc_N
                         else if ((tile_E == _corridorTile || tile_E == _doorEnterTile || tile_E == _doorExitTile)
@@ -867,6 +871,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(EW_T_Junction_N.rotation);
                             go.name = "CEWT-N - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
                         }
                         // EW_T-Junc_S
                         else if ((tile_E == _corridorTile || tile_E == _doorEnterTile || tile_E == _doorExitTile)
@@ -878,6 +884,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(EW_T_Junction_S.rotation);
                             go.name = "CEWT-S - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
                         }
                         // SW_Corner
                         else if ((tile_N == _corridorTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
@@ -888,6 +896,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(SW_Corner.rotation);
                             go.name = "CSWC - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
                         }
                         // NW_Corner
                         else if ((tile_S == _corridorTile || tile_S == _doorEnterTile || tile_S == _doorExitTile)
@@ -898,6 +908,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(NW_Corner.rotation);
                             go.name = "CNWC - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
                         }
                         // NE_Corner
                         else if ((tile_S == _corridorTile || tile_S == _doorEnterTile || tile_S == _doorExitTile)
@@ -908,6 +920,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(NE_Corner.rotation);
                             go.name = "CNEC - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
                         }
                         // SE_Corner
                         else if ((tile_N == _corridorTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
@@ -918,6 +932,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(SE_Corner.rotation);
                             go.name = "CSEC - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
                         }
                         // NS
                         else if ((tile_N == _corridorTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
@@ -928,6 +944,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(NS_Straight.rotation);
                             go.name = "CNS - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
                         }
                         // EW
                         else if ((tile_E == _corridorTile || tile_E == _doorEnterTile || tile_E == _doorExitTile)
@@ -938,6 +956,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(EW_Straight.rotation);
                             go.name = "CEW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _corridorContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
                         }
                         break;
 
@@ -953,6 +973,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(Room_SW_Corner.rotation);
                             go.name = "RSWC - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _roomCornerContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
                         }
                         // NW_Corner
                         else if ((tile_N == _wallTile || tile_N == _corridorTile)
@@ -965,6 +987,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(Room_NW_Corner.rotation);
                             go.name = "RNWC - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _roomCornerContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
                         }
                         // NE_Corner
                         else if ((tile_N == _wallTile || tile_N == _corridorTile)
@@ -977,6 +1001,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(Room_NE_Corner.rotation);
                             go.name = "RNEC - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _roomCornerContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
                         }
                         // SE_Corner
                         else if ((tile_N == _roomTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
@@ -989,6 +1015,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(Room_SE_Corner.rotation);
                             go.name = "RSEC - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _roomCornerContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
                         }
                         // W_Wall
                         else if ((tile_N == _roomTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
@@ -1001,6 +1029,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(Room_W_Wall.rotation);
                             go.name = "RWW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _roomWallContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
                         }
                         // N_Wall
                         else if ((tile_N == _wallTile || tile_N == _corridorTile)
@@ -1013,6 +1043,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(Room_N_Wall.rotation);
                             go.name = "RNW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _roomWallContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
                         }
                         // E_Wall
                         else if ((tile_N == _roomTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
@@ -1025,6 +1057,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(Room_E_Wall.rotation);
                             go.name = "REW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _roomWallContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
                         }
                         // S_Wall
                         else if (tile_N == _roomTile
@@ -1037,6 +1071,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(Room_S_Wall.rotation);
                             go.name = "RSW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _roomWallContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
                         }
                         // Standard room section
                         else
@@ -1165,6 +1201,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.name = "RSWC-DS - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
 
+                            SetRandomChildrenActive(go, "Torch");
+
                             // Add SE pillar
                             go = Instantiate(Room_Corner_Pillar_SE.prefab);
                             go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
@@ -1183,6 +1221,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(Room_SW_Corner_Door_W.rotation);
                             go.name = "RSWC-DW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
 
                             // Add NW pillar
                             go = Instantiate(Room_Corner_Pillar_NW.prefab);
@@ -1203,6 +1243,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.name = "RNWC-DW - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
 
+                            SetRandomChildrenActive(go, "Torch");
+
                             // Add SW pillar
                             go = Instantiate(Room_Corner_Pillar_SW.prefab);
                             go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
@@ -1221,6 +1263,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(Room_NW_Corner_Door_N.rotation);
                             go.name = "RNWC-DN - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
 
                             // Add NE pillar
                             go = Instantiate(Room_Corner_Pillar_NE.prefab);
@@ -1241,6 +1285,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.name = "RNEC-DN - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
 
+                            SetRandomChildrenActive(go, "Torch");
+
                             // Add NW pillar
                             go = Instantiate(Room_Corner_Pillar_NW.prefab);
                             go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
@@ -1259,6 +1305,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(Room_NE_Corner_Door_E.rotation);
                             go.name = "RNEC-DE - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
 
                             // Add SE pillar
                             go = Instantiate(Room_Corner_Pillar_SE.prefab);
@@ -1279,6 +1327,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.name = "RSEC-DE - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
 
+                            SetRandomChildrenActive(go, "Torch");
+
                             // Add NE pillar
                             go = Instantiate(Room_Corner_Pillar_NE.prefab);
                             go.transform.position = new Vector3(x * _dungeonScale + 0.01f, _floorDepth, y * _dungeonScale + 0.01f);
@@ -1297,6 +1347,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.Rotate(Room_SE_Corner_Door_S.rotation);
                             go.name = "RSEC-DS - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _doorContainer.transform;
+
+                            SetRandomChildrenActive(go, "Torch");
 
                             // Add SW pillar
                             go = Instantiate(Room_Corner_Pillar_SW.prefab);
@@ -1369,6 +1421,8 @@ public class DungeonGenerator : MonoBehaviour
                         stairs.transform.Rotate(Stairwell.rotation);
                         stairs.name = "STAIRS - " + (x * _dungeonScale).ToString() + " - " + ((y + 1) * _dungeonScale).ToString();
                         stairs.transform.parent = _doorContainer.transform;
+
+                        SetRandomChildrenActive(stairs, "Torch");
                         break;
 
                     case Tile.TileType.FloorEnter:
@@ -1482,6 +1536,40 @@ public class DungeonGenerator : MonoBehaviour
             key.name = "KEY " + roomCount.ToString() + ": F" + _dungeonFloor.ToString();
             key.transform.parent = _keyContainer.transform;
         }
+    }
+
+
+    private bool RandomBool()
+    {
+        return rng.Next(2) == 0;
+    }
+
+    private void SetRandomChildrenActive(GameObject go, string tag)
+    {
+        List<GameObject> children = GetChildrenWithTag(go.transform, tag);
+
+        foreach (GameObject child in children)
+        {
+            child.SetActive(RandomBool());
+        }
+    }
+
+    private List<GameObject> GetChildrenWithTag(Transform parent, string tag)
+    {
+        List<GameObject> gameObjects = new List<GameObject>();
+
+        if (string.IsNullOrWhiteSpace(tag))
+            return gameObjects;
+
+        foreach (Transform child in parent.GetComponentsInChildren<Transform>())
+        {
+            if (child != parent && child.CompareTag(tag))
+            {
+                gameObjects.Add(child.gameObject);
+            }
+        }
+
+        return gameObjects;
     }
 
     #endregion
