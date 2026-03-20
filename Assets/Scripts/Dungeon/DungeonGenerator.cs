@@ -1077,7 +1077,7 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.parent = _columnContainer.transform;
                         }
                         //NW_Corner_Door_NW
-                        else if (tile_N == _corridorTile 
+                        else if (tile_N == _corridorTile
                             && (tile_E == _roomTile || tile_E == _doorEnterTile || tile_E == _doorExitTile)
                             && (tile_S == _roomTile || tile_S == _doorEnterTile || tile_S == _doorExitTile)
                             && tile_W == _corridorTile)
@@ -1193,7 +1193,7 @@ public class DungeonGenerator : MonoBehaviour
                         }
                         // NW_Corner_Door_W
                         else if ((tile_N == _wallTile || tile_N == _corridorTile)
-                            && (tile_E == _roomTile || tile_E == _doorEnterTile || tile_E == _doorExitTile)
+                            && (tile_E == _roomTile || tile_E == _doorEnterTile || tile_E == _doorExitTile || tile_E == _floorExitTile)
                             && (tile_S == _roomTile || tile_S == _doorEnterTile || tile_S == _doorExitTile || tile_S == _floorEnterTile)
                             && tile_W == _corridorTile)
                         {
@@ -1252,7 +1252,7 @@ public class DungeonGenerator : MonoBehaviour
                         else if ((tile_N == _wallTile || tile_N == _corridorTile)
                             && tile_E == _corridorTile
                             && (tile_S == _roomTile || tile_S == _doorEnterTile || tile_S == _doorExitTile)
-                            && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile))
+                            && (tile_W == _roomTile || tile_W == _doorEnterTile || tile_W == _doorExitTile || tile_W == _floorExitTile))
                         {
                             GameObject go = Instantiate(Room_NE_Corner_Door_E.prefab);
                             go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
@@ -1414,14 +1414,14 @@ public class DungeonGenerator : MonoBehaviour
             if (room.Tag == "Exit Room")
             {
                 GameObject boss = Instantiate(_bossEnemy, new Vector3(enemyX, _floorDepth, enemyZ), Quaternion.identity);
-                boss.name = "BOSS " + roomCount.ToString();
+                boss.name = "BOSS: " + roomCount.ToString();
                 boss.transform.parent = _enemyContainer.transform;
             }
             else
             {
                 GameObject go = _enemies[UnityEngine.Random.Range(0, _enemies.Length)];
                 GameObject enemy = Instantiate(go, new Vector3(enemyX, _floorDepth, enemyZ), Quaternion.identity);
-                enemy.name = "ENEMY " + roomCount.ToString();
+                enemy.name = "ENEMY: " + roomCount.ToString();
                 enemy.transform.parent = _enemyContainer.transform;
             }
         }
@@ -1474,14 +1474,12 @@ public class DungeonGenerator : MonoBehaviour
             Vector3 pos3 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale);
             Vector3 pos4 = new Vector3((room.StartX + 0.75f) * _dungeonScale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale);
 
-            //Vector3[] pos = { pos1, pos2, pos3, pos4 };
-
             // Randomly select X & Z as a float
             keyX = UnityEngine.Random.Range(pos1.x, pos3.x) + XOffset * _dungeonScale;
             keyZ = UnityEngine.Random.Range(pos1.z, pos3.z) + ZOffset * _dungeonScale;
 
             GameObject key = Instantiate(_key, new Vector3(keyX, _floorDepth, keyZ) + upDirection * 1.0f, Quaternion.identity);
-            key.name = "KEY " + roomCount.ToString();
+            key.name = "KEY " + roomCount.ToString() + ": F" + _dungeonFloor.ToString();
             key.transform.parent = _keyContainer.transform;
         }
     }

@@ -74,13 +74,14 @@ public class EnemyController : MonoBehaviour
         _currentState = STATE.IDLE;
 
         // Parent dungeon floor
-        _dungeonFloor = this.transform.parent.gameObject.transform.parent.GetComponent<DungeonGenerator>();
+        _dungeonFloor = transform.parent.gameObject.transform.parent.GetComponent<DungeonGenerator>();
 
         // Parse the dungeon floor number from its name
         _dungeonFloorNum = int.Parse(_dungeonFloor.name.Substring(13));
 
         // Parse the room number from object name
-        _roomNum = int.Parse(this.transform.name.Substring(5));
+        //_roomNum = int.Parse(this.transform.name.Substring(5));
+        _roomNum = int.Parse(transform.name.Substring(transform.name.IndexOf(":") + 1));
 
         // Obtain the room and its properties
         _parentRoom = _dungeonFloor.DungeonRoom(_roomNum - 1);
