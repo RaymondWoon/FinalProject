@@ -697,6 +697,9 @@ MonoBehaviour:
   _key: {fileID: 338406759053407294, guid: 081b5f5baeaa647478532ed4be6355ee, type: 3}
   _enemies:
   - {fileID: 4218811751504642912, guid: 63392bcba0c721c469f03a15183914aa, type: 3}
+  - {fileID: 2011419592540674249, guid: a46ecbecff489f84a94c8e06083d37f9, type: 3}
+  - {fileID: 9006910699615285628, guid: 0a28209ba1c72eb4a87bb1964b1fae74, type: 3}
+  _bossEnemy: {fileID: 0}
   _mapImage: {fileID: 0}
   _canvas: {fileID: 691607573}
   _showMap: 0
@@ -1458,6 +1461,9 @@ MonoBehaviour:
   _key: {fileID: 338406759053407294, guid: 081b5f5baeaa647478532ed4be6355ee, type: 3}
   _enemies:
   - {fileID: 4218811751504642912, guid: 63392bcba0c721c469f03a15183914aa, type: 3}
+  - {fileID: 2011419592540674249, guid: a46ecbecff489f84a94c8e06083d37f9, type: 3}
+  - {fileID: 9006910699615285628, guid: 0a28209ba1c72eb4a87bb1964b1fae74, type: 3}
+  _bossEnemy: {fileID: 0}
   _mapImage: {fileID: 0}
   _canvas: {fileID: 1463908277}
   _showMap: 0
@@ -1728,6 +1734,9 @@ MonoBehaviour:
   _key: {fileID: 338406759053407294, guid: 081b5f5baeaa647478532ed4be6355ee, type: 3}
   _enemies:
   - {fileID: 4218811751504642912, guid: 63392bcba0c721c469f03a15183914aa, type: 3}
+  - {fileID: 2011419592540674249, guid: a46ecbecff489f84a94c8e06083d37f9, type: 3}
+  - {fileID: 9006910699615285628, guid: 0a28209ba1c72eb4a87bb1964b1fae74, type: 3}
+  _bossEnemy: {fileID: 0}
   _mapImage: {fileID: 0}
   _canvas: {fileID: 7583590}
   _showMap: 0
@@ -4687,6 +4696,9 @@ MonoBehaviour:
   _key: {fileID: 338406759053407294, guid: 081b5f5baeaa647478532ed4be6355ee, type: 3}
   _enemies:
   - {fileID: 4218811751504642912, guid: 63392bcba0c721c469f03a15183914aa, type: 3}
+  - {fileID: 2011419592540674249, guid: a46ecbecff489f84a94c8e06083d37f9, type: 3}
+  - {fileID: 9006910699615285628, guid: 0a28209ba1c72eb4a87bb1964b1fae74, type: 3}
+  _bossEnemy: {fileID: 0}
   _mapImage: {fileID: 0}
   _canvas: {fileID: 2124165620}
   _showMap: 0
@@ -6054,6 +6066,9 @@ MonoBehaviour:
   _key: {fileID: 338406759053407294, guid: 081b5f5baeaa647478532ed4be6355ee, type: 3}
   _enemies:
   - {fileID: 4218811751504642912, guid: 63392bcba0c721c469f03a15183914aa, type: 3}
+  - {fileID: 2011419592540674249, guid: a46ecbecff489f84a94c8e06083d37f9, type: 3}
+  - {fileID: 9006910699615285628, guid: 0a28209ba1c72eb4a87bb1964b1fae74, type: 3}
+  _bossEnemy: {fileID: 0}
   _mapImage: {fileID: 0}
   _canvas: {fileID: 1764126353}
   _showMap: 0
@@ -6602,6 +6617,9 @@ MonoBehaviour:
   _key: {fileID: 338406759053407294, guid: 081b5f5baeaa647478532ed4be6355ee, type: 3}
   _enemies:
   - {fileID: 4218811751504642912, guid: 63392bcba0c721c469f03a15183914aa, type: 3}
+  - {fileID: 2011419592540674249, guid: a46ecbecff489f84a94c8e06083d37f9, type: 3}
+  - {fileID: 9006910699615285628, guid: 0a28209ba1c72eb4a87bb1964b1fae74, type: 3}
+  _bossEnemy: {fileID: 0}
   _mapImage: {fileID: 0}
   _canvas: {fileID: 1025530905}
   _showMap: 0
@@ -7320,6 +7338,9 @@ MonoBehaviour:
   _key: {fileID: 338406759053407294, guid: 081b5f5baeaa647478532ed4be6355ee, type: 3}
   _enemies:
   - {fileID: 4218811751504642912, guid: 63392bcba0c721c469f03a15183914aa, type: 3}
+  - {fileID: 2011419592540674249, guid: a46ecbecff489f84a94c8e06083d37f9, type: 3}
+  - {fileID: 9006910699615285628, guid: 0a28209ba1c72eb4a87bb1964b1fae74, type: 3}
+  _bossEnemy: {fileID: 0}
   _mapImage: {fileID: 0}
   _canvas: {fileID: 657705581}
   _showMap: 0
@@ -8488,6 +8509,9 @@ MonoBehaviour:
   _key: {fileID: 338406759053407294, guid: 081b5f5baeaa647478532ed4be6355ee, type: 3}
   _enemies:
   - {fileID: 4218811751504642912, guid: 63392bcba0c721c469f03a15183914aa, type: 3}
+  - {fileID: 2011419592540674249, guid: a46ecbecff489f84a94c8e06083d37f9, type: 3}
+  - {fileID: 9006910699615285628, guid: 0a28209ba1c72eb4a87bb1964b1fae74, type: 3}
+  _bossEnemy: {fileID: 2921619242987921982, guid: 99af8ee4fb01fc84eae673956f047c4e, type: 3}
   _mapImage: {fileID: 0}
   _canvas: {fileID: 1560184714}
   _showMap: 0
@@ -9213,6 +9237,9 @@ MonoBehaviour:
   _key: {fileID: 338406759053407294, guid: 081b5f5baeaa647478532ed4be6355ee, type: 3}
   _enemies:
   - {fileID: 4218811751504642912, guid: 63392bcba0c721c469f03a15183914aa, type: 3}
+  - {fileID: 2011419592540674249, guid: a46ecbecff489f84a94c8e06083d37f9, type: 3}
+  - {fileID: 9006910699615285628, guid: 0a28209ba1c72eb4a87bb1964b1fae74, type: 3}
+  _bossEnemy: {fileID: 0}
   _mapImage: {fileID: 0}
   _canvas: {fileID: 596436035}
   _showMap: 0
@@ -10065,6 +10092,9 @@ MonoBehaviour:
   _key: {fileID: 338406759053407294, guid: 081b5f5baeaa647478532ed4be6355ee, type: 3}
   _enemies:
   - {fileID: 4218811751504642912, guid: 63392bcba0c721c469f03a15183914aa, type: 3}
+  - {fileID: 2011419592540674249, guid: a46ecbecff489f84a94c8e06083d37f9, type: 3}
+  - {fileID: 9006910699615285628, guid: 0a28209ba1c72eb4a87bb1964b1fae74, type: 3}
+  _bossEnemy: {fileID: 0}
   _mapImage: {fileID: 0}
   _canvas: {fileID: 2012815172}
   _showMap: 0

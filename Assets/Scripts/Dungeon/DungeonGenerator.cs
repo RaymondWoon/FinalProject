@@ -103,6 +103,7 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private GameObject _treasure;
     [SerializeField] private GameObject _key;
     [SerializeField] private GameObject[] _enemies;
+    [SerializeField] private GameObject _bossEnemy;
 
     [Header("** Map **")]
     [SerializeField] private UnityEngine.UI.Image _mapImage;
@@ -1398,8 +1399,8 @@ public class DungeonGenerator : MonoBehaviour
 
             float enemyX, enemyZ;
             Vector3 upDirection = transform.up;
-            GameObject go = _enemies[rng.Next(_enemies.Length)];
-
+            //GameObject go = _enemies[rng.Next(_enemies.Length)];
+            
             // Define the limits of the room to randomly place the key
             Vector3 pos1 = new Vector3((room.StartX + 0.75f) * _dungeonScale, 1.0f, (room.StartZ + 0.75f) * _dungeonScale);
             Vector3 pos2 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale, 1.0f, (room.StartZ + 0.75f) * _dungeonScale);
@@ -1410,9 +1411,19 @@ public class DungeonGenerator : MonoBehaviour
             enemyX = UnityEngine.Random.Range(pos1.x, pos3.x) + XOffset * _dungeonScale;
             enemyZ = UnityEngine.Random.Range(pos1.z, pos3.z) + ZOffset * _dungeonScale;
 
-            GameObject enemy = Instantiate(go, new Vector3(enemyX, _floorDepth, enemyZ), Quaternion.identity);
-            enemy.name = "ENEMY " + roomCount.ToString();
-            enemy.transform.parent = _enemyContainer.transform;
+            if (room.Tag == "Exit Room")
+            {
+                GameObject boss = Instantiate(_bossEnemy, new Vector3(enemyX, _floorDepth, enemyZ), Quaternion.identity);
+                boss.name = "BOSS " + roomCount.ToString();
+                boss.transform.parent = _enemyContainer.transform;
+            }
+            else
+            {
+                GameObject go = _enemies[UnityEngine.Random.Range(0, _enemies.Length)];
+                GameObject enemy = Instantiate(go, new Vector3(enemyX, _floorDepth, enemyZ), Quaternion.identity);
+                enemy.name = "ENEMY " + roomCount.ToString();
+                enemy.transform.parent = _enemyContainer.transform;
+            }
         }
     }
 
