@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 02c07345313cb814eb6dcd63462e338a
+guid: 18f96cd0b7113f942bc0d421eaa81466
 NativeFormatImporter:
   userData: 
 AssetOrigin:
@@ -7,5 +7,5 @@ AssetOrigin:
   productId: 33936
   packageName: Decrepit Dungeon LITE
   packageVersion: 1.5
-  assetPath: Assets/3rdParty/Decrepit Dungeon LITE/Materials/Metal_A.mat
+  assetPath: Assets/3rdParty/Decrepit Dungeon LITE/Materials/Wood_C.mat
   uploadId: 84005
