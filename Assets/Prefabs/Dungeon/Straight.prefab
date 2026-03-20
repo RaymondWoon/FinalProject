@@ -910,6 +910,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 115752, guid: 731670d05affd0045a25600d2045889f, type: 3}
+      propertyPath: m_TagString
+      value: Torch
+      objectReference: {fileID: 0}
     - target: {fileID: 410932, guid: 731670d05affd0045a25600d2045889f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -950,6 +954,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6459726, guid: 731670d05affd0045a25600d2045889f, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300174, guid: fd75e63c14c4540438372a6844af68b6, type: 3}
+    - target: {fileID: 19980778, guid: 731670d05affd0045a25600d2045889f, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19980778, guid: 731670d05affd0045a25600d2045889f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4e9c389d259958d4e9c099f7c4b2285d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1009,6 +1025,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch
       objectReference: {fileID: 0}
+    - target: {fileID: 115752, guid: 731670d05affd0045a25600d2045889f, type: 3}
+      propertyPath: m_TagString
+      value: Torch
+      objectReference: {fileID: 0}
     - target: {fileID: 410932, guid: 731670d05affd0045a25600d2045889f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1049,6 +1069,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6459726, guid: 731670d05affd0045a25600d2045889f, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300174, guid: fd75e63c14c4540438372a6844af68b6, type: 3}
+    - target: {fileID: 19980778, guid: 731670d05affd0045a25600d2045889f, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19980778, guid: 731670d05affd0045a25600d2045889f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4e9c389d259958d4e9c099f7c4b2285d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
