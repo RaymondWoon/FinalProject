@@ -592,8 +592,16 @@ MonoBehaviour:
   SE_Corner:
     prefab: {fileID: 4544532359002034892, guid: ad42aa00b66f3594184c93626419afa6, type: 3}
     rotation: {x: 0, y: -90, z: 0}
-  Room_Section:
-    prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+  Room_Sections:
+  - prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
     rotation: {x: 0, y: 0, z: 0}
   Room_SW_Corner:
     prefab: {fileID: 648358859092923389, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
@@ -1356,8 +1364,16 @@ MonoBehaviour:
   SE_Corner:
     prefab: {fileID: 4544532359002034892, guid: ad42aa00b66f3594184c93626419afa6, type: 3}
     rotation: {x: 0, y: -90, z: 0}
-  Room_Section:
-    prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+  Room_Sections:
+  - prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
     rotation: {x: 0, y: 0, z: 0}
   Room_SW_Corner:
     prefab: {fileID: 648358859092923389, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
@@ -1629,8 +1645,16 @@ MonoBehaviour:
   SE_Corner:
     prefab: {fileID: 4544532359002034892, guid: ad42aa00b66f3594184c93626419afa6, type: 3}
     rotation: {x: 0, y: -90, z: 0}
-  Room_Section:
-    prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+  Room_Sections:
+  - prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
     rotation: {x: 0, y: 0, z: 0}
   Room_SW_Corner:
     prefab: {fileID: 648358859092923389, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
@@ -4929,8 +4953,16 @@ MonoBehaviour:
   SE_Corner:
     prefab: {fileID: 4544532359002034892, guid: ad42aa00b66f3594184c93626419afa6, type: 3}
     rotation: {x: 0, y: -90, z: 0}
-  Room_Section:
-    prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+  Room_Sections:
+  - prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
     rotation: {x: 0, y: 0, z: 0}
   Room_SW_Corner:
     prefab: {fileID: 648358859092923389, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
@@ -6378,8 +6410,16 @@ MonoBehaviour:
   SE_Corner:
     prefab: {fileID: 4544532359002034892, guid: ad42aa00b66f3594184c93626419afa6, type: 3}
     rotation: {x: 0, y: -90, z: 0}
-  Room_Section:
-    prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+  Room_Sections:
+  - prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
     rotation: {x: 0, y: 0, z: 0}
   Room_SW_Corner:
     prefab: {fileID: 648358859092923389, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
@@ -7007,8 +7047,16 @@ MonoBehaviour:
   SE_Corner:
     prefab: {fileID: 4544532359002034892, guid: ad42aa00b66f3594184c93626419afa6, type: 3}
     rotation: {x: 0, y: -90, z: 0}
-  Room_Section:
-    prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+  Room_Sections:
+  - prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
     rotation: {x: 0, y: 0, z: 0}
   Room_SW_Corner:
     prefab: {fileID: 648358859092923389, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
@@ -7728,8 +7776,16 @@ MonoBehaviour:
   SE_Corner:
     prefab: {fileID: 4544532359002034892, guid: ad42aa00b66f3594184c93626419afa6, type: 3}
     rotation: {x: 0, y: -90, z: 0}
-  Room_Section:
-    prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+  Room_Sections:
+  - prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
     rotation: {x: 0, y: 0, z: 0}
   Room_SW_Corner:
     prefab: {fileID: 648358859092923389, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
@@ -8899,8 +8955,16 @@ MonoBehaviour:
   SE_Corner:
     prefab: {fileID: 4544532359002034892, guid: ad42aa00b66f3594184c93626419afa6, type: 3}
     rotation: {x: 0, y: -90, z: 0}
-  Room_Section:
-    prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+  Room_Sections:
+  - prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
     rotation: {x: 0, y: 0, z: 0}
   Room_SW_Corner:
     prefab: {fileID: 648358859092923389, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
@@ -9787,8 +9851,16 @@ MonoBehaviour:
   SE_Corner:
     prefab: {fileID: 4544532359002034892, guid: ad42aa00b66f3594184c93626419afa6, type: 3}
     rotation: {x: 0, y: -90, z: 0}
-  Room_Section:
-    prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+  Room_Sections:
+  - prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
     rotation: {x: 0, y: 0, z: 0}
   Room_SW_Corner:
     prefab: {fileID: 648358859092923389, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
@@ -10642,8 +10714,16 @@ MonoBehaviour:
   SE_Corner:
     prefab: {fileID: 4544532359002034892, guid: ad42aa00b66f3594184c93626419afa6, type: 3}
     rotation: {x: 0, y: -90, z: 0}
-  Room_Section:
-    prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+  Room_Sections:
+  - prefab: {fileID: 9063825320508660308, guid: dfc5d9038870ea94b8d6fb66cc757f72, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 4630f93d883805a4fb23f12219548b44, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 9063825320508660308, guid: 0358e0ebf575a4d44b54286b1d7ae707, type: 3}
     rotation: {x: 0, y: 0, z: 0}
   Room_SW_Corner:
     prefab: {fileID: 648358859092923389, guid: 6edf1ddba01d0a3459f892d5e5874ec5, type: 3}
