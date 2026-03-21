@@ -975,6 +975,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.parent = _roomCornerContainer.transform;
 
                             SetRandomChildrenActive(go, "Torch");
+
+                            SetRandomChildrenActive(go, "Chain");
                         }
                         // NW_Corner
                         else if ((tile_N == _wallTile || tile_N == _corridorTile)
@@ -989,6 +991,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.parent = _roomCornerContainer.transform;
 
                             SetRandomChildrenActive(go, "Torch");
+
+                            SetRandomChildrenActive(go, "Chain");
                         }
                         // NE_Corner
                         else if ((tile_N == _wallTile || tile_N == _corridorTile)
@@ -1003,6 +1007,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.parent = _roomCornerContainer.transform;
 
                             SetRandomChildrenActive(go, "Torch");
+
+                            SetRandomChildrenActive(go, "Chain");
                         }
                         // SE_Corner
                         else if ((tile_N == _roomTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
@@ -1017,6 +1023,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.parent = _roomCornerContainer.transform;
 
                             SetRandomChildrenActive(go, "Torch");
+
+                            SetRandomChildrenActive(go, "Chain");
                         }
                         // W_Wall
                         else if ((tile_N == _roomTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
@@ -1031,6 +1039,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.parent = _roomWallContainer.transform;
 
                             SetRandomChildrenActive(go, "Torch");
+
+                            SetRandomChildrenActive(go, "Chain");
                         }
                         // N_Wall
                         else if ((tile_N == _wallTile || tile_N == _corridorTile)
@@ -1045,6 +1055,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.parent = _roomWallContainer.transform;
 
                             SetRandomChildrenActive(go, "Torch");
+
+                            SetRandomChildrenActive(go, "Chain");
                         }
                         // E_Wall
                         else if ((tile_N == _roomTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
@@ -1059,6 +1071,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.parent = _roomWallContainer.transform;
 
                             SetRandomChildrenActive(go, "Torch");
+
+                            SetRandomChildrenActive(go, "Chain");
                         }
                         // S_Wall
                         else if (tile_N == _roomTile
@@ -1073,6 +1087,8 @@ public class DungeonGenerator : MonoBehaviour
                             go.transform.parent = _roomWallContainer.transform;
 
                             SetRandomChildrenActive(go, "Torch");
+
+                            SetRandomChildrenActive(go, "Chain");
                         }
                         // Standard room section
                         else
