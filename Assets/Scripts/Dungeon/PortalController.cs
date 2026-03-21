@@ -21,6 +21,8 @@ public class PortalController : MonoBehaviour
                 {
                     _door.SetActive(false);
                     _playerController.IsFirstPerson = true;
+
+                    other.GetComponent<PlayerHealth>().PlayerCurrentHealth = other.GetComponent<PlayerHealth>().PlayerMaxHealth;
                 }
                     
             }

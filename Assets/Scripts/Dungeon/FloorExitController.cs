@@ -20,8 +20,6 @@ public class FloorExitController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            
-
             _playerController = other.GetComponent<PlayerController>();
 
             if (_playerController.PlayerFloor == 1)

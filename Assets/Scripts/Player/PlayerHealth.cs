@@ -15,6 +15,12 @@ public class PlayerHealth : MonoBehaviour
     public int PlayerCurrentHealth
     {
         get { return _currentHealth; }
+        set {  _currentHealth = value; }
+    }
+
+    public int PlayerMaxHealth
+    {
+        get { return _maxHealth; }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
