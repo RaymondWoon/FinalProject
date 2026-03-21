@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     public enum GameState
     {
         GamePlay,
-        Pause,
+        GamePause,
         GameOver,
         GameWon
     }
@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
                 Cursor.visible = false;
                 break;
 
-            case GameState.Pause:
+            case GameState.GamePause:
                 Time.timeScale = 0.0f;
                 Cursor.lockState = CursorLockMode.None;
                 _player.SetActive(false);
@@ -218,10 +218,12 @@ public class GameManager : MonoBehaviour
     {
         if (_gameState == GameState.GamePlay)
         {
-            SwitchGameState(GameState.Pause);
+            _gameState = GameState.GamePause;
+            SwitchGameState(GameState.GamePause);
         }
-        else if (_gameState == GameState.Pause)
+        else if (_gameState == GameState.GamePause)
         {
+            _gameState = GameState.GamePlay;
             SwitchGameState(GameState.GamePlay);
         }
     }

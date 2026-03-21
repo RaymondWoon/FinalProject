@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400006}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Stool_A_Broken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 3384726}
   - component: {fileID: 2317754}
   - component: {fileID: 6448892}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Debris_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 3318630}
   - component: {fileID: 2363974}
   - component: {fileID: 6421734}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Stool_A_Broken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 3349400}
   - component: {fileID: 2368866}
   - component: {fileID: 6439948}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Debris_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
