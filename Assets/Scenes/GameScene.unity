@@ -2372,7 +2372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DungeonManager
   _dungeonWidth: 15
   _dungeonDepth: 15
-  _dungeonFloor: 1
+  _dungeonFloor: 2
   _dungeonFloorHeight: 9
   _minRoomSize: 3
   _maxRoomSize: 4

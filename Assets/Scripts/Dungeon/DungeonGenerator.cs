@@ -1673,10 +1673,10 @@ public class DungeonGenerator : MonoBehaviour
                     string name = props[index].name;
 
                     // Define the limits of the room to randomly place the key
-                    Vector3 pos1 = new Vector3((room.StartX + 0.25f) * _dungeonScale + minDist, 1.0f, (room.StartZ + 0.25f) * _dungeonScale + minDist);
-                    Vector3 pos2 = new Vector3((room.StartX + room.Width - 0.25f) * _dungeonScale - minDist, 1.0f, (room.StartZ + 0.25f) * _dungeonScale + minDist);
-                    Vector3 pos3 = new Vector3((room.StartX + room.Width - 0.25f) * _dungeonScale - minDist, 1.0f, (room.StartZ + room.Depth - 0.25f) * _dungeonScale - minDist);
-                    Vector3 pos4 = new Vector3((room.StartX + 0.25f) * _dungeonScale - minDist, 1.0f, (room.StartZ + room.Depth - 0.25f) * _dungeonScale - minDist);
+                    Vector3 pos1 = new Vector3((room.StartX + 0.35f) * _dungeonScale + minDist, 1.0f, (room.StartZ + 0.35f) * _dungeonScale + minDist);
+                    Vector3 pos2 = new Vector3((room.StartX + room.Width - 0.35f) * _dungeonScale - minDist, 1.0f, (room.StartZ + 0.35f) * _dungeonScale + minDist);
+                    Vector3 pos3 = new Vector3((room.StartX + room.Width - 0.35f) * _dungeonScale - minDist, 1.0f, (room.StartZ + room.Depth - 0.35f) * _dungeonScale - minDist);
+                    Vector3 pos4 = new Vector3((room.StartX + 0.35f) * _dungeonScale - minDist, 1.0f, (room.StartZ + room.Depth - 0.35f) * _dungeonScale - minDist);
 
                     float propX = UnityEngine.Random.Range(pos1.x, pos3.x);
                     float propZ = UnityEngine.Random.Range(pos1.z, pos3.z);
@@ -1696,7 +1696,7 @@ public class DungeonGenerator : MonoBehaviour
         }
     }
 
-    private void SpawnContainers()
+    private void XSpawnContainers()
     {
         int roomCount = 0;
 
@@ -1745,7 +1745,7 @@ public class DungeonGenerator : MonoBehaviour
         }
     }
 
-    private void SpawnCrates()
+    private void XSpawnCrates()
     {
         int roomCount = 0;
 
