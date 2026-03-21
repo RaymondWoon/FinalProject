@@ -57,7 +57,8 @@ public class DungeonGenerator : MonoBehaviour
     public DungeonModule SE_Corner;
 
     [Header("** Dungeon Modules: Room **")]
-    public DungeonModule Room_Section;
+    //public DungeonModule Room_Section;
+    public DungeonModule[] Room_Sections;
     public DungeonModule Room_SW_Corner;
     public DungeonModule Room_NW_Corner;
     public DungeonModule Room_NE_Corner;
@@ -1093,9 +1094,14 @@ public class DungeonGenerator : MonoBehaviour
                         // Standard room section
                         else
                         {
-                            GameObject go = Instantiate(Room_Section.prefab);
+                            //GameObject go = Instantiate(Room_Section.prefab);
+                            int index = rng.Next(Room_Sections.Length);
+                            GameObject go = Instantiate(Room_Sections[index].prefab);
+
+                            //GameObject go = _enemies[rng.Next(_enemies.Length)];
+
                             go.transform.position = new Vector3(x * _dungeonScale, _floorDepth, y * _dungeonScale);
-                            go.transform.Rotate(Room_Section.rotation);
+                            go.transform.Rotate(Room_Sections[index].rotation);
                             go.name = "RM - " + (x * _dungeonScale).ToString() + " - " + (y * _dungeonScale).ToString();
                             go.transform.parent = _roomSectionContainer.transform;
                         }
