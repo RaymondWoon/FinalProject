@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400030}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Candles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 426540}
   - component: {fileID: 19863354}
   - component: {fileID: 19922044}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Flame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4890,7 +4890,7 @@ GameObject:
   - component: {fileID: 3362832}
   - component: {fileID: 2384356}
   - component: {fileID: 6429076}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Candle_C
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5005,7 +5005,7 @@ GameObject:
   - component: {fileID: 3362158}
   - component: {fileID: 2386458}
   - component: {fileID: 6418144}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Candle_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5119,7 +5119,7 @@ GameObject:
   - component: {fileID: 449222}
   - component: {fileID: 19805380}
   - component: {fileID: 19978112}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Flame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9961,7 +9961,7 @@ GameObject:
   - component: {fileID: 493220}
   - component: {fileID: 19810466}
   - component: {fileID: 19910842}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Flame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14803,7 +14803,7 @@ GameObject:
   - component: {fileID: 404942}
   - component: {fileID: 19857118}
   - component: {fileID: 19969732}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Flame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19646,7 +19646,7 @@ GameObject:
   - component: {fileID: 3352650}
   - component: {fileID: 2378136}
   - component: {fileID: 6441494}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Candle_D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19761,7 +19761,7 @@ GameObject:
   - component: {fileID: 3363902}
   - component: {fileID: 2386512}
   - component: {fileID: 6443810}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Candle_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19876,7 +19876,7 @@ GameObject:
   - component: {fileID: 3320228}
   - component: {fileID: 2377590}
   - component: {fileID: 6483764}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Candle_E
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19990,7 +19990,7 @@ GameObject:
   - component: {fileID: 431012}
   - component: {fileID: 19807148}
   - component: {fileID: 19998738}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Flame
   m_TagString: Untagged
   m_Icon: {fileID: 0}

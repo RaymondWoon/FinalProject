@@ -35,6 +35,7 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private GameObject _enemyContainer;
     [SerializeField] private GameObject _treasureContainer;
     [SerializeField] private GameObject _keyContainer;
+    [SerializeField] private GameObject _propContainer;
 
     [System.Serializable]
     public struct DungeonModule
@@ -92,6 +93,22 @@ public class DungeonGenerator : MonoBehaviour
 
     [Header("** Dungeon Modules: Stairwell **")]
     public DungeonModule Stairwell;
+
+    [System.Serializable]
+    public struct PropModule
+    {
+        public GameObject prefab;
+        public string name;
+        public float minDistance;
+    }
+
+    [Header("** Dungeon Props **")]
+    public PropModule[] Containers;
+    public PropModule[] Crates;
+
+    [SerializeField] private int _maxNumOfPropEach = 5;
+    [SerializeField] private LayerMask _propsLayer;
+
 
     [Header("** Prototype Prefabs **")]
     [SerializeField] private GameObject _prototypeCorridor;
@@ -339,6 +356,8 @@ public class DungeonGenerator : MonoBehaviour
         if (activeScene.name == "GameScene")
         {
             //StartCoroutine(BuildNavMesh());
+
+            SpawnProps();
         }
         else if (activeScene.name == "PrototypeScene")
         {
@@ -1477,7 +1496,7 @@ public class DungeonGenerator : MonoBehaviour
             Vector3 upDirection = transform.up;
             //GameObject go = _enemies[rng.Next(_enemies.Length)];
             
-            // Define the limits of the room to randomly place the key
+            // Define the limits of the room to randomly place the enemy
             Vector3 pos1 = new Vector3((room.StartX + 0.75f) * _dungeonScale, 1.0f, (room.StartZ + 0.75f) * _dungeonScale);
             Vector3 pos2 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale, 1.0f, (room.StartZ + 0.75f) * _dungeonScale);
             Vector3 pos3 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale);
@@ -1541,25 +1560,168 @@ public class DungeonGenerator : MonoBehaviour
         {
             roomCount += 1;
 
-            float keyX, keyZ;
-            Vector3 upDirection = transform.up;
+            //float keyX, keyZ;
+            //Vector3 upDirection = transform.up;
 
             // Define the limits of the room to randomly place the key
-            Vector3 pos1 = new Vector3((room.StartX + 0.75f) * _dungeonScale, 1.0f, (room.StartZ + 0.75f) * _dungeonScale);
-            Vector3 pos2 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale, 1.0f, (room.StartZ + 0.75f) * _dungeonScale);
-            Vector3 pos3 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale);
-            Vector3 pos4 = new Vector3((room.StartX + 0.75f) * _dungeonScale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale);
+            //Vector3 pos1 = new Vector3((room.StartX + 0.75f) * _dungeonScale, 1.0f, (room.StartZ + 0.75f) * _dungeonScale);
+            //Vector3 pos2 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale, 1.0f, (room.StartZ + 0.75f) * _dungeonScale);
+            //Vector3 pos3 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale);
+            //Vector3 pos4 = new Vector3((room.StartX + 0.75f) * _dungeonScale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale);
 
             // Randomly select X & Z as a float
-            keyX = UnityEngine.Random.Range(pos1.x, pos3.x) + XOffset * _dungeonScale;
-            keyZ = UnityEngine.Random.Range(pos1.z, pos3.z) + ZOffset * _dungeonScale;
+            //keyX = UnityEngine.Random.Range(pos1.x, pos3.x) + XOffset * _dungeonScale;
+            //keyZ = UnityEngine.Random.Range(pos1.z, pos3.z) + ZOffset * _dungeonScale;
 
-            GameObject key = Instantiate(_key, new Vector3(keyX, _floorDepth, keyZ) + upDirection * 1.0f, Quaternion.identity);
-            key.name = "KEY " + roomCount.ToString() + ": F" + _dungeonFloor.ToString();
-            key.transform.parent = _keyContainer.transform;
+            //GameObject key = Instantiate(_key, new Vector3(keyX, _floorDepth, keyZ) + upDirection * 1.0f, Quaternion.identity);
+            //key.name = "KEY " + roomCount.ToString() + ": F" + _dungeonFloor.ToString();
+            //key.transform.parent = _keyContainer.transform;
+
+            bool keyPlaced = false;
+            int attempts = 0;
+
+            Vector3 upDirection = transform.up;
+
+            while (!keyPlaced && attempts < numOfTries)
+            {
+                attempts++;
+
+                float keyX, keyZ;
+
+                // Define the limits of the room to randomly place the key
+                Vector3 pos1 = new Vector3((room.StartX + 0.75f) * _dungeonScale, 1.0f, (room.StartZ + 0.75f) * _dungeonScale);
+                Vector3 pos2 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale, 1.0f, (room.StartZ + 0.75f) * _dungeonScale);
+                Vector3 pos3 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale);
+                Vector3 pos4 = new Vector3((room.StartX + 0.75f) * _dungeonScale, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale);
+
+                // Randomly select X & Z as a float
+                keyX = UnityEngine.Random.Range(pos1.x, pos3.x) + XOffset * _dungeonScale;
+                keyZ = UnityEngine.Random.Range(pos1.z, pos3.z) + ZOffset * _dungeonScale;
+
+                Vector3 keyPosition = new Vector3(keyX, _floorDepth, keyZ);
+
+                // Check for overlap with other props
+                if (!Physics.CheckSphere(keyPosition, 2.0f, _propsLayer))
+                {
+                    GameObject key = Instantiate(_key, keyPosition + upDirection * 1.0f, Quaternion.identity);
+                    key.name = "KEY " + roomCount.ToString() + ": F" + _dungeonFloor.ToString();
+                    key.transform.parent = _keyContainer.transform;
+
+                    keyPlaced = true;
+                }
+            }
+
+            if (!keyPlaced)
+                Debug.Log("Key not placed in room " + roomCount.ToString() + " floor " + _dungeonFloor);
         }
     }
 
+
+    private void SpawnProps()
+    {
+        // Props should be done prior to NavMesh, i.e. before offset
+        SpawnContainers();
+
+        SpawnCrates();
+    }
+
+    private void SpawnContainers()
+    {
+        int roomCount = 0;
+
+        foreach (Room room in _dungeon.Rooms)
+        {
+            roomCount += 1;
+
+            if (room.Tag == "Entrance") continue;
+
+            for (int i = 0; i < _maxNumOfPropEach;  i++)
+            {
+                bool propPlaced = false;
+                int attempts = 0;
+
+                while (!propPlaced && attempts < 50)
+                {
+                    attempts++;
+
+                    int index = rng.Next(Containers.Length);
+                    GameObject go = Containers[index].prefab;
+
+                    float minDist = Containers[index].minDistance;
+                    string name = Containers[index].name;
+
+                    // Define the limits of the room to randomly place the key
+                    Vector3 pos1 = new Vector3((room.StartX + 0.75f) * _dungeonScale + minDist, 1.0f, (room.StartZ + 0.75f) * _dungeonScale + minDist);
+                    Vector3 pos2 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale - minDist, 1.0f, (room.StartZ + 0.75f) * _dungeonScale + minDist);
+                    Vector3 pos3 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale - minDist, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale - minDist);
+                    Vector3 pos4 = new Vector3((room.StartX + 0.75f) * _dungeonScale - minDist, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale - minDist);
+
+                    float propX = UnityEngine.Random.Range(pos1.x, pos3.x);
+                    float propZ = UnityEngine.Random.Range(pos1.z, pos3.z);
+
+                    Vector3 propPosition = new Vector3(propX, _floorDepth, propZ);
+
+                    // Check for overlap with other props
+                    if (!Physics.CheckSphere(propPosition, minDist, _propsLayer))
+                    {
+                        GameObject prop = Instantiate(go, propPosition, Quaternion.identity);
+                        prop.name = name + ": " + roomCount.ToString() + " - " + i.ToString();
+                        prop.transform.parent = _propContainer.transform;
+                        propPlaced = true;
+                    }
+                }
+            }
+        }
+    }
+
+    private void SpawnCrates()
+    {
+        int roomCount = 0;
+
+        foreach (Room room in _dungeon.Rooms)
+        {
+            roomCount += 1;
+
+            if (room.Tag == "Entrance") continue;
+
+            for (int i = 0; i < _maxNumOfPropEach; i++)
+            {
+                bool propPlaced = false;
+                int attempts = 0;
+
+                while (!propPlaced && attempts < 50)
+                {
+                    attempts++;
+
+                    int index = rng.Next(Crates.Length);
+                    GameObject go = Crates[index].prefab;
+
+                    float minDist = Crates[index].minDistance;
+                    string name = Crates[index].name;
+
+                    // Define the limits of the room to randomly place the key
+                    Vector3 pos1 = new Vector3((room.StartX + 0.75f) * _dungeonScale + minDist, 1.0f, (room.StartZ + 0.75f) * _dungeonScale + minDist);
+                    Vector3 pos2 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale - minDist, 1.0f, (room.StartZ + 0.75f) * _dungeonScale + minDist);
+                    Vector3 pos3 = new Vector3((room.StartX + room.Width - 0.75f) * _dungeonScale - minDist, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale - minDist);
+                    Vector3 pos4 = new Vector3((room.StartX + 0.75f) * _dungeonScale - minDist, 1.0f, (room.StartZ + room.Depth - 0.75f) * _dungeonScale - minDist);
+
+                    float propX = UnityEngine.Random.Range(pos1.x, pos3.x);
+                    float propZ = UnityEngine.Random.Range(pos1.z, pos3.z);
+
+                    Vector3 propPosition = new Vector3(propX, _floorDepth, propZ);
+
+                    // Check for overlap with other props
+                    if (!Physics.CheckSphere(propPosition, minDist, _propsLayer))
+                    {
+                        GameObject prop = Instantiate(go, propPosition, Quaternion.identity);
+                        prop.name = name + ": " + roomCount.ToString() + " - " + i.ToString();
+                        prop.transform.parent = _propContainer.transform;
+                        propPlaced = true;
+                    }
+                }
+            }
+        }
+    }
 
     private bool RandomBool()
     {
