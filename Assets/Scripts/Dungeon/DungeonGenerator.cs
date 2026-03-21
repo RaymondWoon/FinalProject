@@ -105,8 +105,10 @@ public class DungeonGenerator : MonoBehaviour
     [Header("** Dungeon Props **")]
     public PropModule[] Containers;
     public PropModule[] Crates;
+    public PropModule[] Tables;
+    public PropModule[] Chairs;
 
-    [SerializeField] private int _maxNumOfPropEach = 5;
+    [SerializeField] private int _maxNumOfPropEach = 3;
     [SerializeField] private LayerMask _propsLayer;
 
 
@@ -231,6 +233,7 @@ public class DungeonGenerator : MonoBehaviour
     private Scene activeScene;
 
     private int numOfTries = 800;
+    private int numOfPropTries = 50;
     private System.Random rng = new();
 
     private Texture2D mapTexture;
@@ -1061,6 +1064,8 @@ public class DungeonGenerator : MonoBehaviour
                             SetRandomChildrenActive(go, "Torch");
 
                             SetRandomChildrenActive(go, "Chain");
+
+                            SetRandomChildrenActive(go, "CellSeat");
                         }
                         // N_Wall
                         else if ((tile_N == _wallTile || tile_N == _corridorTile)
@@ -1077,6 +1082,8 @@ public class DungeonGenerator : MonoBehaviour
                             SetRandomChildrenActive(go, "Torch");
 
                             SetRandomChildrenActive(go, "Chain");
+
+                            SetRandomChildrenActive(go, "CellSeat");
                         }
                         // E_Wall
                         else if ((tile_N == _roomTile || tile_N == _doorEnterTile || tile_N == _doorExitTile)
@@ -1093,6 +1100,8 @@ public class DungeonGenerator : MonoBehaviour
                             SetRandomChildrenActive(go, "Torch");
 
                             SetRandomChildrenActive(go, "Chain");
+
+                            SetRandomChildrenActive(go, "CellSeat");
                         }
                         // S_Wall
                         else if (tile_N == _roomTile
@@ -1109,6 +1118,8 @@ public class DungeonGenerator : MonoBehaviour
                             SetRandomChildrenActive(go, "Torch");
 
                             SetRandomChildrenActive(go, "Chain");
+
+                            SetRandomChildrenActive(go, "CellSeat");
                         }
                         // Standard room section
                         else
@@ -1620,9 +1631,69 @@ public class DungeonGenerator : MonoBehaviour
     private void SpawnProps()
     {
         // Props should be done prior to NavMesh, i.e. before offset
-        SpawnContainers();
+        //SpawnContainers();
 
-        SpawnCrates();
+        //SpawnCrates();
+
+        SpawnProps(Tables);
+
+        SpawnProps(Containers);
+
+        SpawnProps(Crates);
+
+        SpawnProps(Chairs);
+
+
+    }
+
+    private void SpawnProps(PropModule[] props)
+    {
+        int roomCount = 0;
+
+        foreach (Room room in _dungeon.Rooms)
+        {
+            roomCount += 1;
+
+            if (room.Tag == "Entrance") continue;
+
+            for (int i = 0; i < _maxNumOfPropEach; i++)
+            {
+                bool propPlaced = false;
+                int attempts = 0;
+
+                while (!propPlaced && attempts < numOfPropTries)
+                {
+                    attempts++;
+
+                    int index = rng.Next(props.Length);
+
+                    GameObject go = props[index].prefab;
+
+                    float minDist = props[index].minDistance;
+                    string name = props[index].name;
+
+                    // Define the limits of the room to randomly place the key
+                    Vector3 pos1 = new Vector3((room.StartX + 0.25f) * _dungeonScale + minDist, 1.0f, (room.StartZ + 0.25f) * _dungeonScale + minDist);
+                    Vector3 pos2 = new Vector3((room.StartX + room.Width - 0.25f) * _dungeonScale - minDist, 1.0f, (room.StartZ + 0.25f) * _dungeonScale + minDist);
+                    Vector3 pos3 = new Vector3((room.StartX + room.Width - 0.25f) * _dungeonScale - minDist, 1.0f, (room.StartZ + room.Depth - 0.25f) * _dungeonScale - minDist);
+                    Vector3 pos4 = new Vector3((room.StartX + 0.25f) * _dungeonScale - minDist, 1.0f, (room.StartZ + room.Depth - 0.25f) * _dungeonScale - minDist);
+
+                    float propX = UnityEngine.Random.Range(pos1.x, pos3.x);
+                    float propZ = UnityEngine.Random.Range(pos1.z, pos3.z);
+
+                    Vector3 propPosition = new Vector3(propX, _floorDepth, propZ);
+
+                    // Check for overlap with other props
+                    if (!Physics.CheckSphere(propPosition, minDist, _propsLayer))
+                    {
+                        GameObject prop = Instantiate(go, propPosition, Quaternion.identity);
+                        prop.name = name + ": " + roomCount.ToString() + " - " + i.ToString();
+                        prop.transform.parent = _propContainer.transform;
+                        propPlaced = true;
+                    }
+                }
+            }
+        }
     }
 
     private void SpawnContainers()

@@ -715,7 +715,24 @@ MonoBehaviour:
   - prefab: {fileID: 100000, guid: e9304edb27ba2474ca3a050aa5bc741b, type: 3}
     name: CrateC
     minDistance: 2
-  _maxNumOfPropEach: 5
+  Tables:
+  - prefab: {fileID: 100000, guid: 455e91ef9a68edd4ca1a9bba2ffccad8, type: 3}
+    name: TableA
+    minDistance: 2
+  - prefab: {fileID: 100000, guid: 4a90ae8b8179ff54e8f81ca11ea0252f, type: 3}
+    name: TableB
+    minDistance: 3.35
+  - prefab: {fileID: 100000, guid: 09edea94305a15149b2ac23692282140, type: 3}
+    name: TableC
+    minDistance: 3.5
+  Chairs:
+  - prefab: {fileID: 100000, guid: 99eb208358f64d247b2294b674f35fd7, type: 3}
+    name: StoolA
+    minDistance: 1
+  - prefab: {fileID: 100006, guid: eb9a0a0315e3a16499b4caa557a46bfb, type: 3}
+    name: StoolABrk
+    minDistance: 1
+  _maxNumOfPropEach: 3
   _propsLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -1541,7 +1558,24 @@ MonoBehaviour:
   - prefab: {fileID: 100000, guid: e9304edb27ba2474ca3a050aa5bc741b, type: 3}
     name: CrateC
     minDistance: 2
-  _maxNumOfPropEach: 5
+  Tables:
+  - prefab: {fileID: 100000, guid: 455e91ef9a68edd4ca1a9bba2ffccad8, type: 3}
+    name: TableA
+    minDistance: 2
+  - prefab: {fileID: 100000, guid: 4a90ae8b8179ff54e8f81ca11ea0252f, type: 3}
+    name: TableB
+    minDistance: 3.35
+  - prefab: {fileID: 100000, guid: 09edea94305a15149b2ac23692282140, type: 3}
+    name: TableC
+    minDistance: 3.5
+  Chairs:
+  - prefab: {fileID: 100000, guid: 99eb208358f64d247b2294b674f35fd7, type: 3}
+    name: StoolA
+    minDistance: 1
+  - prefab: {fileID: 100006, guid: eb9a0a0315e3a16499b4caa557a46bfb, type: 3}
+    name: StoolABrk
+    minDistance: 1
+  _maxNumOfPropEach: 3
   _propsLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -1845,7 +1879,24 @@ MonoBehaviour:
   - prefab: {fileID: 100000, guid: e9304edb27ba2474ca3a050aa5bc741b, type: 3}
     name: CrateC
     minDistance: 2
-  _maxNumOfPropEach: 5
+  Tables:
+  - prefab: {fileID: 100000, guid: 455e91ef9a68edd4ca1a9bba2ffccad8, type: 3}
+    name: TableA
+    minDistance: 2
+  - prefab: {fileID: 100000, guid: 4a90ae8b8179ff54e8f81ca11ea0252f, type: 3}
+    name: TableB
+    minDistance: 3.35
+  - prefab: {fileID: 100000, guid: 09edea94305a15149b2ac23692282140, type: 3}
+    name: TableC
+    minDistance: 3.5
+  Chairs:
+  - prefab: {fileID: 100000, guid: 99eb208358f64d247b2294b674f35fd7, type: 3}
+    name: StoolA
+    minDistance: 1
+  - prefab: {fileID: 100006, guid: eb9a0a0315e3a16499b4caa557a46bfb, type: 3}
+    name: StoolABrk
+    minDistance: 1
+  _maxNumOfPropEach: 3
   _propsLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -2319,9 +2370,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd26a2b08bfc977438144345105021cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DungeonManager
-  _dungeonWidth: 51
-  _dungeonDepth: 51
-  _dungeonFloor: 10
+  _dungeonWidth: 15
+  _dungeonDepth: 15
+  _dungeonFloor: 1
   _dungeonFloorHeight: 9
   _minRoomSize: 3
   _maxRoomSize: 4
@@ -5238,7 +5289,24 @@ MonoBehaviour:
   - prefab: {fileID: 100000, guid: e9304edb27ba2474ca3a050aa5bc741b, type: 3}
     name: CrateC
     minDistance: 2
-  _maxNumOfPropEach: 5
+  Tables:
+  - prefab: {fileID: 100000, guid: 455e91ef9a68edd4ca1a9bba2ffccad8, type: 3}
+    name: TableA
+    minDistance: 2
+  - prefab: {fileID: 100000, guid: 4a90ae8b8179ff54e8f81ca11ea0252f, type: 3}
+    name: TableB
+    minDistance: 3.35
+  - prefab: {fileID: 100000, guid: 09edea94305a15149b2ac23692282140, type: 3}
+    name: TableC
+    minDistance: 3.5
+  Chairs:
+  - prefab: {fileID: 100000, guid: 99eb208358f64d247b2294b674f35fd7, type: 3}
+    name: StoolA
+    minDistance: 1
+  - prefab: {fileID: 100006, guid: eb9a0a0315e3a16499b4caa557a46bfb, type: 3}
+    name: StoolABrk
+    minDistance: 1
+  _maxNumOfPropEach: 3
   _propsLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -6780,7 +6848,24 @@ MonoBehaviour:
   - prefab: {fileID: 100000, guid: e9304edb27ba2474ca3a050aa5bc741b, type: 3}
     name: CrateC
     minDistance: 2
-  _maxNumOfPropEach: 5
+  Tables:
+  - prefab: {fileID: 100000, guid: 455e91ef9a68edd4ca1a9bba2ffccad8, type: 3}
+    name: TableA
+    minDistance: 2
+  - prefab: {fileID: 100000, guid: 4a90ae8b8179ff54e8f81ca11ea0252f, type: 3}
+    name: TableB
+    minDistance: 3.35
+  - prefab: {fileID: 100000, guid: 09edea94305a15149b2ac23692282140, type: 3}
+    name: TableC
+    minDistance: 3.5
+  Chairs:
+  - prefab: {fileID: 100000, guid: 99eb208358f64d247b2294b674f35fd7, type: 3}
+    name: StoolA
+    minDistance: 1
+  - prefab: {fileID: 100006, guid: eb9a0a0315e3a16499b4caa557a46bfb, type: 3}
+    name: StoolABrk
+    minDistance: 1
+  _maxNumOfPropEach: 3
   _propsLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -7471,7 +7556,24 @@ MonoBehaviour:
   - prefab: {fileID: 100000, guid: e9304edb27ba2474ca3a050aa5bc741b, type: 3}
     name: CrateC
     minDistance: 2
-  _maxNumOfPropEach: 5
+  Tables:
+  - prefab: {fileID: 100000, guid: 455e91ef9a68edd4ca1a9bba2ffccad8, type: 3}
+    name: TableA
+    minDistance: 2
+  - prefab: {fileID: 100000, guid: 4a90ae8b8179ff54e8f81ca11ea0252f, type: 3}
+    name: TableB
+    minDistance: 3.35
+  - prefab: {fileID: 100000, guid: 09edea94305a15149b2ac23692282140, type: 3}
+    name: TableC
+    minDistance: 3.5
+  Chairs:
+  - prefab: {fileID: 100000, guid: 99eb208358f64d247b2294b674f35fd7, type: 3}
+    name: StoolA
+    minDistance: 1
+  - prefab: {fileID: 100006, guid: eb9a0a0315e3a16499b4caa557a46bfb, type: 3}
+    name: StoolABrk
+    minDistance: 1
+  _maxNumOfPropEach: 3
   _propsLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -8223,7 +8325,24 @@ MonoBehaviour:
   - prefab: {fileID: 100000, guid: e9304edb27ba2474ca3a050aa5bc741b, type: 3}
     name: CrateC
     minDistance: 2
-  _maxNumOfPropEach: 5
+  Tables:
+  - prefab: {fileID: 100000, guid: 455e91ef9a68edd4ca1a9bba2ffccad8, type: 3}
+    name: TableA
+    minDistance: 2
+  - prefab: {fileID: 100000, guid: 4a90ae8b8179ff54e8f81ca11ea0252f, type: 3}
+    name: TableB
+    minDistance: 3.35
+  - prefab: {fileID: 100000, guid: 09edea94305a15149b2ac23692282140, type: 3}
+    name: TableC
+    minDistance: 3.5
+  Chairs:
+  - prefab: {fileID: 100000, guid: 99eb208358f64d247b2294b674f35fd7, type: 3}
+    name: StoolA
+    minDistance: 1
+  - prefab: {fileID: 100006, guid: eb9a0a0315e3a16499b4caa557a46bfb, type: 3}
+    name: StoolABrk
+    minDistance: 1
+  _maxNumOfPropEach: 3
   _propsLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -9487,7 +9606,24 @@ MonoBehaviour:
   - prefab: {fileID: 100000, guid: e9304edb27ba2474ca3a050aa5bc741b, type: 3}
     name: CrateC
     minDistance: 2
-  _maxNumOfPropEach: 5
+  Tables:
+  - prefab: {fileID: 100000, guid: 455e91ef9a68edd4ca1a9bba2ffccad8, type: 3}
+    name: TableA
+    minDistance: 2
+  - prefab: {fileID: 100000, guid: 4a90ae8b8179ff54e8f81ca11ea0252f, type: 3}
+    name: TableB
+    minDistance: 3.35
+  - prefab: {fileID: 100000, guid: 09edea94305a15149b2ac23692282140, type: 3}
+    name: TableC
+    minDistance: 3.5
+  Chairs:
+  - prefab: {fileID: 100000, guid: 99eb208358f64d247b2294b674f35fd7, type: 3}
+    name: StoolA
+    minDistance: 1
+  - prefab: {fileID: 100006, guid: eb9a0a0315e3a16499b4caa557a46bfb, type: 3}
+    name: StoolABrk
+    minDistance: 1
+  _maxNumOfPropEach: 3
   _propsLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -10437,7 +10573,24 @@ MonoBehaviour:
   - prefab: {fileID: 100000, guid: e9304edb27ba2474ca3a050aa5bc741b, type: 3}
     name: CrateC
     minDistance: 2
-  _maxNumOfPropEach: 5
+  Tables:
+  - prefab: {fileID: 100000, guid: 455e91ef9a68edd4ca1a9bba2ffccad8, type: 3}
+    name: TableA
+    minDistance: 2
+  - prefab: {fileID: 100000, guid: 4a90ae8b8179ff54e8f81ca11ea0252f, type: 3}
+    name: TableB
+    minDistance: 3.35
+  - prefab: {fileID: 100000, guid: 09edea94305a15149b2ac23692282140, type: 3}
+    name: TableC
+    minDistance: 3.5
+  Chairs:
+  - prefab: {fileID: 100000, guid: 99eb208358f64d247b2294b674f35fd7, type: 3}
+    name: StoolA
+    minDistance: 1
+  - prefab: {fileID: 100006, guid: eb9a0a0315e3a16499b4caa557a46bfb, type: 3}
+    name: StoolABrk
+    minDistance: 1
+  _maxNumOfPropEach: 3
   _propsLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -11354,7 +11507,24 @@ MonoBehaviour:
   - prefab: {fileID: 100000, guid: e9304edb27ba2474ca3a050aa5bc741b, type: 3}
     name: CrateC
     minDistance: 2
-  _maxNumOfPropEach: 5
+  Tables:
+  - prefab: {fileID: 100000, guid: 455e91ef9a68edd4ca1a9bba2ffccad8, type: 3}
+    name: TableA
+    minDistance: 2
+  - prefab: {fileID: 100000, guid: 4a90ae8b8179ff54e8f81ca11ea0252f, type: 3}
+    name: TableB
+    minDistance: 3.35
+  - prefab: {fileID: 100000, guid: 09edea94305a15149b2ac23692282140, type: 3}
+    name: TableC
+    minDistance: 3.5
+  Chairs:
+  - prefab: {fileID: 100000, guid: 99eb208358f64d247b2294b674f35fd7, type: 3}
+    name: StoolA
+    minDistance: 1
+  - prefab: {fileID: 100006, guid: eb9a0a0315e3a16499b4caa557a46bfb, type: 3}
+    name: StoolABrk
+    minDistance: 1
+  _maxNumOfPropEach: 3
   _propsLayer:
     serializedVersion: 2
     m_Bits: 2048
