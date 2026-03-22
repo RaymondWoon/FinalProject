@@ -11,11 +11,16 @@ public class FloorEntryController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            // close the portal
             _door.SetActive(true);
 
+            // get the PlayerController component
             _playerController = other.GetComponent<PlayerController>();
 
+            // Player is not in the stairwell
             _playerController.IsInStairway = false;
+
+            // Update the current player floor
             _playerController.PlayerFloor -= 1;
         }
     }

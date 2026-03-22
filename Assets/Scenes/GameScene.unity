@@ -2372,7 +2372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DungeonManager
   _dungeonWidth: 15
   _dungeonDepth: 15
-  _dungeonFloor: 2
+  _dungeonFloor: 1
   _dungeonFloorHeight: 9
   _minRoomSize: 3
   _maxRoomSize: 4
@@ -3579,6 +3579,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e85a4fd4a2a51a642a9e779fcc165640, type: 3}
   FootstepAudioVolume: 0.5
   _environment: {fileID: 573184453}
+  _dungeonMgr: {fileID: 275196408}
   _bow: {fileID: 1651005395}
   _aimLayers:
     serializedVersion: 2
