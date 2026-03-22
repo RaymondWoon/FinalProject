@@ -58,7 +58,6 @@ public class DungeonGenerator : MonoBehaviour
     public DungeonModule SE_Corner;
 
     [Header("** Dungeon Modules: Room **")]
-    //public DungeonModule Room_Section;
     public DungeonModule[] Room_Sections;
     public DungeonModule Room_SW_Corner;
     public DungeonModule Room_NW_Corner;

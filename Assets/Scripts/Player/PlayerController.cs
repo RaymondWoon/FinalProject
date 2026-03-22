@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Dungeon")]
     [SerializeField] private GameObject _environment;
+    [SerializeField] private DungeonManager _dungeonMgr;
 
     [Header("Aiming Settings")]
     [SerializeField] private Bow _bow;
